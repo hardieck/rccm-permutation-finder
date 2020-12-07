@@ -8,11 +8,12 @@
 #include <set>
 #include <vector>
 #include "config_selective_add.h"
+#include "debug.h"
 
 class selective_adder_base
 {
 public:
-	selective_adder_base();
+    selective_adder_base();
 	virtual std::set<int> compute()=0;
 	unsigned int get_no_of_inputs();
 	unsigned int get_no_of_inputs_for_port_A();

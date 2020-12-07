@@ -5,6 +5,7 @@
 #ifndef ADDNET_PERMUTATOR_V2_CONFIG_SELECTIVE_ADD_H
 #define ADDNET_PERMUTATOR_V2_CONFIG_SELECTIVE_ADD_H
 
+#include "debug.h"
 #include <vector>
 #include <set>
 
@@ -21,9 +22,11 @@ public:
 
 	bool do_shift_permutation;
 	bool do_LUT_permutation;
+	void make_possible_set_n_from_m(unsigned int n, unsigned int m);
+    void add_possible_set(set<int> s);
 
 protected:
-	std::vector<std::set<int>> possible_operations;
+    std::vector<std::set<int>> possible_operations;
 
 
 };

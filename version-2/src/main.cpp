@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <cstring>
 
+void do_debug();
 void print_help();
 
 int main(int argc, char *argv[])
@@ -28,6 +29,11 @@ int main(int argc, char *argv[])
             print_help();
             exit(0);
         }
+        else if(strstr(argv[i], "--debug"))
+        {
+            // do the stuff I prepaired!
+            do_debug();
+        }
         else
         {
             cout << "Error: Illegal Option: " << argv[i] << endl << endl;
@@ -38,10 +44,6 @@ int main(int argc, char *argv[])
 
 	IF_VERBOSE(5) {std::cout << "my Hello, World!" << std::endl;}
 
-	rccm_3add test;
-
-	test.run_all_cases();
-
 	return 0;
 }
 
@@ -51,4 +53,12 @@ void print_help()
     cout << "Option                                         Meaning" << endl;
     cout << "--help                                         Prints this help" << endl;
     cout << "--verbose=0...9                                Verbosity level (0: no information, 9: all information during optimization), default:1" << endl;
+}
+void do_debug()
+{
+    IF_VERBOSE(1) std::cout << "Enter Function: do_debug:" << std::endl;
+    rccm_3add test;
+
+    IF_VERBOSE(1) std::cout << "Init done! Now Compute" << std::endl;
+    test.run_all_cases();
 }

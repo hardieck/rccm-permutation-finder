@@ -11,6 +11,7 @@ selective_adder_base::selective_adder_base()
 	no_of_inputs_for_B=0;
 	inputs.resize(no_of_inputs_for_A+no_of_inputs_for_B);
 	shifts.resize(no_of_inputs_for_A+no_of_inputs_for_B);
+    this->convfg = new config_selective_add();
 }
 
 unsigned int selective_adder_base::get_no_of_outputs()
@@ -20,6 +21,7 @@ unsigned int selective_adder_base::get_no_of_outputs()
 
 std::set<int> selective_adder_base::compute()
 {
+	IF_VERBOSE(8) std::cout << "Enter funktion: selective_adder_base/compute" << std::endl;
 	return std::set<int>();
 }
 
@@ -48,6 +50,7 @@ std::set<int>& selective_adder_base::get_output()
 
 void selective_adder_base::set_inputs(unsigned int no, std::set<int> &input_set)
 {
+	IF_VERBOSE(8) std::cout << "Enter funktion: selective_adder_base/set_inputs" << std::endl;
 	if (inputs.size() < no)
 	{
 		std::cout << "ERROR:selective_adder_base::set_inputs: input size does not match\n no ="  << no << "\n input.size() =" << inputs.size() << std::endl;

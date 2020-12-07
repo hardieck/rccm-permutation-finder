@@ -34,5 +34,5 @@ bool config_rccm::next_config()
 	//do a compleete permutation of the chosen subconfig bevor reset it and go to the next one.
 	//return true if ther is a next state or false if it was the last one for this part.
 
-
+     return false;
 }

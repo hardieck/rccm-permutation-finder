@@ -1,0 +1,8 @@
+//
+// Created by hardieck on 12/7/20.
+//
+
+#ifndef ADDNET_PERMUTATOR_V2_TYPES_H
+#define ADDNET_PERMUTATOR_V2_TYPES_H
+
+#endif //ADDNET_PERMUTATOR_V2_TYPES_H

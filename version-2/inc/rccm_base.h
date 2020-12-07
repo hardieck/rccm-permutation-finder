@@ -23,7 +23,6 @@ public:
 protected:
 	std::vector<selective_adder_base*> s_add;
 	config_rccm* config;
-	std::string a;
 	std::vector<evaluate_result*> results;
 	bool next_step();
 

@@ -7,11 +7,11 @@
 
 rccm_base::rccm_base()
 {
-	this->a = "hallo neue Welt";
 }
 
 void rccm_base::run_all_cases()
 {
+
 	bool in_progress= true;
 	while(in_progress ==true)
 	{

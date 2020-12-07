@@ -17,3 +17,7 @@ bool config_selective_add::next_config()
 	//return true if ther is a next state or false if it was the last one for this part.
 	return false;
 }
+void config_selective_add::add_possible_set(set<int> s)
+{
+    this->possible_operations.push_back(s);
+}
