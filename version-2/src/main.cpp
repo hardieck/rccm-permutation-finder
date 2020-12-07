@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
 
 	rccm_3add test;
 
+    std::cout << "MH-testline" << std::endl;
+
 	test.run_all_cases();
 
 	for(int i=0; i < argc;++i)

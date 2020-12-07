@@ -3,7 +3,7 @@ project(AddNet_Permutator_v2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(dir ${CMAKE_CURRENT_SOURCE_DIR}/compile/)
+set(dir ${CMAKE_CURRENT_SOURCE_DIR}/bin/)
 set(EXECUTABLE_OUTPUT_PATH ${dir} CACHE PATH "build" FORCE)
 set(LIBRARY_OUTPUT_PATH ${dir} CACHE PATH "build" FORCE)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${dir})
