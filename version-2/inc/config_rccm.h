@@ -5,6 +5,9 @@
 #ifndef ADDNET_PERMUTATOR_V2_CONFIG_RCCM_H
 #define ADDNET_PERMUTATOR_V2_CONFIG_RCCM_H
 
+#define VERBOSE(x):
+
+#include "debug.h"
 #include "config_selective_add.h"
 #include <vector>
 #include "permutator.h"

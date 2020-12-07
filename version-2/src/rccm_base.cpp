@@ -25,6 +25,7 @@ void rccm_base::run_all_cases()
 
 bool rccm_base::next_step()
 {
+
 	//do preperation in all config structures.
 	return false; //if in progress
 	return true; //if al is done.

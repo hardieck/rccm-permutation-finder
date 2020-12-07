@@ -34,4 +34,4 @@ add_executable(AddNet_Permutator_v2
         inc/selective_adder_base.h
         inc/permutator.h
         inc/selective_adder_typ_a.h
-        inc/selective_adder_typ_b.h)
+        inc/selective_adder_typ_b.h inc/debug.h src/debug.cpp)
