@@ -21,8 +21,30 @@ extern int global_verbose;
 using namespace std;
 
 #define IF_VERBOSE(verbose) if(global_verbose >= verbose) for(int i=0; i < verbose; i++) std::cout << "  "; if(global_verbose >= verbose)
+#define ERROR(x,f) std::cout << "ERROR: " << x << std::endl << "From: " << f << std::endl; exit(-1);
 
-
+template<typename T>
+std::set<T> vec2set(const std::vector<T> &v)
+{
+    std::set<T> s;
+    typename std::vector<T>::const_iterator iter;
+    for (iter = v.begin(); iter != v.end();)
+    {
+        s.insert(*iter);
+    }
+    return s;
+}
+template<typename T>
+std::vector<T> set2vec(const std::set<T> &s)
+{
+    std::vector<T> v;
+    typename std::set<T>::const_iterator iter;
+    for (iter = v.begin(); iter != v.end();)
+    {
+        v.push_back(*iter);
+    }
+    return v;
+}
 
 template<typename T>
 std::ostream &operator<<(std::ostream &s, const std::vector<T> &st)

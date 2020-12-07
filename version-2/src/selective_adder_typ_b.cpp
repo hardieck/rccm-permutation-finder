@@ -15,7 +15,6 @@ selective_adder_typ_b::selective_adder_typ_b()
     this->convfg->add_possible_set(std::set<int> {0, 1, 2, 4});
     this->convfg->add_possible_set(std::set<int> {0, 1, 2, 5});
     this->convfg->add_possible_set(std::set<int> {0, 1, 2, 6});
-    this->convfg->sel_add_operation_set=1;
 }
 std::set<int> selective_adder_typ_b::compute()
 {
