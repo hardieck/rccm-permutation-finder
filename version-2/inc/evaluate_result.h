@@ -6,13 +6,14 @@
 #define ADDNET_PERMUTATOR_V2_EVALUATE_RESULT_H
 
 
+
 #include <vector>
 #include <set>
 #include <string>
 #include "config_rccm.h"
 #include <algorithm>
 
-class evaluate_result
+class evaluate_result : public base_obj
 {
 public:
 	evaluate_result();

@@ -27,11 +27,13 @@
 #define PERMUTATOR_H
 
 #include <vector>
+#include "base_obj.h"
 
 using namespace std;
+//TODO Der Permutator muss vollständig auf externen vectoren arbeiten können. Somit nur die Verwaltungsstruktur liefern.
 
 
-class Permutator
+class Permutator : public base_obj
 {
 public:
   Permutator(vector<int> *permutationCntMaxVec, bool allCombinations=true, vector<int> *permutationCntMinVec=nullptr);

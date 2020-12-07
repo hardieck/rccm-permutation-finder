@@ -54,7 +54,6 @@ void selective_adder_base::set_inputs(unsigned int no, std::set<int> &input_set)
 	if (inputs.size() < no)
 	{
 		ERROR("input size does not match. no = "  << no << "; input.size() = " << inputs.size(),"selective_adder_base::set_inputs()")
-		exit(-1);
 	}
 	this->inputs[no].clear();
 	this->inputs[no]=input_set;

@@ -7,13 +7,13 @@
 
 #define VERBOSE(x):
 
-#include "debug.h"
+#include "base_obj.h"
 #include "config_selective_add.h"
 #include <vector>
 #include "permutator.h"
 #include <string>
 
-class config_rccm
+class config_rccm : public base_obj
 {
 public:
 	config_rccm();

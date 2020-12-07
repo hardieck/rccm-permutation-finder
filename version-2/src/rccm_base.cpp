@@ -15,7 +15,7 @@ void rccm_base::run_all_cases()
 	bool in_progress= true;
 	while(in_progress ==true)
 	{
-		compute();
+        compute();
 		//for loop for all evaluate_result
 
 		in_progress = next_step();
@@ -25,15 +25,12 @@ void rccm_base::run_all_cases()
 
 bool rccm_base::next_step()
 {
-
-	//do preperation in all config structures.
-	return false; //if in progress
-	return true; //if al is done.
+	return this->config->next_config(); //return true if still in progress
 }
 
 config_rccm *rccm_base::set_config(string input)
 {
 	//do all configuration stuff...
 	this->config = new config_rccm();
-	return nullptr;
+	return config;
 }

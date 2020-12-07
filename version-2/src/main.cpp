@@ -18,32 +18,23 @@ int main(int argc, char *argv[])
         exit(0);
     }
 
-    for(int i=1; i < argc;++i)
-    {
-        if(strstr(argv[i], "--verbose="))
-        {
-            global_verbose = atol(argv[i]+10);
-        }
-        else if(strstr(argv[i], "--help"))
-        {
+    for(int i=1; i < argc;++i) {
+        if (strstr(argv[i], "--verbose=")) {
+            global_verbose = atol(argv[i] + 10);
+        } else if (strstr(argv[i], "--help")) {
             print_help();
             exit(0);
-        }
-        else if(strstr(argv[i], "--debug"))
-        {
+        } else if (strstr(argv[i], "--debug")) {
             // do the stuff I prepaired!
             do_debug();
-        }
-        else
-        {
+        } else {
             cout << "Error: Illegal Option: " << argv[i] << endl << endl;
             print_help();
             exit(0);
         }
     }
 
-	IF_VERBOSE(5) {std::cout << "my Hello, World!" << std::endl;}
-
+    IF_VERBOSE(8) std::cout << std::endl << "Finished. Safe end of Toolflow. Normal Quit." << std::endl;
 	return 0;
 }
 

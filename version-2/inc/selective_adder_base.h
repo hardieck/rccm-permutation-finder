@@ -8,9 +8,9 @@
 #include <set>
 #include <vector>
 #include "config_selective_add.h"
-#include "debug.h"
+#include "base_obj.h"
 
-class selective_adder_base
+class selective_adder_base : public base_obj
 {
 public:
     selective_adder_base();

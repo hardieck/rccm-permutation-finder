@@ -21,6 +21,7 @@ public:
 		this->s_add.push_back(new selective_adder_typ_a());
 		this->s_add.push_back(new selective_adder_typ_b());
 
+
 	}
 	std::set<int>compute()
 	{

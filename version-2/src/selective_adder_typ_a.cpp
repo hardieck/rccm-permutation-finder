@@ -13,10 +13,14 @@ selective_adder_typ_a::selective_adder_typ_a()
 
     this->convfg->add_possible_set(std::set<int> {1, 2, 3, 4});
     this->convfg->add_possible_set(std::set<int> {0, 2, 8, 11});
+    this->convfg->set_shift_config_max(std::vector<int>{3,3,3,3}); //TODO Make Shift setting nice...
+    this->convfg->set_shift_config_min(std::vector<int>{0,0,0,0}); //TODO Make Shift setting nice...
+    this->convfg->set_mode_list();
 }
 std::set<int> selective_adder_typ_a::compute()
 {
     IF_VERBOSE(8) std::cout << "Enter function: selective_adder_typ_a/compute" << std::endl;
+
 
     //if (this->get_no_of_inputs() < 4){std::cout << "ERROR: not enough inputs are specified (" << this->get_no_of_inputs() << " inputs are specified)"  << std::endl;}
     if (this->get_no_of_inputs() <= 0) {std::cout << "ERROR: no input specified" << std::endl; exit(-1);}
@@ -40,6 +44,7 @@ std::set<int> selective_adder_typ_a::compute()
 
     IF_VERBOSE(8) std::cout << "load inputs into local names:" << std::endl;
 
+    //TODO read shifts from config and exert them to the inputs
     std::set<int> &A1 = inputs[0];
     std::set<int> &A2 = inputs[1];
     std::set<int> &B1 = inputs[2];
@@ -48,6 +53,7 @@ std::set<int> selective_adder_typ_a::compute()
     this->output.clear();
 
     IF_VERBOSE(8) std::cout << "calculate specified configs" << std::endl;
+    IF_VERBOSE(8) std::cout << "operation set is:" << convfg->get_operation_set() << std::endl;
     for (int conf: this->convfg->get_operation_set()) {
         IF_VERBOSE(9) std::cout << "calculate config" << conf << std::endl;
         switch (conf) {

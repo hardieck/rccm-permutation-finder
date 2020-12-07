@@ -53,9 +53,7 @@ std::set<int> selective_adder_typ_b::compute()
 				case 6:	for (int b:B1) { output.insert(b); } break;
 			}
 		}
-
-        IF_VERBOSE(7) std::cout << "calculation result is:" << output << std::endl;
-
-		return output;
 	}
+    IF_VERBOSE(7) std::cout << "calculation result is:" << output << std::endl;
+    return output;
 }

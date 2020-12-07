@@ -10,9 +10,10 @@
 #include <set>
 #include "evaluate_result.h"
 #include "selective_adder_base.h"
+#include "base_obj.h"
 
 
-class rccm_base
+class rccm_base : public base_obj
 {
 public:
 	rccm_base();
