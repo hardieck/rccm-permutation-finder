@@ -57,12 +57,12 @@ bool config_selective_add::next_m0() {
 bool config_selective_add::next_m1() {
 
     Permutator permut(&permut_max,true,&permut_min);
-    permut.permutationCntVec = permut_state;
+    //permut.permutationCntVec = permut_state;
 
     permut.printPermutation();
     bool result = permut.nextPermutation();
     permut.printPermutation();
-    permut_state = permut.permutationCntVec;
+    // TODO MH-DEBUG permut_state = permut.permutationCntVec;
     mode_1_current_operation_set.clear();
     mode_1_current_operation_set =(possible_operations[permut_state[0]]);
     return result;

@@ -32,6 +32,20 @@
 using namespace std;
 //TODO Der Permutator muss vollständig auf externen vectoren arbeiten können. Somit nur die Verwaltungsstruktur liefern.
 
+class permutation_data : public base_obj
+{
+public:
+    permutation_data();
+    permutation_data& operator=(const permutation_data& rhs);
+    vector<int> permutationCntMaxVec;
+    vector<int> permutationCntMinVec;
+    vector<int> permutationCntVec;
+    int permutationIndex;
+    int permutationIndexMax;
+    bool allCombinations;
+    bool min_vec_is_used;
+
+};
 
 class Permutator : public base_obj
 {
@@ -41,16 +55,10 @@ public:
   bool nextPermutation();
   void resetPermutation();
 
-  vector<int> permutationCntVec;
-
   void printPermutation();
 
-private:
-  vector<int> *permutationCntMaxVec;
-  vector<int> *permutationCntMinVec;
-  int permutationIndex;
-  int permutationIndexMax;
-  bool allCombinations;
+  permutation_data *pd;
+
 };
 
 #endif // PERMUTATOR_H

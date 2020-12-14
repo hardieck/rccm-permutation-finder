@@ -78,5 +78,29 @@ ostream & operator<<(ostream &s, const set<T> &st)
     return s;
 }
 
+template<typename T>
+void set_vec(vector<T> &lhs, const vector<T> &rhs)
+{
+    typename vector<T>::const_iterator it_r = rhs.begin();
+    if (rhs.size() != lhs.size())
+    {
+        lhs.clear();
+        for (; it_r != rhs.end(); ++it_r)
+        {
+            lhs.push_back(*it_r);
+        }
+    }
+    else
+    {
+        typename vector<T>::iterator it_l = lhs.begin();
+        while (it_l != lhs.end())
+        {
+            *it_l = *it_r;
+            ++it_l;
+            ++it_r;
+        }
+    }
+}
+
 
 #endif //ADDNET_PERMUTATOR_V2_DEBUG_H
