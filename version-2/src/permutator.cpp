@@ -5,7 +5,56 @@ using namespace std;
 
 permutation_data::permutation_data()
 {
+    allCombinations = true;
+    min_vec_is_used = false;
+    init(1,false);
 }
+
+void permutation_data::init(unsigned int new_size, bool min_vec)
+{
+    permutationIndex=0;
+    permutationCntMaxVec.resize(new_size);
+    permutationCntVec.resize(new_size);
+    for (int i = 0; i < new_size;++i)
+    {
+        permutationCntMaxVec[i] = 0;
+        permutationCntVec[i] = 0;
+    }
+
+    if (min_vec_is_used or min_vec)
+    {
+        permutationCntMinVec.resize(new_size);
+        for (int i = 0; i < new_size;++i)
+        {
+            permutationCntMinVec[i] = 0;
+        }
+    }
+    else
+    {
+        permutationCntMinVec.clear();
+    }
+    permutationIndex = 0;
+    permutationIndexMax = permutationCntMaxVec.size()-1;
+}
+
+void permutation_data::printPermutationData(bool block)
+{
+    if (block)
+    {
+        std::cout << "allCombinations: " << allCombinations << std::endl;
+        std::cout << "permutationIndexMax: " << permutationIndexMax << std::endl;
+        std::cout << "permutationIndex   : " << permutationIndex << std::endl;
+        std::cout << "permutationCntVec   : " << permutationCntVec << std::endl;
+        std::cout << "permutationCntMaxVec: " << permutationCntMaxVec << std::endl;
+        std::cout << "permutationCntMinVec: " << permutationCntMinVec << std::endl;
+        std::cout << "min_vec_is_used: " << min_vec_is_used << std::endl;
+    }
+    else
+    {
+        std::cout << "allCombinations: " << allCombinations << " permutationIndexMax: " << permutationIndexMax << " permutationIndex: " << permutationIndex << " permutationCntVec: " << permutationCntVec <<  " permutationCntMaxVec: " << permutationCntMaxVec << " permutationCntMinVec: " << permutationCntMinVec << " min_vec_is_used: " << min_vec_is_used << std::endl;
+    }
+}
+
 permutation_data& permutation_data::operator=(const permutation_data& rhs)
 {
     set_vec(permutationCntMaxVec,rhs.permutationCntMaxVec);
@@ -20,8 +69,10 @@ permutation_data& permutation_data::operator=(const permutation_data& rhs)
 
 Permutator::Permutator(vector<int> *permutationCntMaxVec, bool allCombinations, vector<int> *permutationCntMinVec)
 {
+    dataowner = true;
+    pd = new permutation_data;
     pd->permutationCntMaxVec = *permutationCntMaxVec;
-    if(permutationCntMaxVec)
+    if(permutationCntMinVec)
     {
         pd->permutationCntMinVec = *permutationCntMinVec;
         pd->min_vec_is_used = true;
@@ -49,6 +100,24 @@ Permutator::Permutator(vector<int> *permutationCntMaxVec, bool allCombinations, 
       pd->permutationCntVec.resize(pd->permutationIndexMax+1,0);
   }
 }
+Permutator::Permutator()
+{
+    dataowner = true;
+    pd = new permutation_data;
+    pd->permutationCntMaxVec.resize(1);
+    pd->permutationIndex=0;
+    pd->permutationIndexMax = pd->permutationCntMaxVec.size()-1;
+    pd->min_vec_is_used = false;
+    pd->permutationCntMinVec.clear();
+}
+Permutator::~Permutator()
+{
+    if(dataowner == true)
+    {
+        delete pd;
+    }
+}
+
 
 
 bool Permutator::nextPermutation()
@@ -96,6 +165,8 @@ bool Permutator::nextPermutation()
   }
   return true;
 }
+
+
 void Permutator::resetPermutation()
 {
   for(unsigned i=0; i < pd->permutationCntVec.size(); i++)
@@ -108,12 +179,20 @@ void Permutator::resetPermutation()
     pd->permutationIndex=0;
 }
 
-void Permutator::printPermutation()
+void Permutator::printPermutation(bool reverse)
 {
-  cout << "[ ";
-  for(int i=(int) pd->permutationCntVec.size()-1; i >= 0; i--)
-  {
-    cout << pd->permutationCntVec[i] << " ";
-  }
-  cout << "]";
+    if (reverse) {
+        cout << "[ ";
+        for (int i = (int) pd->permutationCntVec.size() - 1; i >= 0; i--) {
+            cout << pd->permutationCntVec[i] << " ";
+        }
+        cout << "]";
+    }
+    else {
+        cout << "[ ";
+        for (int i = 0; i < pd->permutationCntVec.size(); ++i) {
+            cout << pd->permutationCntVec[i] << " ";
+        }
+        cout << "]";
+    }
 }

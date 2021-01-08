@@ -47,9 +47,49 @@ void print_help()
 }
 void do_debug()
 {
-    IF_VERBOSE(1) std::cout << "Enter Function: do_debug:" << std::endl;
-    rccm_3add test;
+   IF_VERBOSE(1) std::cout << "Enter Function: do_debug:" << std::endl;
+    //rccm_3add test;
 
-    IF_VERBOSE(1) std::cout << "Init done! Now Compute" << std::endl;
-    test.run_all_cases();
+    //IF_VERBOSE(1) std::cout << "Init done! Now Compute" << std::endl;
+    //test.run_all_cases();
+
+
+    std::cout << "MH1" << std::endl;
+    std::vector<int>myvec{2,3,2};
+    std::cout << "MH2" << std::endl;
+    Permutator p;
+    p.pd->printPermutationData();
+    p.pd->init(3);
+    p.pd->printPermutationData();
+    std::cout << "MH3a " << p.pd->permutationCntMaxVec <<  std::endl;
+    std::cout << "MH3a " << p.pd->permutationCntVec <<  std::endl;
+    p.pd->permutationCntMaxVec = myvec;
+    p.pd->printPermutationData();
+    std::cout << "MH3b " << p.pd->permutationCntMaxVec <<  std::endl;
+    std::cout << "MH3b " << p.pd->permutationCntVec <<  std::endl;
+    p.printPermutation();
+    std::cout << "MH4" << std::endl;
+    std::cout << p.pd->permutationCntMaxVec << std::endl;
+    std::cout << "MH5" << std::endl;
+
+    int i=0;
+    std::cout << "MH6" << std::endl;
+    p.resetPermutation();
+    std::cout << "MH7" << std::endl;
+    do{
+        std::cout << "cycle: " << i++ << " ->";
+        p.printPermutation();p.pd->printPermutationData();
+    }while(p.nextPermutation());
+    std::cout << std::endl << "MH9" << std::endl;
+
+
+    i=0;
+    Permutator p2(&myvec);
+    p.resetPermutation();
+    do{;
+        std::cout << "cycle: " << i++ << " ->";
+        p.printPermutation();p.pd->printPermutationData();
+    }while(p.nextPermutation());
+
+
 }

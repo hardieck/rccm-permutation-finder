@@ -45,19 +45,24 @@ public:
     bool allCombinations;
     bool min_vec_is_used;
 
+    void init(unsigned int new_size = 1, bool min_vec = false);
+    void printPermutationData(bool block =false);
 };
 
 class Permutator : public base_obj
 {
 public:
   Permutator(vector<int> *permutationCntMaxVec, bool allCombinations=true, vector<int> *permutationCntMinVec=nullptr);
+  Permutator();
+  ~Permutator();
 
   bool nextPermutation();
   void resetPermutation();
 
-  void printPermutation();
+  void printPermutation(bool reverse = false);
 
   permutation_data *pd;
+  bool dataowner;
 
 };
 

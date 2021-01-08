@@ -49,7 +49,7 @@ std::vector<T> set2vec(const std::set<T> &s)
 template<typename T>
 std::ostream &operator<<(std::ostream &s, const std::vector<T> &st)
 {
-    typename std::vector<T>::iterator iter;
+    typename std::vector<T>::const_iterator iter;
     for (iter = st.begin(); iter != st.end();)
     {
         if (typeid(T) != typeid(int)) s << "[";
