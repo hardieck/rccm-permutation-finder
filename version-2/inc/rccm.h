@@ -22,10 +22,14 @@ public:
 
 	std::vector<selective_add> conf_list;
 	std::vector<int> add_sell_type_alternatives; // don't know how this will be work when finishes...
-	bool next_config();
+	bool next_config(config_level = all);
+    std::set<int> compute();
 
 private:
-	std::vector<int> config;
+    std::vector<rccm_type> rccm_search_space;
+    vector<selective_add> sel_add;
+
+	std::vector<int> ;
 
 };
 

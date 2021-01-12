@@ -11,7 +11,7 @@ rccm::rccm()
 
 bool rccm::set_config(std::string input_config)
 {
-	// read a string with congiguration specifications and generate the subcunfigurations out of it
+	// read a string with configuration specifications and generate the subconfigurations out of it
 	// to configure the selective adder in terms of possible operation sets and the current used one.
 	return false;
 }
@@ -28,11 +28,10 @@ std::string rccm::get_config()
 	return std::__cxx11::string();
 }
 
-bool rccm::next_config()
+bool rccm::next_config(config_level)
 {
-	//go inside the sub config structure and call the next state
-	//do a compleete permutation of the chosen subconfig bevor reset it and go to the next one.
-	//return true if ther is a next state or false if it was the last one for this part.
 
-     return false;
+    return 1; // there are still configs with this config level
+    return 0; // no config left. this was the last one
 }
+
