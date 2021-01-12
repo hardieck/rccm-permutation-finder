@@ -9,7 +9,7 @@ enum rccm_type // add a type for each rccm dataflow structure / Connection Struc
 {
     typ_A = 1, // 1 add (single selective adder)
     typ_B = 2, // 2 add (two selective adders in a row)
-    typ_C = 3  // 3 add (to selective adder besides each other followed by a third to fuse the outputs)
+    typ_C = 3,  // 3 add (to selective adder besides each other followed by a third to fuse the outputs)
     typ_D = 4  // 4 add ()
 
 };

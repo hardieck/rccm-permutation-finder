@@ -17,17 +17,18 @@ public:
 	rccm();
 
 	std::string get_config();
-	std::string get_config_for_implementation();
-	bool set_config(std::string input_config);
+	bool set_config(std::string new_config);
 
-	std::vector<selective_add> conf_list;
-	std::vector<int> add_sell_type_alternatives; // don't know how this will be work when finishes...
 	bool next_config(config_level = all);
     std::set<int> compute();
 
 private:
     std::vector<rccm_type> rccm_search_space;
     vector<selective_add> sel_add;
+
+    unsigned int used_rccm;
+
+    bool parse_config_string(string);
 
 	std::vector<int> ;
 

@@ -16,22 +16,23 @@ bool rccm::set_config(std::string input_config)
 	return false;
 }
 
-std::string rccm::get_config_for_implementation()
-{
-	// return just the configuration information to implment the coeff set
-	return std::__cxx11::string();
-}
-
-std::string rccm::get_config()
-{
-	//return the complete testing and current config information.
-	return std::__cxx11::string();
-}
-
 bool rccm::next_config(config_level)
 {
 
     return 1; // there are still configs with this config level
     return 0; // no config left. this was the last one
 }
+std::set<int> rccm::compute()
+{
+    swtich(rccm_search_space[used_rccm])
+    {
+        case typ_A: calc_rccm_3add break;
+        case typ_B: ERROR("Type B is not supported yet","rccm::compute()") break;
+        case typ_C: ERROR("Type C is not supported yet","rccm::compute()") break;
+        default: ERROR("Invalid Type","rccm::compute()");
+    }
 
+}
+
+
+case typ_D: break;
