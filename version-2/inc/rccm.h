@@ -2,8 +2,8 @@
 // Created by hardieck on 9/27/19.
 //
 
-#ifndef ADDNET_PERMUTATOR_V2_CONFIG_RCCM_H
-#define ADDNET_PERMUTATOR_V2_CONFIG_RCCM_H
+#ifndef ADDNET_PERMUTATOR_V2_RCCM_H
+#define ADDNET_PERMUTATOR_V2_RCCM_H
 
 #include "base_obj.h"
 #include "config_selective_add.h"
@@ -11,10 +11,10 @@
 #include "permutator.h"
 #include <string>
 
-class config_rccm : public base_obj
+class rccm : public base_obj
 {
 public:
-	config_rccm();
+	rccm();
 
 	std::string get_config();
 	std::string get_config_for_implementation();
@@ -30,4 +30,4 @@ private:
 };
 
 
-#endif //ADDNET_PERMUTATOR_V2_CONFIG_RCCM_H
+#endif //ADDNET_PERMUTATOR_V2_RCCM_H

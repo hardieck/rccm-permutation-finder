@@ -2,9 +2,9 @@
 // Created by hardieck on 9/27/19.
 //
 
-#include "../inc/selective_adder_typ_a.h"
+#include "../inc/calc_selective_adder_typ_a.h"
 
-selective_adder_typ_a::selective_adder_typ_a()
+calc_selective_adder_typ_a::calc_selective_adder_typ_a()
 {
     no_of_inputs_for_A=2;
     no_of_inputs_for_B=2;
@@ -17,9 +17,9 @@ selective_adder_typ_a::selective_adder_typ_a()
     this->convfg->set_shift_config_min(std::vector<int>{0,0,0,0}); //TODO Make Shift setting nice...
     this->convfg->set_mode_list();
 }
-std::set<int> selective_adder_typ_a::compute()
+std::set<int> calc_selective_adder_typ_a::compute()
 {
-    IF_VERBOSE(8) std::cout << "Enter function: selective_adder_typ_a/compute" << std::endl;
+    IF_VERBOSE(8) std::cout << "Enter function: calc_selective_adder_typ_a/compute" << std::endl;
 
 
     //if (this->get_no_of_inputs() < 4){std::cout << "ERROR: not enough inputs are specified (" << this->get_no_of_inputs() << " inputs are specified)"  << std::endl;}

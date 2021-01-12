@@ -2,9 +2,9 @@
 // Created by hardieck on 10/8/19.
 //
 
-#include "../inc/selective_adder_typ_b.h"
+#include "../inc/calc_selective_adder_typ_b.h"
 
-selective_adder_typ_b::selective_adder_typ_b()
+calc_selective_adder_typ_b::calc_selective_adder_typ_b()
 {
     no_of_inputs_for_A=3;
     no_of_inputs_for_B=1;
@@ -16,9 +16,9 @@ selective_adder_typ_b::selective_adder_typ_b()
     this->convfg->add_possible_set(std::set<int> {0, 1, 2, 5});
     this->convfg->add_possible_set(std::set<int> {0, 1, 2, 6});
 }
-std::set<int> selective_adder_typ_b::compute()
+std::set<int> calc_selective_adder_typ_b::compute()
 {
-    IF_VERBOSE(8) std::cout << "Enter function: selective_adder_typ_b/compute" << std::endl;
+    IF_VERBOSE(8) std::cout << "Enter function: calc_selective_adder_typ_b/compute" << std::endl;
 
     //if (this->get_no_of_inputs() <= 0){std::cout << "ERROR: not enough inputs are specified (" << this->get_no_of_inputs() << " inputs are specified)"  << std::endl;}
     if (this->get_no_of_inputs() <= 0){std::cout << "ERROR: no input specified" << std::endl; exit(-1);}

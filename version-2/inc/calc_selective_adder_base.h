@@ -2,18 +2,18 @@
 // Created by hardieck on 9/27/19.
 //
 
-#ifndef ADDNET_PERMUTATOR_V2_SELECTIVE_ADDER_BASE_H
-#define ADDNET_PERMUTATOR_V2_SELECTIVE_ADDER_BASE_H
+#ifndef ADDNET_PERMUTATOR_V2_CALC_SELECTIVE_ADDER_BASE_H
+#define ADDNET_PERMUTATOR_V2_CALC_SELECTIVE_ADDER_BASE_H
 
 #include <set>
 #include <vector>
 #include "config_selective_add.h"
 #include "base_obj.h"
 
-class selective_adder_base : public base_obj
+class calc_selective_adder_base : public base_obj
 {
 public:
-    selective_adder_base();
+    calc_selective_adder_base();
 	virtual std::set<int> compute()=0;
 	unsigned int get_no_of_inputs();
 	unsigned int get_no_of_inputs_for_port_A();
@@ -40,4 +40,4 @@ protected:
 };
 
 
-#endif //ADDNET_PERMUTATOR_V2_SELECTIVE_ADDER_BASE_H
+#endif //ADDNET_PERMUTATOR_V2_CALC_SELECTIVE_ADDER_BASE_H

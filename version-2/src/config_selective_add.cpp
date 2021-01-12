@@ -116,3 +116,11 @@ void config_selective_add::set_shift_config_min(const std::vector<int> &input)
 {
     shift_config_min = input;
 }
+
+void config_selective_add::reset_config() {
+
+}
+
+void config_selective_add::set_mode_all() {
+
+}

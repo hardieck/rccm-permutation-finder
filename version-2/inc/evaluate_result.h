@@ -10,7 +10,7 @@
 #include <vector>
 #include <set>
 #include <string>
-#include "config_rccm.h"
+#include "rccm.h"
 #include <algorithm>
 
 class evaluate_result : public base_obj
@@ -25,9 +25,9 @@ public:
 	double evaluate(std::set<int> input);
 
 	float match;
-	config_rccm result;
+	rccm result;
 
-	std::vector<config_rccm> result_by_coeff_number;
+	std::vector<rccm> result_by_coeff_number;
 
 	void print_best_result(bool show_coeff = true, bool show_all_= false);
 

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../inc/rccm_3add.h"
+#include "../inc/calc_rccm_typ_3add.h"
 
 
 #include <string>
@@ -48,7 +48,7 @@ void print_help()
 void do_debug()
 {
    IF_VERBOSE(1) std::cout << "Enter Function: do_debug:" << std::endl;
-    //rccm_3add test;
+    //calc_rccm_typ_3add test;
 
     //IF_VERBOSE(1) std::cout << "Init done! Now Compute" << std::endl;
     //test.run_all_cases();

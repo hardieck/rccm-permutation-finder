@@ -17,21 +17,21 @@ SET(CMAKE_CACHEFILE_DIR ${dir})
 
 add_executable(AddNet_Permutator_v2
         src/main.cpp
-        src/rccm_base.cpp
-        src/rccm_3add.cpp
-        src/selective_adder_base.cpp
-        src/selective_adder_typ_a.cpp
-        src/selective_adder_typ_b.cpp
+        src/calc_rccm_base.cpp
+        src/calc_rccm_typ_3add.cpp
+        src/calc_selective_adder_base.cpp
+        src/calc_selective_adder_typ_a.cpp
+        src/calc_selective_adder_typ_b.cpp
         src/evaluate_result.cpp
         src/config_selective_add.cpp
-        src/config_rccm.cpp
+        src/rccm.cpp
         src/permutator.cpp
-        inc/config_rccm.h
+        inc/rccm.h
         inc/evaluate_result.h
         inc/config_selective_add.h
-        inc/rccm_base.h
-        inc/rccm_3add.h
-        inc/selective_adder_base.h
+        inc/calc_rccm_base.h
+        inc/calc_rccm_typ_3add.h
+        inc/calc_selective_adder_base.h
         inc/permutator.h
-        inc/selective_adder_typ_a.h
-        inc/selective_adder_typ_b.h inc/debug.h src/debug.cpp inc/types.h src/base_obj.cpp inc/base_obj.h)
+        inc/calc_selective_adder_typ_a.h
+        inc/calc_selective_adder_typ_b.h inc/debug.h src/debug.cpp inc/types.h src/base_obj.cpp inc/base_obj.h)
