@@ -10,6 +10,7 @@
 
 class calc_rccm_1add : calc_rccm_base
 {
+public:
     calc_rccm_1add()
     {
         IF_VERBOSE(9) std::cout << "Enter Funktion: calc_rccm_1add/construktor:" << std::endl;
@@ -18,6 +19,8 @@ class calc_rccm_1add : calc_rccm_base
     {
 
     }
+    static const spec_rccm spec;
 };
+const spec_rccm calc_rccm_1add::spec(1);
 
 #endif //ADDNET_PERMUTATOR_V2_CALC_RCCM_1ADD_H

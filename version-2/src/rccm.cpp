@@ -3,6 +3,7 @@
 //
 
 #include "../inc/rccm.h"
+#include "../inc/calc_rccm_1add.h"
 
 rccm::rccm()
 {
@@ -24,9 +25,12 @@ bool rccm::next_config(config_level)
 }
 std::set<int> rccm::compute()
 {
+    set<int> result;
     swtich(rccm_search_space[used_rccm])
     {
-        case typ_A: calc_rccm_3add break;
+        case typ_A:
+
+            calc_rccm_1add calc_obj; result = calc_obj.compute(); break;
         case typ_B: ERROR("Type B is not supported yet","rccm::compute()") break;
         case typ_C: ERROR("Type C is not supported yet","rccm::compute()") break;
         default: ERROR("Invalid Type","rccm::compute()");

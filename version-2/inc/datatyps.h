@@ -29,4 +29,33 @@ enum config_level // different
     all = 4
 };
 
+class spec_sel_add
+{
+public:
+    spec_sel_add(unsigned int input_count_A,unsigned int input_count_B,unsigned int diff_operation_count,unsigned int operation_set_size,vector<set<int>> usualy_used_sets)
+    {
+        this->input_count_A = input_count_A;
+        this->input_count_B = input_count_B;
+        this->diff_operation_count = diff_operation_count;
+        this->operation_set_size = operation_set_size;
+        this->usualy_used_sets = usualy_used_sets;
+
+    };
+    unsigned int input_count_A; // number of inputs for input A
+    unsigned int input_count_B; //number of inputs for input B
+    unsigned int diff_operation_count; // number of different operations
+    unsigned int operation_set_size; // number of operation supported by implementation
+    vector<set<int>> usualy_used_sets; // to init a restriced set selection. (optional)
+};
+class spec_rccm
+{
+public:
+    spec_rccm(unsigned int add_sel_count)
+    {
+        this->add_sel_count = add_sel_count;
+    };
+    unsigned int add_sel_count;
+};
+
 #endif //ADDNET_PERMUTATOR_V2_DATATYPS_H
+
