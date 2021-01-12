@@ -23,12 +23,12 @@ add_executable(AddNet_Permutator_v2
         src/calc_selective_adder_typ_a.cpp
         src/calc_selective_adder_typ_b.cpp
         src/evaluate_result.cpp
-        src/config_selective_add.cpp
+        src/selective_add.cpp
         src/rccm.cpp
         src/permutator.cpp
         inc/rccm.h
         inc/evaluate_result.h
-        inc/config_selective_add.h
+        inc/selective_add.h
         inc/calc_rccm_base.h
         inc/calc_rccm_typ_3add.h
         inc/calc_selective_adder_base.h

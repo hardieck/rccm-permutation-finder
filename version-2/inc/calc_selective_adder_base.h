@@ -7,7 +7,7 @@
 
 #include <set>
 #include <vector>
-#include "config_selective_add.h"
+#include "selective_add.h"
 #include "base_obj.h"
 
 class calc_selective_adder_base : public base_obj
@@ -22,7 +22,7 @@ public:
 
 	void set_inputs(unsigned int no, std::set<int> &input_set);
 
-	config_selective_add * convfg;
+	selective_add * convfg;
 
 
 

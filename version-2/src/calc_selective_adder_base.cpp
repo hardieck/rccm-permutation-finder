@@ -11,7 +11,7 @@ calc_selective_adder_base::calc_selective_adder_base()
 	no_of_inputs_for_B=0;
 	inputs.resize(no_of_inputs_for_A+no_of_inputs_for_B);
 	shifts.resize(no_of_inputs_for_A+no_of_inputs_for_B);
-    this->convfg = new config_selective_add();
+    this->convfg = new selective_add();
 }
 
 unsigned int calc_selective_adder_base::get_no_of_outputs()

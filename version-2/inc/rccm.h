@@ -6,7 +6,7 @@
 #define ADDNET_PERMUTATOR_V2_RCCM_H
 
 #include "base_obj.h"
-#include "config_selective_add.h"
+#include "selective_add.h"
 #include <vector>
 #include "permutator.h"
 #include <string>
@@ -20,7 +20,7 @@ public:
 	std::string get_config_for_implementation();
 	bool set_config(std::string input_config);
 
-	std::vector<config_selective_add> conf_list;
+	std::vector<selective_add> conf_list;
 	std::vector<int> add_sell_type_alternatives; // don't know how this will be work when finishes...
 	bool next_config();
 

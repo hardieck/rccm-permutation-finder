@@ -2,8 +2,8 @@
 // Created by hardieck on 9/27/19.
 //
 
-#ifndef ADDNET_PERMUTATOR_V2_CONFIG_SELECTIVE_ADD_H
-#define ADDNET_PERMUTATOR_V2_CONFIG_SELECTIVE_ADD_H
+#ifndef ADDNET_PERMUTATOR_V2_SELECTIVE_ADD_H
+#define ADDNET_PERMUTATOR_V2_SELECTIVE_ADD_H
 
 #include "debug.h"
 #include "base_obj.h"
@@ -11,7 +11,7 @@
 #include <vector>
 #include <set>
 
-class config_selective_add : public base_obj
+class selective_add : public base_obj
 {
 public:
     //function for set up and use of permutations
@@ -62,6 +62,6 @@ protected:
 };
 
 
-#endif //ADDNET_PERMUTATOR_V2_CONFIG_SELECTIVE_ADD_H
+#endif //ADDNET_PERMUTATOR_V2_SELECTIVE_ADD_H
 
 
