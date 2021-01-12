@@ -8,16 +8,16 @@
 #include "calc_selective_adder_typ_a.h"
 #include "calc_selective_adder_typ_b.h"
 
-class calc_rccm_1add : calc_rccm_base
+class calc_rccm_1add : public calc_rccm_base
 {
 public:
     calc_rccm_1add()
     {
         IF_VERBOSE(9) std::cout << "Enter Funktion: calc_rccm_1add/construktor:" << std::endl;
     }
-    std::set<int>compute()
+    std::set<int>compute(rccm &parent_rccm)
     {
-
+        parent_rccm.get_sel_add(0);
     }
     static const spec_rccm spec;
 };

@@ -14,10 +14,8 @@ class calc_selective_adder_base : public base_obj
 {
 public:
     calc_selective_adder_base();
-	virtual std::set<int> compute()=0;
+	virtual std::set<int> compute(selective_add &parent_sel_add)=0;
 	unsigned int get_no_of_inputs();
-	unsigned int get_no_of_inputs_for_port_A();
-	unsigned int get_no_of_inputs_for_port_B();
 	std::set<int>& get_output();
 
 	void set_inputs(unsigned int no, std::set<int> &input_set);
@@ -37,7 +35,11 @@ protected:
 	unsigned int get_no_of_outputs();
 
 	int set_input(unsigned int input_no, std::set<int>);
+
+public:
+    static const spec_sel_add spec;
 };
+const spec_sel_add calc_selective_adder_base::spec(1,1,1,1);
 
 
 #endif //ADDNET_PERMUTATOR_V2_CALC_SELECTIVE_ADDER_BASE_H

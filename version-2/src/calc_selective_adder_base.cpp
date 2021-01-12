@@ -7,11 +7,8 @@
 
 calc_selective_adder_base::calc_selective_adder_base()
 {
-	no_of_inputs_for_A=0;
-	no_of_inputs_for_B=0;
-	inputs.resize(no_of_inputs_for_A+no_of_inputs_for_B);
-	shifts.resize(no_of_inputs_for_A+no_of_inputs_for_B);
-    this->convfg = new selective_add();
+	inputs.resize(spec.input_count_A+spec.input_count_B);
+	shifts.resize(spec.input_count_A+spec.input_count_B);
 }
 
 unsigned int calc_selective_adder_base::get_no_of_outputs()
@@ -32,15 +29,7 @@ int calc_selective_adder_base::set_input(unsigned int input_no, std::set<int> in
 }
 unsigned int calc_selective_adder_base::get_no_of_inputs()
 {
-	return this->inputs.size();
-}
-unsigned int calc_selective_adder_base::get_no_of_inputs_for_port_A()
-{
-	return this->no_of_inputs_for_A;
-}
-unsigned int calc_selective_adder_base::get_no_of_inputs_for_port_B()
-{
-	return this->no_of_inputs_for_B;
+	return this->spec.input_count_A+spec.input_count_B;
 }
 
 std::set<int>& calc_selective_adder_base::get_output()

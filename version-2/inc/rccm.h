@@ -22,16 +22,14 @@ public:
 	bool next_config(config_level = all);
     std::set<int> compute();
 
-private:
+    selective_add* get_sel_add(unsigned int no);
+protected:
     std::vector<rccm_type> rccm_search_space;
     vector<selective_add> sel_add;
 
     unsigned int used_rccm;
 
     bool parse_config_string(string);
-
-	std::vector<int> ;
-
 };
 
 

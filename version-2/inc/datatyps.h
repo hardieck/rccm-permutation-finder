@@ -32,7 +32,7 @@ enum config_level // different
 class spec_sel_add
 {
 public:
-    spec_sel_add(unsigned int input_count_A,unsigned int input_count_B,unsigned int diff_operation_count,unsigned int operation_set_size,vector<set<int>> usualy_used_sets)
+    spec_sel_add(unsigned int input_count_A,unsigned int input_count_B,unsigned int diff_operation_count,unsigned int operation_set_size)
     {
         this->input_count_A = input_count_A;
         this->input_count_B = input_count_B;
