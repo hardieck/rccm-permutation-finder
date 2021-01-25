@@ -23,11 +23,11 @@ public:
     std::set<int> compute();
 
     selective_add* get_sel_add(unsigned int no);
-protected:
+//protected:
     std::vector<rccm_type> rccm_search_space;
+    unsigned int from_sp_use;
     vector<selective_add> sel_add;
 
-    unsigned int used_rccm;
 
     bool parse_config_string(string);
 };

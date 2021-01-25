@@ -43,9 +43,21 @@ void print_help()
     cout << "General Options:" << endl;
     cout << "Option                                         Meaning" << endl;
     cout << "--help                                         Prints this help" << endl;
+    cout << "--do_debug                                     Run the debug function" << endl;
     cout << "--verbose=0...9                                Verbosity level (0: no information, 9: all information during optimization), default:1" << endl;
 }
-void do_debug()
+void do_debug_()
+{
+    IF_VERBOSE(1) std::cout << "Enter Function: do_debug:" << std::endl;
+    rccm my_rccm;
+
+    my_rccm.rccm_search_space.push_back(typ_A);
+    my_rccm.sel_add.resize(1);
+    my_rccm.sel_add[0].
+
+}
+
+void do_debug_old()
 {
    IF_VERBOSE(1) std::cout << "Enter Function: do_debug:" << std::endl;
     //calc_rccm_typ_3add test;

@@ -21,7 +21,6 @@ public:
 
 	virtual std::set<int>compute(rccm &parent_rccm)=0;
 protected:
-	std::vector<calc_selective_adder_base*> s_add;
 	rccm* config;
 	std::vector<evaluate_result*> results;
 	bool next_step();

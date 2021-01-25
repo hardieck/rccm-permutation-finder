@@ -4,19 +4,6 @@
 
 #include "../inc/calc_selective_adder_typ_a.h"
 
-calc_selective_adder_typ_a::calc_selective_adder_typ_a()
-{
-    no_of_inputs_for_A=2;
-    no_of_inputs_for_B=2;
-    inputs.resize(no_of_inputs_for_A+no_of_inputs_for_B);
-    shifts.resize(no_of_inputs_for_A+no_of_inputs_for_B);
-
-    this->convfg->add_possible_set(std::set<int> {1, 2, 3, 4});
-    this->convfg->add_possible_set(std::set<int> {0, 2, 8, 11});
-    this->convfg->set_shift_config_max(std::vector<int>{3,3,3,3}); //TODO Make Shift setting nice...
-    this->convfg->set_shift_config_min(std::vector<int>{0,0,0,0}); //TODO Make Shift setting nice...
-    this->convfg->set_mode_list();
-}
 std::set<int> calc_selective_adder_typ_a::compute()
 {
     IF_VERBOSE(8) std::cout << "Enter function: calc_selective_adder_typ_a/compute" << std::endl;

@@ -6,15 +6,15 @@
 
 calc_selective_adder_typ_b::calc_selective_adder_typ_b()
 {
-    no_of_inputs_for_A=3;
-    no_of_inputs_for_B=1;
-    inputs.resize(no_of_inputs_for_A+no_of_inputs_for_B);
-    shifts.resize(no_of_inputs_for_A+no_of_inputs_for_B);
+    //this->spec.input_count_A
+    //this->spec.input_count_B
+    inputs.resize(this->spec.input_count_A+this->spec.input_count_B);
+    shifts.resize(this->spec.input_count_A+this->spec.input_count_B);
 
-    this->convfg->add_possible_set(std::set<int> {0, 1, 2, 3});
-    this->convfg->add_possible_set(std::set<int> {0, 1, 2, 4});
-    this->convfg->add_possible_set(std::set<int> {0, 1, 2, 5});
-    this->convfg->add_possible_set(std::set<int> {0, 1, 2, 6});
+    //this->convfg->add_possible_set(std::set<int> {0, 1, 2, 3});
+    //this->convfg->add_possible_set(std::set<int> {0, 1, 2, 4});
+    //this->convfg->add_possible_set(std::set<int> {0, 1, 2, 5});
+    //this->convfg->add_possible_set(std::set<int> {0, 1, 2, 6});
 }
 std::set<int> calc_selective_adder_typ_b::compute()
 {

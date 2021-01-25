@@ -14,19 +14,16 @@
 class selective_add : public base_obj
 {
 public:
-    //function for set up and use of permutations
-	void set_shift_config_max(const std::vector<int> &input); // set the maximal shift values (upper bound for permutaton)
-    void set_shift_config_min(const std::vector<int> &input); // set the minimal shift values (lower bound for permutaton)
+
+    std::set<int> compute();
     void reset_config(); // reset the current config cunters to the inital values specified by min-shift max-shift and possible operations.
     bool next_config(); // go to the next configuration. (return false if it was the last configuration. true otherwise)
 
-    bool get_shift_permutation() const;
-    void set_shift_permutation(bool shift_permutation);
-    bool get_LUT_permutation() const;
-    void set_LUT_permutation(bool set_LUT_permutation);
-
     void set_mode_list();
     void set_mode_all();//TODO implement
+
+    std::vector<sel_add_type> rccm_search_space;
+    unsigned int from_sp_use;
 
 
 
