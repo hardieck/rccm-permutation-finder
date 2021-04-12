@@ -16,11 +16,12 @@ unsigned int calc_selective_adder_base::get_no_of_outputs()
 	return 1;
 }
 
-std::set<int> calc_selective_adder_base::compute()
-{
-	IF_VERBOSE(8) std::cout << "Enter funktion: calc_selective_adder_base/compute" << std::endl;
-	return std::set<int>();
-}
+// MH TODO: Remove or fix. commented just to make error silent.
+//std::set<int> calc_selective_adder_base::compute()
+//{
+//	IF_VERBOSE(8) std::cout << "Enter funktion: calc_selective_adder_base/compute" << std::endl;
+//	return std::set<int>();
+//}
 
 int calc_selective_adder_base::set_input(unsigned int input_no, std::set<int> input_set)
 {

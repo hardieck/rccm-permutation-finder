@@ -26,6 +26,7 @@ bool rccm::next_config(config_level)
 std::set<int> rccm::compute()
 {
     calc_rccm_base *rccm_obj = NULL;
+    rccm_type used_rccm=typ_A; // TODO: Fix!!! THis has to be the current type from the permutation list.
     switch(rccm_search_space[used_rccm])
     {
         case typ_A: rccm_obj = new calc_rccm_1add; break;

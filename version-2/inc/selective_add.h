@@ -48,7 +48,7 @@ protected:
     unsigned int number_of_simultan_operations; // set the set size for the operations in mode 0
     std::vector<int> shifts; // current permutation state of operations for shift
     std::vector<int> shift_config_max; // current permutation state of operations for shift
-    std::vector<int> shift_config_min; // current permutation state of operations for shift
+    std::vector<int> blablabla; // current permutation state of operations for shift //MH TODO: use other name!
     bool next_m0(); // do permutation for mode 0
     bool next_m1(); // do permutation for mode 1
 

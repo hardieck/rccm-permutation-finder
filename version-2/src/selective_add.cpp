@@ -32,23 +32,24 @@ void selective_add::add_possible_set(set<int> s)
     this->possible_operations.push_back(s);
 }
 
-bool selective_add::get_shift_permutation() const {
-    return do_shift_permutation;
-}
-
-void selective_add::set_shift_permutation(bool shift_permutation)
-{
-    do_shift_permutation = shift_permutation;
-}
-
-bool selective_add::get_LUT_permutation() const
-{
-    return do_LUT_permutation;
-}
-void selective_add::set_LUT_permutation(bool LUT_permutation)
-{
-    do_LUT_permutation = LUT_permutation;
-}
+// TODO: remove or fix! comented to make error silent
+//bool selective_add::get_shift_permutation() const {
+//    return do_shift_permutation;
+//}
+//
+//void selective_add::set_shift_permutation(bool shift_permutation)
+//{
+//    do_shift_permutation = shift_permutation;
+//}
+//
+//bool selective_add::get_LUT_permutation() const
+//{
+//    return do_LUT_permutation;
+//}
+//void selective_add::set_LUT_permutation(bool LUT_permutation)
+//{
+//    do_LUT_permutation = LUT_permutation;
+//}
 
 bool selective_add::next_m0() {
     ERROR("Not implemented yet.", selective_add::next_m0())
@@ -92,7 +93,7 @@ void selective_add::set_mode_list()
     if (do_LUT_permutation) {
         for (unsigned int i = 1; i < shifts.size() + 1; ++i) {
             permut_state[i] = shifts[i-1];
-            permut_min[i] = shift_config_min[i - 1];
+//            permut_min[i] = shift_config_min[i - 1]; // TODO: FIX!!!! commented to make error silent
             permut_max[i] = shift_config_max[i - 1];
         }
     }
@@ -107,15 +108,15 @@ void selective_add::set_mode_list()
 
 
 }
-
-void selective_add::set_shift_config_max(const std::vector<int> &input)
-{
-    shift_config_max = input;
-}
-void selective_add::set_shift_config_min(const std::vector<int> &input)
-{
-    shift_config_min = input;
-}
+// TODO: remove or FIX: commented to make error silent
+// void selective_add::set_shift_config_max(const std::vector<int> &input)
+// {
+//     shift_config_max = input;
+// }
+// void selective_add::set_shift_config_min(const std::vector<int> &input)
+// {
+//     shift_config_min = input;
+// }
 
 void selective_add::reset_config() {
 

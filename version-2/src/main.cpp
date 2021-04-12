@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../inc/calc_rccm_typ_3add.h"
-
+//#include "../inc/calc_rccm_typ_3add.h"
+#include "../inc/rccm.h"
 
 #include <string>
 #include <cstdlib>
@@ -25,8 +25,8 @@ int main(int argc, char *argv[])
             print_help();
             exit(0);
         } else if (strstr(argv[i], "--debug")) {
-            // do the stuff I prepaired!
-            do_debug();
+            // do the stuff I had prepared!
+            //do_debug();
         } else {
             cout << "Error: Illegal Option: " << argv[i] << endl << endl;
             print_help();
@@ -46,14 +46,14 @@ void print_help()
     cout << "--do_debug                                     Run the debug function" << endl;
     cout << "--verbose=0...9                                Verbosity level (0: no information, 9: all information during optimization), default:1" << endl;
 }
-void do_debug_()
+void do_debug()
 {
     IF_VERBOSE(1) std::cout << "Enter Function: do_debug:" << std::endl;
     rccm my_rccm;
 
     my_rccm.rccm_search_space.push_back(typ_A);
     my_rccm.sel_add.resize(1);
-    my_rccm.sel_add[0].
+    my_rccm.sel_add[0].reset_config();
 
 }
 

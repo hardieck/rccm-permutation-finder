@@ -18,6 +18,7 @@ public:
     std::set<int>compute(rccm &parent_rccm)
     {
         parent_rccm.get_sel_add(0);
+        return {0};
     }
     static const spec_rccm spec;
 };

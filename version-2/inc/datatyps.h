@@ -18,10 +18,11 @@ enum sel_add_type // add a type for each selective adder option
 {
     typ_a = 1,
     typ_b = 2,
+    typ_c = 3
 };
 
 
-enum config_level // different
+enum config_level // different // shal probably be removed
 {
     operation = 1,
     shifts = 2,
