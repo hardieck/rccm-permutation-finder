@@ -27,11 +27,12 @@ public:
 	bool next_config(config_level = all);
 
     selective_add* get_sel_add(unsigned int no);
-//protected:
     std::vector<rccm_type> rccm_search_space;
     unsigned int from_sp_use;
 
     vector<selective_add> sel_add; // store the selective adder objects (can differ in size for any connection Structure)
+protected:
+    void clear_calc_data();
 };
 
 

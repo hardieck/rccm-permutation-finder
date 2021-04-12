@@ -16,7 +16,7 @@ calc_selective_adder_typ_b::calc_selective_adder_typ_b()
     //this->convfg->add_possible_set(std::set<int> {0, 1, 2, 5});
     //this->convfg->add_possible_set(std::set<int> {0, 1, 2, 6});
 }
-std::set<int> calc_selective_adder_typ_b::compute()
+std::set<int>* calc_selective_adder_typ_b::compute(base_obj *parent_)
 {
     IF_VERBOSE(8) std::cout << "Enter function: calc_selective_adder_typ_b/compute" << std::endl;
 //
@@ -55,5 +55,5 @@ std::set<int> calc_selective_adder_typ_b::compute()
 //		}
 //	}
 //    IF_VERBOSE(7) std::cout << "calculation result is:" << output << std::endl;
-    return output;
+    return nullptr;
 }

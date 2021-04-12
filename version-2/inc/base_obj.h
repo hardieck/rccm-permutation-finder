@@ -9,8 +9,11 @@
 #define ADDNET_PERMUTATOR_V2_BASE_OBJ_H
 
 
-class base_obj {
-
+class base_obj
+{
+public:
+    base_obj(){};
+    ~base_obj(){};
 };
 
 

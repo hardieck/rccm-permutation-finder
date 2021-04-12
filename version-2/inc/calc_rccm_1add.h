@@ -15,11 +15,15 @@ public:
     {
         IF_VERBOSE(9) std::cout << "Enter Funktion: calc_rccm_1add/construktor:" << std::endl;
     }
-    std::set<int>* compute(base_obj *parent_rccm)
+    std::set<int>* compute(base_obj *parent_)
     {
+        rccm* parent = (rccm*) parent_;
+        std::cout << "parent infos: sel_add.size()=" << parent->sel_add.size() << std::endl;
+        IF_VERBOSE(9) std::cout << "calc_rccm_1add: MH Debug Say: Jay" << std::endl;
+        parent->sel_add[0].compute();
         return {0};
     }
-    const spec_rccm spec = spec_rccm(3);
+    const spec_rccm spec = spec_rccm(1);
 };
 //const spec_rccm calc_rccm_1add::spec(1);
 

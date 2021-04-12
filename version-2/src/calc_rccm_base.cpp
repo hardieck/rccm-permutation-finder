@@ -8,3 +8,5 @@
 calc_rccm_base::calc_rccm_base()
 {
 }
+
+

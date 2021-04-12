@@ -8,8 +8,9 @@
 
 class calc_base : public base_obj
 {
+public:
     int set_input(unsigned int input_no, std::set<int>*);// connects the input "ports" to a source(mostly outputs of selective_add)
-    virtual std::set<int>* compute(base_obj &parent)=0;// calculate the output depending on the config stored in parent
+    virtual std::set<int>* compute(base_obj *parent)=0;// calculate the output depending on the config stored in parent
     std::set<int>* get_output(); // do what it says :-)
 
 protected:
