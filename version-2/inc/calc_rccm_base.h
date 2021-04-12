@@ -10,21 +10,22 @@
 #include <set>
 #include "evaluate_result.h"
 #include "calc_selective_adder_base.h"
-#include "base_obj.h"
+#include "calc_base.h"
 #include "rccm.h"
 
 
-class calc_rccm_base : public base_obj
+class calc_rccm_base : public calc_base
 {
 public:
 	calc_rccm_base();
+    int set_input(unsigned int input_no, std::set<int>);
+    std::set<int>* get_output();
 
-	virtual std::set<int>compute(rccm &parent_rccm)=0;
+	virtual std::set<int>& compute(rccm &parent_rccm)=0;
 protected:
-	rccm* config;
-	std::vector<evaluate_result*> results;
+	//std::vector<evaluate_result*> results;
 	bool next_step();
-
+    const spec_rccm spec = spec_rccm(1);
 };
 
 

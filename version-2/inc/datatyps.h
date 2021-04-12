@@ -47,6 +47,16 @@ public:
     unsigned int diff_operation_count; // number of different operations
     unsigned int operation_set_size; // number of operation supported by implementation
     vector<set<int>> usualy_used_sets; // to init a restriced set selection. (optional)
+
+    spec_sel_add& operator=(const spec_sel_add& rhs)
+    {
+        this->input_count_A = rhs.input_count_A;
+        this->input_count_B = rhs.input_count_B;
+        this->diff_operation_count = rhs.diff_operation_count;
+        this->operation_set_size = rhs.operation_set_size;
+        this->usualy_used_sets = rhs.usualy_used_sets;
+        return (*this);
+    }
 };
 class spec_rccm
 {
@@ -55,6 +65,11 @@ public:
     {
         this->add_sel_count = add_sel_count;
     };
+    spec_rccm& operator=(const spec_rccm& rhs)
+    {
+        this->add_sel_count = rhs.add_sel_count;
+        return (*this);
+    }
     unsigned int add_sel_count;
 };
 

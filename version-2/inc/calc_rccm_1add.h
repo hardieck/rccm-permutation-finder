@@ -15,13 +15,12 @@ public:
     {
         IF_VERBOSE(9) std::cout << "Enter Funktion: calc_rccm_1add/construktor:" << std::endl;
     }
-    std::set<int>compute(rccm &parent_rccm)
+    std::set<int>* compute(base_obj *parent_rccm)
     {
-        parent_rccm.get_sel_add(0);
         return {0};
     }
-    static const spec_rccm spec;
+    const spec_rccm spec = spec_rccm(3);
 };
-const spec_rccm calc_rccm_1add::spec(1);
+//const spec_rccm calc_rccm_1add::spec(1);
 
 #endif //ADDNET_PERMUTATOR_V2_CALC_RCCM_1ADD_H

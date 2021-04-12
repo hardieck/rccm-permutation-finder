@@ -25,17 +25,17 @@ bool rccm::next_config(config_level)
 }
 std::set<int> rccm::compute()
 {
-    calc_rccm_base *rccm_obj = NULL;
-    rccm_type used_rccm=typ_A; // TODO: Fix!!! THis has to be the current type from the permutation list.
-    switch(rccm_search_space[used_rccm])
-    {
-        case typ_A: rccm_obj = new calc_rccm_1add; break;
-        case typ_B: ERROR("Type B is not supported yet","rccm::compute()") break;
-        case typ_C: ERROR("Type C is not supported yet","rccm::compute()") break;
-        case typ_D: ERROR("Type D is not supported yet","rccm::compute()") break;
-        default: ERROR("Invalid Type","rccm::compute()");
-    }
-    return rccm_obj->compute(*this);
+//    calc_rccm_base *rccm_obj = NULL;
+//    rccm_type used_rccm=typ_A; // TODO: Fix!!! THis has to be the current type from the permutation list.
+//    switch(rccm_search_space[used_rccm])
+//    {
+//        case typ_A: rccm_obj = new calc_rccm_1add; break;
+//        case typ_B: ERROR("Type B is not supported yet","rccm::compute()") break;
+//        case typ_C: ERROR("Type C is not supported yet","rccm::compute()") break;
+//        case typ_D: ERROR("Type D is not supported yet","rccm::compute()") break;
+//        default: ERROR("Invalid Type","rccm::compute()");
+//    }
+//    return rccm_obj->compute(*this);
 }
 
 bool rccm::parse_config_string(string) {

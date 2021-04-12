@@ -11,22 +11,10 @@ class calc_selective_adder_typ_a : public calc_selective_adder_base
     public:
     calc_selective_adder_typ_a();
 	std::set<int> compute();
-	static const spec_sel_add spec;
+    const spec_sel_add spec = spec_sel_add(2,2,16,4);
 };
-const spec_sel_add calc_selective_adder_typ_a::spec(2,2,16,4);
+//const spec_sel_add calc_selective_adder_typ_a::spec = spec_sel_add(2,2,16,4);
 
-// TODO: Remove or fix.
-//calc_selective_adder_typ_a::calc_selective_adder_typ_a()
-//{
-//    inputs.resize(no_of_inputs_for_A+no_of_inputs_for_B);
-//    shifts.resize(no_of_inputs_for_A+no_of_inputs_for_B);
-//
-//    //this->convfg->add_possible_set(std::set<int> {1, 2, 3, 4});
-//    //this->convfg->add_possible_set(std::set<int> {0, 2, 8, 11});
-//    //this->convfg->set_shift_config_max(std::vector<int>{3,3,3,3}); //TODO Make Shift setting nice...
-//    //this->convfg->set_shift_config_min(std::vector<int>{0,0,0,0}); //TODO Make Shift setting nice...
-//    this->convfg->set_mode_list();
-//}
 
 
 

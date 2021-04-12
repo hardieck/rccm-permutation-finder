@@ -4,33 +4,33 @@
 
 #include "../inc/selective_add.h"
 #include "../inc/permutator.h"
-
-std::set<int> selective_add::get_operation_set()
-{
-    if (operation_mode)
-        return mode_1_current_operation_set;
-    else
-        return vec2set(mode_0_current_operation_set);
-}
-
-bool selective_add::next_config()
-{
-	if( this->operation_mode == 0)
-    {
-	    return next_m0();
-    }
-
-    if( this->operation_mode == 1) {
-        return next_m1();
-    }
-    ERROR("No valid Operation Mode!","selective_add::next_config()");
-    return false;
-}
-void selective_add::add_possible_set(set<int> s)
-{
-    this->operation_mode=1; // possible operation set is specified therefore mode 1 has to be used.
-    this->possible_operations.push_back(s);
-}
+//
+//std::set<int> selective_add::get_operation_set()
+//{
+//    if (operation_mode)
+//        return mode_1_current_operation_set;
+//    else
+//        return vec2set(mode_0_current_operation_set);
+//}
+//
+//bool selective_add::next_config()
+//{
+//	if( this->operation_mode == 0)
+//    {
+//	    return next_m0();
+//    }
+//
+//    if( this->operation_mode == 1) {
+//        return next_m1();
+//    }
+//    ERROR("No valid Operation Mode!","selective_add::next_config()");
+//    return false;
+//}
+//void selective_add::add_possible_set(set<int> s)
+//{
+//    this->operation_mode=1; // possible operation set is specified therefore mode 1 has to be used.
+//    this->possible_operations.push_back(s);
+//}
 
 // TODO: remove or fix! comented to make error silent
 //bool selective_add::get_shift_permutation() const {
@@ -50,64 +50,64 @@ void selective_add::add_possible_set(set<int> s)
 //{
 //    do_LUT_permutation = LUT_permutation;
 //}
-
-bool selective_add::next_m0() {
-    ERROR("Not implemented yet.", selective_add::next_m0())
-    return false;
-}
-bool selective_add::next_m1() {
-
-    Permutator permut(&permut_max,true,&permut_min);
-    //permut.permutationCntVec = permut_state;
-
-    permut.printPermutation();
-    bool result = permut.nextPermutation();
-    permut.printPermutation();
-    // TODO MH-DEBUG permut_state = permut.permutationCntVec;
-    mode_1_current_operation_set.clear();
-    mode_1_current_operation_set =(possible_operations[permut_state[0]]);
-    return result;
-}
-
-void selective_add::set_mode_list()
-{
-    operation_mode=1;
-    unsigned int permut_variable_count= possible_operations.size()+shifts.size();
-    permut_min.resize(permut_variable_count);
-    permut_max.resize(permut_variable_count);
-    permut_state.resize(permut_variable_count);
-
-    // specify borders for Operation selecting in List mode
-    if (do_LUT_permutation)
-    {
-        permut_state[0] = 0;
-        permut_min[0] = 0;
-        permut_max[0] = possible_operations.size();
-    }
-    else
-    {
-        permut_min[0] = permut_state[0];
-        permut_max[0] = permut_state[0];
-    }
-    // specify borders for shifts
-    if (do_LUT_permutation) {
-        for (unsigned int i = 1; i < shifts.size() + 1; ++i) {
-            permut_state[i] = shifts[i-1];
-//            permut_min[i] = shift_config_min[i - 1]; // TODO: FIX!!!! commented to make error silent
-            permut_max[i] = shift_config_max[i - 1];
-        }
-    }
-    else
-    {
-        for (unsigned int i = 1; i < shifts.size() + 1; ++i) {
-            permut_state[i] = shifts[i - 1];
-            permut_min[i] = shifts[i - 1];
-            permut_max[i] = shifts[i - 1];
-        }
-    }
-
-
-}
+//
+//bool selective_add::next_m0() {
+//    ERROR("Not implemented yet.", selective_add::next_m0())
+//    return false;
+//}
+//bool selective_add::next_m1() {
+//
+//    Permutator permut(&permut_max,true,&permut_min);
+//    //permut.permutationCntVec = permut_state;
+//
+//    permut.printPermutation();
+//    bool result = permut.nextPermutation();
+//    permut.printPermutation();
+//    // TODO MH-DEBUG permut_state = permut.permutationCntVec;
+//    mode_1_current_operation_set.clear();
+//    mode_1_current_operation_set =(possible_operations[permut_state[0]]);
+//    return result;
+//}
+//
+//void selective_add::set_mode_list()
+//{
+//    operation_mode=1;
+//    unsigned int permut_variable_count= possible_operations.size()+shifts.size();
+//    permut_min.resize(permut_variable_count);
+//    permut_max.resize(permut_variable_count);
+//    permut_state.resize(permut_variable_count);
+//
+//    // specify borders for Operation selecting in List mode
+//    if (do_LUT_permutation)
+//    {
+//        permut_state[0] = 0;
+//        permut_min[0] = 0;
+//        permut_max[0] = possible_operations.size();
+//    }
+//    else
+//    {
+//        permut_min[0] = permut_state[0];
+//        permut_max[0] = permut_state[0];
+//    }
+//    // specify borders for shifts
+//    if (do_LUT_permutation) {
+//        for (unsigned int i = 1; i < shifts.size() + 1; ++i) {
+//            permut_state[i] = shifts[i-1];
+////            permut_min[i] = shift_config_min[i - 1]; // TODO: FIX!!!! commented to make error silent
+//            permut_max[i] = shift_config_max[i - 1];
+//        }
+//    }
+//    else
+//    {
+//        for (unsigned int i = 1; i < shifts.size() + 1; ++i) {
+//            permut_state[i] = shifts[i - 1];
+//            permut_min[i] = shifts[i - 1];
+//            permut_max[i] = shifts[i - 1];
+//        }
+//    }
+//
+//
+//}
 // TODO: remove or FIX: commented to make error silent
 // void selective_add::set_shift_config_max(const std::vector<int> &input)
 // {
@@ -118,10 +118,6 @@ void selective_add::set_mode_list()
 //     shift_config_min = input;
 // }
 
-void selective_add::reset_config() {
+// void selective_add::reset_config() {}
 
-}
-
-void selective_add::set_mode_all() {
-
-}
+//void selective_add::set_mode_all() {}
