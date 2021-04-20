@@ -182,9 +182,10 @@ public:
     {
         shifts.resize(4);
         config.resize(1);
-        //                        0 1 2 3 4
+        //                        0 1 2 3 33
         //                        A A A B|b
-        permutation_max_values = {1,2,3,3,3};
+        //permutation_max_values = {1,2,3,3,32};
+        permutation_max_values = {2,3,4,4,32};
     }
     bool set_shifts(std::vector<int> input)
     {
@@ -198,13 +199,54 @@ public:
 
     std::list<int> compute()
     {
-        std::vector<int> conf;
+        std::vector<int> conf_B;
         switch(config[0])
         {
-            case 0: conf = {0,1,2,3};  break;
-            case 1: conf = {0,1,2,4};  break;
-            case 2: conf = {0,1,2,5};  break;
-            case 3: conf = {0,1,2,6};  break;
+            case 0: conf_B = {0,1,2,3};  break;
+            case 1: conf_B = {0,1,2,4};  break;
+            case 2: conf_B = {0,1,2,5};  break;
+            case 3: conf_B = {0,1,2,6};  break;
+                //----------------------------------------------------------MH ab hier zusätzliche nicht übliche fälle
+                //----------------------------------------------------------
+            case 4: conf_B = {0,1,3,4};  break;
+            case 5: conf_B = {0,1,3,5};  break;
+            case 6: conf_B = {0,1,3,6};  break;
+                //----------------------------------------------------------
+            case 7: conf_B = {0,1,4,5};  break;
+            case 8: conf_B = {0,1,4,6};  break;
+                //----------------------------------------------------------
+            case 9: conf_B = {0,1,5,6};  break;
+                //----------------------------------------------------------
+            case 10: conf_B = {0,2,3,4};  break;
+            case 11: conf_B = {0,2,3,5};  break;
+            case 12: conf_B = {0,2,3,6};  break;
+            case 13: conf_B = {0,2,4,5};  break;
+            case 14: conf_B = {0,2,4,6};  break;
+            case 15: conf_B = {0,2,5,6};  break;
+                //----------------------------------------------------------
+            case 16: conf_B = {0,3,4,5};  break;
+            case 17: conf_B = {0,3,4,6};  break;
+            case 18: conf_B = {0,3,5,6};  break;
+                //----------------------------------------------------------
+            case 19: conf_B = {0,4,5,6};  break;
+                //----------------------------------------------------------
+            case 20: conf_B = {1,2,3,4};  break;
+            case 21: conf_B = {1,2,3,5};  break;
+            case 22: conf_B = {1,2,3,6};  break;
+            case 23: conf_B = {1,2,4,5};  break;
+            case 24: conf_B = {1,2,4,6};  break;
+            case 25: conf_B = {1,2,5,6};  break;
+            case 26: conf_B = {1,3,4,5};  break;
+            case 27: conf_B = {1,3,5,6};  break;
+            case 28: conf_B = {1,4,5,6};  break;
+                //----------------------------------------------------------
+            case 29: conf_B = {2,3,4,5};  break;
+            case 30: conf_B = {2,3,4,6};  break;
+            case 31: conf_B = {2,3,5,6};  break;
+            case 32: conf_B = {2,4,5,6};  break;
+                //----------------------------------------------------------
+            case 33: conf_B = {3,4,5,6};  break;
+                //----------------------------------------------------------
             default: std::cout << std::endl << "ERROR!:inCompute Coes a invalid option"; exit(-1);
         }
 
@@ -217,7 +259,7 @@ public:
 
         int shift_AB1 = shifts[3];
 
-        std::list<int> C = operation_TYPE_b(shift(input,shift_AA1),shift(input,shift_AA2),shift(input,shift_AA3),shift(input,shift_AB1),conf);
+        std::list<int> C = operation_TYPE_b(shift(input,shift_AA1),shift(input,shift_AA2),shift(input,shift_AA3),shift(input,shift_AB1),conf_B);
         if (C.size() == 0)
         {
             std::cout << std::endl << "ERROR!:inCompute. No Coeficent is realised";
@@ -235,7 +277,8 @@ public:
         shifts.resize(3);
         config.resize(1);
         //                        A A B|e
-        permutation_max_values = {2,3,3,0};
+        //permutation_max_values = {2,3,3,13};
+        permutation_max_values = {3,4,4,13};
     }
     bool set_shifts(std::vector<int> input)
     {
@@ -253,6 +296,22 @@ public:
         switch(config[0])
         {
             case  0: conf = {2,3,4,5};  break;
+            //----------------------------------------------
+            case  1: conf = {0, 1,2, 3};  break;
+            case  2: conf = {0, 1,4, 5};  break;
+            case  3: conf = {0, 1,6, 7};  break;
+            case  4: conf = {0, 1,8, 11};  break;
+            case  5: conf = {0, 1,9, 10};  break;
+            //case  0: conf = {2, 3,4, 5};  break;
+            case  6: conf = {2, 3,6, 7};  break;
+            case  7: conf = {2, 3,8, 11};  break;
+            case  8: conf = {2, 3,9, 10};  break;
+            case  9: conf = {4, 5,6, 7};  break;
+            case  10: conf = {4, 5,8, 11};  break;
+            case  11: conf = {4, 5,9, 10};  break;
+            case  12: conf = {6, 7,8, 11};  break;
+            case  13: conf = {6, 7,9, 10};  break;
+            case  14: conf = {8, 11,9, 10};  break;
             default: std::cout << std::endl << "ERROR!:inCompute select a invalid option"; exit(-1);
         }
 
@@ -290,6 +349,7 @@ public:
             case 1: conf_B = {0,1,2,4};  break;
             case 2: conf_B = {0,1,2,5};  break;
             case 3: conf_B = {0,1,2,6};  break;
+
             default: std::cout << std::endl << "ERROR!:inCompute select a invalid option"; exit(-1);
         }
         switch(config[1])

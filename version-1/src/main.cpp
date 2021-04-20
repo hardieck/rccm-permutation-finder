@@ -15,9 +15,12 @@ std::list<int> calculate_factors(std::vector<int>);
 
 int main(int argc, char**arg)
 {
+    std::cout << "MH: rccm-permutation-finder V1" << std::endl;
     //structure_1BB2B3E x;
     //structure_1B2B3E x;
-    structure_1B2E x;
+    //structure_1B2E x;
+    structure_1B x;
+    //structure_1E x;
 
     //std::vector<int> shift_max = {1,2,3,3,1,2,3,3,1,2,3,3};
     //std::vector<int> shift_max = {2,3,4,4,2,3,4,4,2,4,4,4,4};
