@@ -6,10 +6,19 @@
 #include <iostream>
 
 calc_selective_adder_base::calc_selective_adder_base()
+{}
+void calc_selective_adder_base::init()
 {
-	inputs.resize(spec.input_count_A+spec.input_count_B);
-	shifts.resize(spec.input_count_A+spec.input_count_B);
+    std::cout << "MH resize:" << spec.input_count_A+spec.input_count_B << endl;
+    inputs.resize(spec.input_count_A+spec.input_count_B);
+    shifts.resize(spec.input_count_A+spec.input_count_B);
 }
+spec_sel_add calc_selective_adder_base::get_spec()
+{
+    return spec;
+}
+
+
 //
 //unsigned int calc_selective_adder_base::get_no_of_outputs()
 //{
@@ -43,7 +52,7 @@ calc_selective_adder_base::calc_selective_adder_base()
 //	IF_VERBOSE(8) std::cout << "Enter function: calc_selective_adder_base/set_inputs" << std::endl;
 //	if (inputs.size() < no)
 //	{
-//		ERROR("input size does not match. no = "  << no << "; input.size() = " << inputs.size(),"calc_selective_adder_base::set_inputs()")
+//		ERROR("inputs size does not match. no = "  << no << "; inputs.size() = " << inputs.size(),"calc_selective_adder_base::set_inputs()")
 //	}
 //	this->inputs[no].clear();
 //	this->inputs[no]=input_set;

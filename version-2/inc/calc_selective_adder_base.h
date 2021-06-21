@@ -21,14 +21,17 @@ public:
 	void set_inputs(unsigned int no, std::set<int> &input_set);
 
 protected:
-	std::vector<std::set<int> > inputs;
 	std::vector<int> shifts;
 	std::set<int> output;
 public:
 
 
 public:
-    const spec_sel_add spec = spec_sel_add(1,1,1,1);
+    spec_sel_add get_spec();
+protected:
+    spec_sel_add spec = spec_sel_add(1,1,1,1);
+    void init();
+
 };
 
 #endif //ADDNET_PERMUTATOR_V2_CALC_SELECTIVE_ADDER_BASE_H

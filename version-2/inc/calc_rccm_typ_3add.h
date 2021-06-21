@@ -28,18 +28,18 @@
 //	{
 ////	    IF_VERBOSE(5) std::cout << "Enter funktion: calc_rccm_typ_3add/compute" << std::endl;
 ////		//example computation...:
-////		std::set<int> input;
-////		input.insert(1);
+////		std::set<int> inputs;
+////		inputs.insert(1);
 ////
 ////        parent_rccm.sel_add[]
 ////
 ////        IF_VERBOSE(1) std::cout << "specify connection of first container (calc_selective_adder_typ_a)" << std::endl;
 ////		//specify connection of first container (calc_selective_adder_typ_a)
 ////        IF_VERBOSE(1) std::cout << "get_no_of_inputs()=" << parent_rccm.sel_add[0]->get_no_of_inputs() << std::endl;
-////        parent_rccm.sel_add[0].set_inputs(0,input);
-////        parent_rccm.sel_add[0]->set_inputs(1,input);
-////        parent_rccm.sel_add[0]->set_inputs(2,input);
-////        parent_rccm.sel_add[0]->set_inputs(3,input);
+////        parent_rccm.sel_add[0].set_inputs(0,inputs);
+////        parent_rccm.sel_add[0]->set_inputs(1,inputs);
+////        parent_rccm.sel_add[0]->set_inputs(2,inputs);
+////        parent_rccm.sel_add[0]->set_inputs(3,inputs);
 ////        IF_VERBOSE(1) std::cout << "first container inputs done" << std::endl;
 ////        IF_VERBOSE(1) std::cout << "first container get_operation_set()" << s_add[0]->convfg->get_operation_set()  << std::endl;
 ////        parent_rccm.sel_add[0]->compute(*(this->s_add[0]));

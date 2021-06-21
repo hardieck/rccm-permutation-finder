@@ -17,12 +17,12 @@
 //{
 //public:
 //	evaluate_result();
-//	void set_distribution(std::string input);
+//	void set_distribution(std::string inputs);
 //	std::vector<double> distribution;
 //
 //	enum enum_eval_type {BEST_DISTRIBUTION, WORST_DISTRIBUTION, MIN_GAB} eval_type;
 //
-//	double evaluate(std::set<int> input);
+//	double evaluate(std::set<int> inputs);
 //
 //	float match;
 //	rccm result;
@@ -31,14 +31,14 @@
 //
 //	void print_best_result(bool show_coeff = true, bool show_all_= false);
 //
-//	double calculate_distribution_match(std::vector<int> &input);
+//	double calculate_distribution_match(std::vector<int> &inputs);
 //
 //	template <class T>
-//	std::vector<double> norm_distribution(const std::vector<T> &input) const
+//	std::vector<double> norm_distribution(const std::vector<T> &inputs) const
 //	{
-//		double max = *std::max_element(input.begin(),input.end());
-//		std::vector<double> r(input.size());
-//		for(int i=0; i< input.size();++i)
+//		double max = *std::max_element(inputs.begin(),inputs.end());
+//		std::vector<double> r(inputs.size());
+//		for(int i=0; i< inputs.size();++i)
 //		{
 //			if(i==0)
 //			{
@@ -46,7 +46,7 @@
 //			}
 //			else
 //			{
-//				r[i]=(((double)input[i])/max);
+//				r[i]=(((double)inputs[i])/max);
 //			}
 //		}
 //		return r;

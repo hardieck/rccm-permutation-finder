@@ -42,8 +42,8 @@ public:
         this->usualy_used_sets = usualy_used_sets;
 
     };
-    unsigned int input_count_A; // number of inputs for input A
-    unsigned int input_count_B; //number of inputs for input B
+    unsigned int input_count_A; // number of inputs for inputs A
+    unsigned int input_count_B; //number of inputs for inputs B
     unsigned int diff_operation_count; // number of different operations
     unsigned int operation_set_size; // number of operation supported by implementation
     vector<set<int>> usualy_used_sets; // to init a restriced set selection. (optional)

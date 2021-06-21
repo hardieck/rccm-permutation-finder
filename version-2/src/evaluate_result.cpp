@@ -22,21 +22,21 @@
 //
 //}
 //
-//double evaluate_result::evaluate(std::set<int> input)
+//double evaluate_result::evaluate(std::set<int> inputs)
 //{
 //	switch(this->eval_type)
 //	{
 //		case BEST_DISTRIBUTION:
 //		{
 //			std::vector<int> input_vec;
-//			input_vec.assign(input.begin(), input.end());
+//			input_vec.assign(inputs.begin(), inputs.end());
 //			return calculate_distribution_match(input_vec);
 //			break;
 //		}
 //		case WORST_DISTRIBUTION:
 //		{
 //			std::vector<int> input_vec;
-//			input_vec.assign(input.begin(), input.end());
+//			input_vec.assign(inputs.begin(), inputs.end());
 //			return 1-calculate_distribution_match(input_vec);
 //			break;
 //		}
@@ -52,14 +52,14 @@
 //	return -1;
 //}
 //
-//void evaluate_result::set_distribution(std::string input)
+//void evaluate_result::set_distribution(std::string inputs)
 //{
 //	// do needed stuff....
 //}
 //
-//double evaluate_result::calculate_distribution_match(std::vector<int> &input)
+//double evaluate_result::calculate_distribution_match(std::vector<int> &inputs)
 //{
-//	std::vector<double> norm_set = this->norm_distribution(input);
+//	std::vector<double> norm_set = this->norm_distribution(inputs);
 //	this->Kullback_Leibler_Divergenz(norm_set,this->distribution);
 //	return 0;
 //	return 0;

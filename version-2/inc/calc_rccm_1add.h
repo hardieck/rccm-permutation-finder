@@ -20,6 +20,13 @@ public:
         rccm* parent = (rccm*) parent_;
         std::cout << "parent infos: sel_add.size()=" << parent->sel_add.size() << std::endl;
         IF_VERBOSE(9) std::cout << "calc_rccm_1add: MH Debug Say: Jay" << std::endl;
+
+        set<int> prime_input = {1};
+        parent->sel_add[0].compute();
+        parent->sel_add[0].calc->set_input(0,&prime_input);
+        parent->sel_add[0].calc->set_input(1,&prime_input);
+        parent->sel_add[0].calc->set_input(2,&prime_input);
+        parent->sel_add[0].calc->set_input(3,&prime_input);
         parent->sel_add[0].compute();
         return {0};
     }

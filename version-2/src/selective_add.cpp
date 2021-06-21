@@ -110,13 +110,13 @@
 //
 //}
 // TODO: remove or FIX: commented to make error silent
-// void selective_add::set_shift_config_max(const std::vector<int> &input)
+// void selective_add::set_shift_config_max(const std::vector<int> &inputs)
 // {
-//     shift_config_max = input;
+//     shift_config_max = inputs;
 // }
-// void selective_add::set_shift_config_min(const std::vector<int> &input)
+// void selective_add::set_shift_config_min(const std::vector<int> &inputs)
 // {
-//     shift_config_min = input;
+//     shift_config_min = inputs;
 // }
 
 // void selective_add::reset_config() {}

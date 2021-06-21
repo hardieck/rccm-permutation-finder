@@ -9,12 +9,21 @@
 class calc_base : public base_obj
 {
 public:
-    int set_input(unsigned int input_no, std::set<int>*);// connects the input "ports" to a source(mostly outputs of selective_add)
+    void set_input(unsigned int input_no, std::set<int>* in_set)
+    {
+        if (input_no >= inputs.size())
+        {
+            string msg = "The inputs number input_no=" + to_string(input_no) + " is greater then the accessible inputs!" + "(Accessible are " + to_string(inputs.size() - 1) + ")";
+            ERROR(msg,"calc_base::set_input()");
+        }
+        inputs[input_no] = in_set;
+
+    };// connects the inputs "ports" to a source(mostly outputs of selective_add)
     virtual std::set<int>* compute(base_obj *parent)=0;// calculate the output depending on the config stored in parent
     std::set<int>* get_output(); // do what it says :-)
 
 protected:
-    std::vector<std::set<int>* > input; //links to the source list. (shifts are handeld seperatly)
+    std::vector<std::set<int>* > inputs; //links to the source list. (shifts are handeld seperatly)
     std::set<int> output;
 };
 

@@ -54,7 +54,8 @@ void do_debug()
     my_rccm.rccm_search_space.push_back(typ_A);
     my_rccm.sel_add.resize(1);
     my_rccm.sel_add[0].rccm_search_space.push_back(typ_a);
-    my_rccm.compute();
+    auto result = my_rccm.compute();
+    std::cout << result;
 
 }
 
