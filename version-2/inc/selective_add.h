@@ -17,6 +17,7 @@ class selective_add : public base_obj
 public:
 
     std::set<int>* compute();
+    void init();
     calc_base* calc = nullptr;
 
     void reset_config(); // reset the current config counters to the initial values specified by min-shift max-shift and possible operations.
@@ -25,8 +26,8 @@ public:
     void set_mode_list();
     std::vector<sel_add_type> rccm_search_space;
     unsigned int from_sp_use;
-protected:
     void clear_calc_data();
+protected:
 };
 
 

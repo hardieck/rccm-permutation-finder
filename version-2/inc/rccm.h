@@ -17,7 +17,7 @@ class rccm : public base_obj
 public:
 	rccm();
 
-    std::set<int> compute();
+    std::set<int>* compute();
     calc_base* calc = nullptr;
 
 	std::string get_config();

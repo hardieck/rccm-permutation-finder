@@ -6,6 +6,17 @@
 std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent)
 {
     IF_VERBOSE(8) std::cout << "Enter function: calc_selective_adder_typ_a/compute" << std::endl;
+
+
+    cout << "inputs:" << inputs << std::endl;
+
+    output.clear();
+    output.insert(*inputs[0]->begin());
+
+    std::cout << (&output) << ":";
+    std::cout << (output) << std::endl;
+
+    return &output;
 //
 //
 //    //if (this->get_no_of_inputs() < 4){std::cout << "ERROR: not enough inputs are specified (" << this->get_no_of_inputs() << " inputs are specified)"  << std::endl;}
@@ -94,7 +105,7 @@ std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent)
 //    }
 //    IF_VERBOSE(7) std::cout << "calculation result is:" << output << std::endl;
 //
-    return nullptr;
+//    return nullptr;
 }
 
 

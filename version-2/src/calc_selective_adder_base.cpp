@@ -18,7 +18,6 @@ spec_sel_add calc_selective_adder_base::get_spec()
     return spec;
 }
 
-
 //
 //unsigned int calc_selective_adder_base::get_no_of_outputs()
 //{

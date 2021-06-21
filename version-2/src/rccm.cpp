@@ -23,7 +23,7 @@ bool rccm::next_config(config_level)
     return 1; // there are still configs with this config level
     return 0; // no config left. this was the last one
 }
-std::set<int> rccm::compute()
+std::set<int>* rccm::compute()
 {
     this->clear_calc_data();
     from_sp_use=0; // TODO: Fix!!! THis has to be the current type from the permutation list.
@@ -35,8 +35,8 @@ std::set<int> rccm::compute()
         case typ_D: ERROR("Type D is not supported yet","rccm::compute()") break;
         default: ERROR("Invalid Type","rccm::compute()");
     }
-    calc->compute(this);
-    return {0};
+
+    return calc->compute(this);
 }
 
 bool rccm::parse_config_string(string) {

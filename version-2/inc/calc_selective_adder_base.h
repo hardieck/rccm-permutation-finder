@@ -15,14 +15,9 @@ class calc_selective_adder_base : public calc_base
 public:
     calc_selective_adder_base();
     virtual std::set<int>* compute(base_obj *parent_)=0;
-    int set_input(unsigned int input_no, std::set<int>);
-	std::set<int>* get_output();
-
-	void set_inputs(unsigned int no, std::set<int> &input_set);
 
 protected:
 	std::vector<int> shifts;
-	std::set<int> output;
 public:
 
 

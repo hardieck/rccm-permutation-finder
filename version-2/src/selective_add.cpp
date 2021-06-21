@@ -124,19 +124,27 @@
 //void selective_add::set_mode_all() {}
 std::set<int> *selective_add::compute()
 {
-    this->clear_calc_data();
     IF_VERBOSE(9) std::cout << "selective_add: MH Debug Say: Jay" << std::endl;
-    from_sp_use=0; // TODO: Fix!!! THis has to be the current type from the permutation list.
-    switch(rccm_search_space[from_sp_use])
-    {
-        case typ_a: calc = new calc_selective_adder_typ_a; break;
-        case typ_b: calc = new calc_selective_adder_typ_b; break;
-        case typ_c: ERROR("Type c is not supported yet","selective_add::compute()") break;
-        default: ERROR("Invalid Type","selective_add::compute()");
-    }
     calc->compute(this);
 
-    return nullptr;
+    return calc->get_output();
+}
+void selective_add::init() {
+    clear_calc_data();
+    from_sp_use = 0; // TODO: Fix!!! THis has to be the current type from the permutation list.
+    switch (rccm_search_space[from_sp_use]) {
+        case typ_a:
+            calc = new calc_selective_adder_typ_a;
+            break;
+        case typ_b:
+            calc = new calc_selective_adder_typ_b;
+            break;
+        case typ_c:
+            ERROR("Type c is not supported yet", "selective_add::compute()")
+            break;
+        default:
+            ERROR("Invalid Type", "selective_add::compute()");
+    }
 }
 
 void selective_add::clear_calc_data() {

@@ -54,9 +54,12 @@ void do_debug()
     my_rccm.rccm_search_space.push_back(typ_A);
     my_rccm.sel_add.resize(1);
     my_rccm.sel_add[0].rccm_search_space.push_back(typ_a);
-    auto result = my_rccm.compute();
-    std::cout << result;
+    std::set<int> *result = my_rccm.compute();
 
+    std::cout << std::endl;
+    std::cout << "Final Super duper results from my_rccm:";
+    std::cout << (result) << ":";
+    std::cout << (*result) << std::endl;
 }
 
 void do_debug_old()
