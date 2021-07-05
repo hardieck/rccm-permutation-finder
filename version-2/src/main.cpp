@@ -51,9 +51,9 @@ void do_debug()
     IF_VERBOSE(1) std::cout << "Enter Function: do_debug:" << std::endl;
     rccm my_rccm;
 
-    my_rccm.rccm_search_space.push_back(typ_A);
+    my_rccm.rccm_search_space.push_back(typ_C1);
     my_rccm.sel_add.resize(1);
-    my_rccm.sel_add[0].rccm_search_space.push_back(typ_a);
+    my_rccm.sel_add[0].rccm_search_space.push_back(typ_A);
     std::set<int> *result = my_rccm.compute();
 
     std::cout << std::endl;

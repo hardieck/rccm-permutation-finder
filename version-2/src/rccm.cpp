@@ -30,10 +30,10 @@ std::set<int>* rccm::compute()
     from_sp_use=0; // TODO: Fix!!! THis has to be the current type from the permutation list.
     switch(rccm_search_space[from_sp_use])
     {
-        case typ_A: calc = new calc_rccm_C1; break;
-        case typ_B: ERROR("Type B is not supported yet","rccm::compute()") break;
-        case typ_C: ERROR("Type C is not supported yet","rccm::compute()") break;
-        case typ_D: ERROR("Type D is not supported yet","rccm::compute()") break;
+        case typ_C1: calc = new calc_rccm_C1; break;
+        case typ_C2: ERROR("Type B is not supported yet", "rccm::compute()") break;
+        case typ_C3: ERROR("Type C is not supported yet", "rccm::compute()") break;
+        case typ_C4: ERROR("Type D is not supported yet", "rccm::compute()") break;
         default: ERROR("Invalid Type","rccm::compute()");
     }
 

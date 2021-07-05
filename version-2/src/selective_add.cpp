@@ -133,13 +133,13 @@ void selective_add::init() {
     clear_calc_data();
     from_sp_use = 0; // TODO: Fix!!! THis has to be the current type from the permutation list.
     switch (rccm_search_space[from_sp_use]) {
-        case typ_a:
+        case typ_A:
             calc = new calc_selective_adder_typ_a;
             break;
-        case typ_b:
+        case typ_B:
             calc = new calc_selective_adder_typ_b;
             break;
-        case typ_c:
+        case typ_C:
             ERROR("Type c is not supported yet", "selective_add::compute()")
             break;
         default:
