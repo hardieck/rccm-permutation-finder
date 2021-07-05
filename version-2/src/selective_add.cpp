@@ -153,3 +153,35 @@ void selective_add::clear_calc_data() {
         delete calc;
     }
 }
+
+std::set<int> selective_add::get_operation_set() //return the current subset of operations during permutation.
+{
+    //MH TODO: Make this Genereic and dependent from next_step()
+    std::set<int> my_set = {0,1,2,3};
+    return my_set;
+}
+
+int selective_add::get_shift(unsigned int input_no)//return the current subset of shifts during permutation.
+{
+
+    //MH TODO: Make this Genereic and dependent from next_step()
+    switch(input_no)
+    {
+        case 0: return 0;
+        case 1: return 1;
+        case 2: return 2;
+        case 3: return 3;
+        default: return 0;
+    };
+}
+
+std::set<int>* gen_shift(std::set<int>* input_set, int shift)
+{
+    std::set<int>* result = new std::set<int>();
+
+    for(int i:(*input_set))
+    {
+        result->insert(i << shift);
+    }
+    return result;
+};

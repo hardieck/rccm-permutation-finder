@@ -3,9 +3,10 @@
 //
 
 #include "../inc/calc_selective_adder_typ_a.h"
-std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent)
+std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent_)
 {
     IF_VERBOSE(8) std::cout << "Enter function: calc_selective_adder_typ_a/compute" << std::endl;
+    selective_add* parent = (selective_add*) parent_;
 
 
     cout << "inputs:" << inputs << std::endl;
@@ -37,18 +38,18 @@ std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent)
    IF_VERBOSE(8) std::cout << "load inputs into local names:" << std::endl;
 
    //TODO read shifts from config and exert them to the inputs
-   std::set<int> &A1 = *inputs[0];
-   std::set<int> &A2 = *inputs[1];
-   std::set<int> &B1 = *inputs[2];
-   std::set<int> &B2 = *inputs[3];
+   std::set<int> &A1 = *gen_shift(inputs[0], parent->get_shift(0));
+   std::set<int> &A2 = *gen_shift(inputs[1], parent->get_shift(1));
+   std::set<int> &B1 = *gen_shift(inputs[2], parent->get_shift(2));
+   std::set<int> &B2 = *gen_shift(inputs[3], parent->get_shift(3));
 
    this->output.clear();
 
    IF_VERBOSE(8) std::cout << "calculate specified configs" << std::endl;
-   IF_VERBOSE(8) std::cout << "operation set is:" << convfg->get_operation_set() << std::endl;
+   IF_VERBOSE(8) std::cout << "operation set is:" << parent->get_operation_set() << std::endl;
 
-   for (int conf: this->convfg->get_operation_set()) {
-       IF_VERBOSE(9) std::cout << "calculate config" << conf << std::endl;
+   for (int conf: parent->get_operation_set()) {
+       IF_VERBOSE(9) std::cout << "calculate operation from config:  " << conf << std::endl;
        switch (conf) {
            case 0: for (int a:A1) { for (int b:B1) { output.insert(a + b); }} break;
            case 1:

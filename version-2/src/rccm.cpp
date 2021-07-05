@@ -3,7 +3,7 @@
 //
 
 #include "../inc/rccm.h"
-#include "../inc/calc_rccm_1add.h"
+#include "../inc/calc_rccm_C1.h"
 
 rccm::rccm()
 {
@@ -25,11 +25,12 @@ bool rccm::next_config(config_level)
 }
 std::set<int>* rccm::compute()
 {
+    
     this->clear_calc_data();
     from_sp_use=0; // TODO: Fix!!! THis has to be the current type from the permutation list.
     switch(rccm_search_space[from_sp_use])
     {
-        case typ_A: calc = new calc_rccm_1add; break;
+        case typ_A: calc = new calc_rccm_C1; break;
         case typ_B: ERROR("Type B is not supported yet","rccm::compute()") break;
         case typ_C: ERROR("Type C is not supported yet","rccm::compute()") break;
         case typ_D: ERROR("Type D is not supported yet","rccm::compute()") break;

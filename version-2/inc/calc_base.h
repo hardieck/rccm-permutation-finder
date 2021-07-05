@@ -31,7 +31,7 @@ public:
     };
 
 protected:
-    std::vector<std::set<int>* > inputs; //links to the source list. (shifts are handeld seperatly)
+    std::vector<std::set<int>* > inputs; //links to the source list. (shifts are handled separately)
     std::set<int> output;
 };
 
