@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,19 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/inc/mcm_permutation.h
-list
--
-string
--
-
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/main.cpp
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src/main.cpp
 structures.h
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/structures.h
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src/structures.h
 permutator.h
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/permutator.h
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src/permutator.h
 structure.h
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/structure.h
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src/structure.h
 algorithm
 -
 iostream
@@ -26,33 +20,7 @@ iostream
 vector
 -
 
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/mcm_permutation.cpp
-../inc/mcm_permutation.h
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/inc/mcm_permutation.h
-iostream
--
-
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/permutator.cpp
-permutator.h
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/permutator.h
-iostream
--
-
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/structure.cpp
-structure.h
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/structure.h
-iostream
--
-math.h
--
-algorithm
--
-
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/structures.cpp
-structures.h
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/structures.h
-
-inc/permutator.h
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src/permutator.h
 vector
 -
 

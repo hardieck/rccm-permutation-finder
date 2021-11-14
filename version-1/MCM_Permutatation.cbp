@@ -8,126 +8,145 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation"/>
+				<Option working_dir="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="install/strip">
-				<Option working_dir="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation"/>
+				<Option working_dir="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 install/strip"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="edit_cache">
-				<Option working_dir="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="rebuild_cache">
-				<Option working_dir="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="MCM_Permutation">
-				<Option output="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/bin/MCM_Permutation" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/bin/"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/inc"/>
-					<Add directory="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 MCM_Permutation"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="MCM_Permutation/fast">
-				<Option output="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/bin/MCM_Permutation" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/bin/"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/inc"/>
-					<Add directory="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 MCM_Permutation/fast"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="list_install_components">
-				<Option working_dir="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 list_install_components"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="install/local">
-				<Option working_dir="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation"/>
+				<Option working_dir="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 install/local"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="MCM_Permutation">
+				<Option output="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/bin/MCM_Permutation" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/bin/"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/inc"/>
+					<Add directory="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 MCM_Permutation"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="MCM_Permutation/fast">
+				<Option output="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/bin/MCM_Permutation" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/bin/"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/inc"/>
+					<Add directory="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 MCM_Permutation/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="install">
-				<Option working_dir="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation"/>
+				<Option working_dir="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 install"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/main.cpp">
+		<Unit filename="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src/main.cpp">
 			<Option target="MCM_Permutation"/>
 		</Unit>
-		<Unit filename="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/mcm_permutation.cpp">
+		<Unit filename="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src/mcm_permutation.cpp">
 			<Option target="MCM_Permutation"/>
 		</Unit>
-		<Unit filename="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/permutator.cpp">
+		<Unit filename="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src/permutator.cpp">
 			<Option target="MCM_Permutation"/>
 		</Unit>
-		<Unit filename="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/structure.cpp">
+		<Unit filename="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src/permutator.h">
 			<Option target="MCM_Permutation"/>
 		</Unit>
-		<Unit filename="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/src/structures.cpp">
+		<Unit filename="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src/structure.cpp">
 			<Option target="MCM_Permutation"/>
 		</Unit>
-		<Unit filename="/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/CMakeLists.txt">
+		<Unit filename="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/src/structures.cpp">
+			<Option target="MCM_Permutation"/>
+		</Unit>
+		<Unit filename="/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

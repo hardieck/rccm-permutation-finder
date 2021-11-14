@@ -24,7 +24,7 @@ public:
 	bool set_config(std::string new_config);
     bool parse_config_string(string);
 
-	bool next_config(config_helper_obj& conv_helper);
+	bool next_config();
     void reset_config();
 
     selective_add* get_sel_add(unsigned int no);

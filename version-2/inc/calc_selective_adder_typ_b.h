@@ -5,6 +5,7 @@
 #ifndef ADDNET_PERMUTATOR_V2_CALC_SELECTIVE_ADDER_TYP_B_H
 #define ADDNET_PERMUTATOR_V2_CALC_SELECTIVE_ADDER_TYP_B_H
 #include "calc_selective_adder_base.h"
+#include <set>
 
 class calc_selective_adder_typ_b : public calc_selective_adder_base
 {

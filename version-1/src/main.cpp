@@ -18,8 +18,8 @@ int main(int argc, char**arg)
     std::cout << "MH: rccm-permutation-finder V1" << std::endl;
     //structure_1BB2B3E x;
     //structure_1B2B3E x;
-    //structure_1B2E x;
-    structure_1B x;
+    structure_1B2E x;
+    //structure_1B x;
     //structure_1E x;
 
     //std::vector<int> shift_max = {1,2,3,3,1,2,3,3,1,2,3,3};

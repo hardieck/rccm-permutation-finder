@@ -1,7 +1,7 @@
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/CMakeFiles/install.dir
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/CMakeFiles/list_install_components.dir
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/CMakeFiles/rebuild_cache.dir
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/CMakeFiles/MCM_Permutation.dir
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/CMakeFiles/install/strip.dir
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/CMakeFiles/install/local.dir
-/home/hardieck/Work/repositorien/MultiplierQuantization/cpp/MCM__Permutation/CMakeFiles/edit_cache.dir
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/CMakeFiles/install/strip.dir
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/CMakeFiles/install/local.dir
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/CMakeFiles/MCM_Permutation.dir
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/CMakeFiles/edit_cache.dir
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/CMakeFiles/rebuild_cache.dir
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/CMakeFiles/install.dir
+/home/hardieck/work/repositorien/rccm-permutation-finder/version-1/CMakeFiles/list_install_components.dir

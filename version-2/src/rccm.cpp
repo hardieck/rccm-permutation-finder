@@ -17,7 +17,7 @@ bool rccm::set_config(std::string input_config)
 	return false;
 }
 
-bool rccm::next_config(config_helper_obj& conv_helper)
+bool rccm::next_config()
 {
     IF_VERBOSE(9) std::cout << "rccm: next_config: Enter Function" << std::endl;
     bool new_config_was_set = false;

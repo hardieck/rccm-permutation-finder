@@ -86,30 +86,30 @@ public:
 class config_helper_obj : public base_obj // to handle all objects that need to be reset during a configuration permutation step.
 {
 public:
-    config_level;
     std::list<config_reset_base*> reset_list;
+
     config_helper_obj()
     {
         reset_list.clear();
-    };
+    }
     void add_me_to_reset_list(config_reset_base* r_obj) // add objects which should be finished with all permutations to a restart list
     {
         reset_list.push_back(r_obj);
-    };
+    }
 
     void clear_list() // should not be necessary to use...
     {
-        rest_list.clear();
+        this->reset_list.clear();
     }
     void reset_all_on_list()
     {
         std::list<config_reset_base*>::iterator it;
-        for (it= reset_list.begin(); it != reset_list.end(); ++it)
+        for (it= reset_list.begin(); it != this->reset_list.end(); ++it)
         {
             (*it)->config_reset();
         }
-        rest_list.clear(); //after a reset the list has to be filled again
-    };
+        reset_list.clear(); //after a reset the list has to be filled again
+    }
 
 };
 
