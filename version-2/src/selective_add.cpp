@@ -14,9 +14,10 @@
 //        return vec2set(mode_0_current_operation_set);
 //}
 //
-//bool selective_add::next_config()
-//{
-//	if( this->operation_mode == 0)
+bool selective_add::next_config(config_helper_obj& conv_helper)
+{
+    IF_VERBOSE(9) std::cout << "selective_add: next_config: Enter Function" << std::endl;
+//	if( this->operation_mode == 0
 //    {
 //	    return next_m0();
 //    }
@@ -24,9 +25,29 @@
 //    if( this->operation_mode == 1) {
 //        return next_m1();
 //    }
-//    ERROR("No valid Operation Mode!","selective_add::next_config()");
-//    return false;
-//}
+    //ERROR("No valid Operation Mode!","selective_add::next_config()");
+
+    bool new_config_was_set = false;
+    IF_VERBOSE(10) std::cout << "selective_add: next_config: try next operation" << std::endl;
+    //for ()// itereate over all selective adder and stop at first positive result
+    {
+        if(new_config_was_set){
+            IF_VERBOSE(10) std::cout << "selective_add: next_config: new Config was set" << std::endl;
+            conv_helper.reset_all_on_list(); // reset all previus operations to restart permutation with this new configuration
+            return 1;
+        } // if a permutation was changed return true
+    }
+    IF_VERBOSE(10) std::cout << "selective_add: next_config: no config left, try next Shift coniguration" << std::endl;
+    // TODO: iterate over shift config
+    IF_VERBOSE(10) std::cout << "selective_add: next_config: no config left, try next selective adder type from search space" << std::endl;
+    // TODO: iterate over search space elements (typ_A typ_B typ_C,...)
+    //if there  is no config left
+    //try different Connection structures from search space
+    IF_VERBOSE(10) std::cout << "selective_add: next_config: no config left" << std::endl;
+    IF_VERBOSE(10) std::cout << "selective_add: next_config: Iterate over all configurations from search space DONE" << std::endl;
+    conv_helper.add_me_to_reset_list((config_reset_base*) this);
+    return false; // no config left. this was the last one
+}
 //void selective_add::add_possible_set(set<int> s)
 //{
 //    this->operation_mode=1; // possible operation set is specified therefore mode 1 has to be used.
@@ -134,10 +155,10 @@ void selective_add::init() {
     from_sp_use = 0; // TODO: Fix!!! THis has to be the current type from the permutation list.
     switch (rccm_search_space[from_sp_use]) {
         case typ_A:
-            calc = new calc_selective_adder_typ_a;
+            calc = static_cast<calc_base *>(new calc_selective_adder_typ_a);
             break;
         case typ_B:
-            calc = new calc_selective_adder_typ_b;
+            calc = static_cast<calc_base *>(new calc_selective_adder_typ_b);
             break;
         case typ_C:
             ERROR("Type c is not supported yet", "selective_add::compute()")
@@ -177,11 +198,17 @@ int selective_add::get_shift(unsigned int input_no)//return the current subset o
 
 std::set<int>* gen_shift(std::set<int>* input_set, int shift)
 {
+    IF_VERBOSE(9) std::cout << "Enter gen_shift"<< std::endl;
+    IF_VERBOSE(10) std::cout << "input_set is: "<< *input_set << std::endl;
+    IF_VERBOSE(10) std::cout << "shift is: "<< shift<< std::endl;
+
+
     std::set<int>* result = new std::set<int>();
 
     for(int i:(*input_set))
     {
         result->insert(i << shift);
     }
+    IF_VERBOSE(10) std::cout << "result_set is: "<< *result << std::endl;
     return result;
 };

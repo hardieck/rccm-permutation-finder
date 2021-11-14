@@ -37,9 +37,9 @@ class permutation_data : public base_obj
 public:
     permutation_data();
     permutation_data& operator=(const permutation_data& rhs);
-    vector<int> permutationCntMaxVec;
-    vector<int> permutationCntMinVec;
-    vector<int> permutationCntVec;
+    std::vector<int> permutationCntMaxVec;
+    std::vector<int> permutationCntMinVec;
+    std::vector<int> permutationCntVec;
     int permutationIndex;
     int permutationIndexMax;
     bool allCombinations;

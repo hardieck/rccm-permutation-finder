@@ -30,7 +30,8 @@ public:
         //parent->sel_add[0].init();
 
         //Start with new calculations and describing the dataflow
-        set<int> prime_input = {1}; // set the input element
+        std::set<int> prime_input = {1}; // set the input element
+
         parent->sel_add[0].calc->set_input(0,&prime_input);
         parent->sel_add[0].calc->set_input(1,&prime_input);
         parent->sel_add[0].calc->set_input(2,&prime_input);

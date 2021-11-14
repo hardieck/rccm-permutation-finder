@@ -55,6 +55,7 @@ void do_debug()
     my_rccm.sel_add.resize(1);
     my_rccm.sel_add[0].rccm_search_space.push_back(typ_A);
     std::set<int> *result = my_rccm.compute();
+    my_rccm.next_config();
 
     std::cout << std::endl;
     std::cout << "Final Super duper results from my_rccm:";

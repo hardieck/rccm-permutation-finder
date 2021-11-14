@@ -12,7 +12,7 @@
 #include <vector>
 #include <set>
 
-class selective_add : public base_obj
+class selective_add : public config_reset_base
 {
 public:
 
@@ -21,7 +21,7 @@ public:
     calc_base* calc = nullptr;
 
     void reset_config(); // reset the current config counters to the initial values specified by min-shift max-shift and possible operations.
-    bool next_config(); // go to the next configuration. (return false if it was the last configuration. true otherwise)
+    bool next_config(config_helper_obj& conv_helper); // go to the next configuration. (return false if it was the last configuration. true otherwise)
     std::set<int> get_operation_set();
     int get_shift(unsigned int input_no);
 

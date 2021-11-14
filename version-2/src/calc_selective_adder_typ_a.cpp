@@ -43,6 +43,19 @@ std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent_)
    std::set<int> &B1 = *gen_shift(inputs[2], parent->get_shift(2));
    std::set<int> &B2 = *gen_shift(inputs[3], parent->get_shift(3));
 
+
+   IF_VERBOSE(9) std::cout << "shifts are:"<< std::endl;
+   IF_VERBOSE(9) std::cout << "Shift 0:"<< parent->get_shift(0) << std::endl;
+   IF_VERBOSE(9) std::cout << "Shift 1:"<< parent->get_shift(1) << std::endl;
+   IF_VERBOSE(9) std::cout << "Shift 2:"<< parent->get_shift(2) << std::endl;
+   IF_VERBOSE(9) std::cout << "Shift 3:"<< parent->get_shift(3) << std::endl;
+
+   IF_VERBOSE(9) std::cout << "input Sets after shifts are:"<< std::endl;
+   IF_VERBOSE(9) std::cout << "A1:"<< A1 << std::endl;
+   IF_VERBOSE(9) std::cout << "A2:"<< A2 << std::endl;
+   IF_VERBOSE(9) std::cout << "B1:"<< B1 << std::endl;
+   IF_VERBOSE(9) std::cout << "B2:"<< B2 << std::endl;
+
    this->output.clear();
 
    IF_VERBOSE(8) std::cout << "calculate specified configs" << std::endl;

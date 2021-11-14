@@ -17,11 +17,27 @@ bool rccm::set_config(std::string input_config)
 	return false;
 }
 
-bool rccm::next_config(config_level)
+bool rccm::next_config(config_helper_obj& conv_helper)
 {
-
-    return 1; // there are still configs with this config level
-    return 0; // no config left. this was the last one
+    IF_VERBOSE(9) std::cout << "rccm: next_config: Enter Function" << std::endl;
+    bool new_config_was_set = false;
+    for(int i=0; i<= sel_add.size();++i) // itereate over all selective adder and stop at first positive result
+    {
+        IF_VERBOSE(10) std::cout << "rccm: next_config: try next config for sel_add["<< i << "]" << std::endl;
+        new_config_was_set=sel_add[i].next_config(conv_helper); // TODO: Add config level to support same shifts
+        if(new_config_was_set)
+        {
+            IF_VERBOSE(10) std::cout << "rccm: next_config: new Config was set" << std::endl;
+            return true;
+        } // if a permutation was changed return true
+    }
+    IF_VERBOSE(10) std::cout << "rccm: next_config: no config left, try next connection structure from search space" << std::endl;
+    // TODO: iterate over search space elements (C1 C2 C3,...)
+    //if there  is no config left
+    //try different Connection structures from search space
+    IF_VERBOSE(10) std::cout << "rccm: next_config: no config left" << std::endl;
+    IF_VERBOSE(10) std::cout << "rccm: next_config: Iterate over all configurations from search space DONE" << std::endl;
+    return false; // no config left. this was the last one
 }
 std::set<int>* rccm::compute()
 {

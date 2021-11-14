@@ -5,6 +5,9 @@
 #ifndef ADDNET_PERMUTATOR_V2_DATATYPS_H
 #define ADDNET_PERMUTATOR_V2_DATATYPS_H
 
+#include <list>
+#include "base_obj.h"
+
 enum rccm_type // add a type for each rccm dataflow structure / Connection Structure  (without shifts or selecetiv adder specification)
 {
     typ_C1 = 1, // 1 add (single selective adder)
@@ -30,7 +33,7 @@ enum config_level // different // shal probably be removed
     all = 4
 };
 
-class spec_sel_add
+class spec_sel_add : public base_obj
 {
 public:
     spec_sel_add(unsigned int input_count_A,unsigned int input_count_B,unsigned int diff_operation_count,unsigned int operation_set_size)
@@ -58,7 +61,7 @@ public:
         return (*this);
     }
 };
-class spec_rccm
+class spec_rccm : public base_obj
 {
 public:
     spec_rccm(unsigned int add_sel_count)
@@ -71,6 +74,43 @@ public:
         return (*this);
     }
     unsigned int add_sel_count;
+};
+
+
+class config_reset_base : public base_obj // just to have a uniform way to reset configurations in different classes
+{
+public:
+    config_reset_base(){};
+    virtual bool config_reset();
+};
+class config_helper_obj : public base_obj // to handle all objects that need to be reset during a configuration permutation step.
+{
+public:
+    config_level;
+    std::list<config_reset_base*> reset_list;
+    config_helper_obj()
+    {
+        reset_list.clear();
+    };
+    void add_me_to_reset_list(config_reset_base* r_obj) // add objects which should be finished with all permutations to a restart list
+    {
+        reset_list.push_back(r_obj);
+    };
+
+    void clear_list() // should not be necessary to use...
+    {
+        rest_list.clear();
+    }
+    void reset_all_on_list()
+    {
+        std::list<config_reset_base*>::iterator it;
+        for (it= reset_list.begin(); it != reset_list.end(); ++it)
+        {
+            (*it)->config_reset();
+        }
+        rest_list.clear(); //after a reset the list has to be filled again
+    };
+
 };
 
 #endif //ADDNET_PERMUTATOR_V2_DATATYPS_H
