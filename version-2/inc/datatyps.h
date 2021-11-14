@@ -80,9 +80,15 @@ public:
 class config_reset_base : public base_obj // just to have a uniform way to reset configurations in different classes
 {
 public:
-    config_reset_base(){};
-    virtual bool config_reset();
+    config_reset_base(){}
+    ~config_reset_base(){}
+    virtual bool config_reset()
+    {
+        ERROR("Virtual function is called. This should never happen!","config_reset_base:config_reset()");
+        exit(-1);
+    };
 };
+
 class config_helper_obj : public base_obj // to handle all objects that need to be reset during a configuration permutation step.
 {
 public:
