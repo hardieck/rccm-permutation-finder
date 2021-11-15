@@ -8,6 +8,7 @@
 #include "debug.h"
 #include "base_obj.h"
 #include "calc_base.h"
+#include "permutator.h"
 
 #include <vector>
 #include <set>
@@ -22,14 +23,19 @@ public:
 
     void reset_config(); // reset the current config counters to the initial values specified by min-shift max-shift and possible operations.
     bool next_config(config_helper_obj& conv_helper); // go to the next configuration. (return false if it was the last configuration. true otherwise)
-    std::set<int> get_operation_set();
-    int get_shift(unsigned int input_no);
+    std::set<int> get_operation_set(); // read out set from coresponding permutaotr and interprate it
+    int get_shift(unsigned int input_no); // read out set from coresponding permutaotr and interprate it
 
     void set_mode_list();
-    std::vector<sel_add_type> rccm_search_space;
+    std::vector<sel_add_type> sel_add_search_space;
     unsigned int from_sp_use;
     void clear_calc_data();
+    void init_permutators();
+
 protected:
+    Permutator perm_shift;
+    Permutator perm_operation;
+
 };
 
 std::set<int>* gen_shift(std::set<int>* input_set, int shift);

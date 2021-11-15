@@ -17,30 +17,31 @@
 bool selective_add::next_config(config_helper_obj& conv_helper)
 {
     IF_VERBOSE(9) std::cout << "selective_add: next_config: Enter Function" << std::endl;
-//	if( this->operation_mode == 0
-//    {
-//	    return next_m0();
-//    }
-//
-//    if( this->operation_mode == 1) {
-//        return next_m1();
-//    }
-    //ERROR("No valid Operation Mode!","selective_add::next_config()");
-
     bool new_config_was_set = false;
     IF_VERBOSE(10) std::cout << "selective_add: next_config: try next operation" << std::endl;
-    //for ()// itereate over all selective adder and stop at first positive result
-    {
-        if(new_config_was_set){
+    new_config_was_set = this->perm_operation.next_config(conv_helper);
+    if(new_config_was_set){
+        IF_VERBOSE(10) std::cout << "selective_add: next_config: new Config was set" << std::endl;
+        conv_helper.reset_all_on_list(); // reset all previus operations to restart permutation with this new configuration
+        return 1;
+    } // if a permutation was changed return true
+    IF_VERBOSE(10) std::cout << "selective_add: next_config: no config left, try next Shift coniguration" << std::endl;
+        new_config_was_set = this->perm_shift.next_config(conv_helper);
+        if(new_config_was_set) {
             IF_VERBOSE(10) std::cout << "selective_add: next_config: new Config was set" << std::endl;
             conv_helper.reset_all_on_list(); // reset all previus operations to restart permutation with this new configuration
             return 1;
-        } // if a permutation was changed return true
-    }
-    IF_VERBOSE(10) std::cout << "selective_add: next_config: no config left, try next Shift coniguration" << std::endl;
-    // TODO: iterate over shift config
+        }// if a permutation was changed return true
     IF_VERBOSE(10) std::cout << "selective_add: next_config: no config left, try next selective adder type from search space" << std::endl;
-    // TODO: iterate over search space elements (typ_A typ_B typ_C,...)
+    //iterate over search space elements (typ_A typ_B typ_C,...)
+    if(from_sp_use-1 < sel_add_search_space.size()) {
+        ++from_sp_use; new_config_was_set = true;
+        IF_VERBOSE(10) std::cout << "selective_add: next_config: new Config was set" << std::endl;
+        conv_helper.reset_all_on_list(); // reset all previus operations to restart permutation with this new configuration
+        init_permutators(); //as the type changed the permutators have to reload the specs for the new type.
+        return 1;
+    }
+
     //if there  is no config left
     //try different Connection structures from search space
     IF_VERBOSE(10) std::cout << "selective_add: next_config: no config left" << std::endl;
@@ -48,6 +49,23 @@ bool selective_add::next_config(config_helper_obj& conv_helper)
     conv_helper.add_me_to_reset_list((config_reset_base*) this);
     return false; // no config left. this was the last one
 }
+
+void selective_add::init_permutators()
+{
+    spec_sel_add current_spec;
+    switch(sel_add_search_space[from_sp_use])
+    {
+        case typ_A: {calc_selective_adder_typ_a obj; current_spec = obj.get_spec();} break;
+        case typ_B: {calc_selective_adder_typ_b obj; current_spec = obj.get_spec();} break;
+        default:
+            ERROR("unsupported Selective Adder type", "selective_add::init_permutators()")
+    }
+
+    this->perm_shift.set_config_from_spec(current_spec,shifts_only);
+    this->perm_operation.set_config_from_spec(current_spec,all_operations_only);
+}
+
+
 //void selective_add::add_possible_set(set<int> s)
 //{
 //    this->operation_mode=1; // possible operation set is specified therefore mode 1 has to be used.
@@ -153,7 +171,7 @@ std::set<int> *selective_add::compute()
 void selective_add::init() {
     clear_calc_data();
     from_sp_use = 0; // TODO: Fix!!! THis has to be the current type from the permutation list.
-    switch (rccm_search_space[from_sp_use]) {
+    switch (sel_add_search_space[from_sp_use]) {
         case typ_A:
             calc = static_cast<calc_base *>(new calc_selective_adder_typ_a);
             break;
@@ -177,23 +195,15 @@ void selective_add::clear_calc_data() {
 
 std::set<int> selective_add::get_operation_set() //return the current subset of operations during permutation.
 {
-    //MH TODO: Make this Genereic and dependent from next_step()
-    std::set<int> my_set = {0,1,2,3};
-    return my_set;
+    // converting the vector elements into a set and returns it.
+    std::set<int> my_op_set(std::make_move_iterator(this->perm_operation.pd->permutationCntVec.begin()),
+                  std::make_move_iterator(this->perm_operation.pd->permutationCntVec.end()));
+    return my_op_set;
 }
 
 int selective_add::get_shift(unsigned int input_no)//return the current subset of shifts during permutation.
 {
-
-    //MH TODO: Make this Genereic and dependent from next_step()
-    switch(input_no)
-    {
-        case 0: return 0;
-        case 1: return 1;
-        case 2: return 2;
-        case 3: return 3;
-        default: return 0;
-    };
+    return this->perm_shift.pd->permutationCntVec[input_no];
 }
 
 std::set<int>* gen_shift(std::set<int>* input_set, int shift)

@@ -12,7 +12,7 @@
 #include "permutator.h"
 #include <string>
 
-class rccm : public config_reset_base
+class rccm : public base_obj
 {
 public:
 	rccm();

@@ -1,7 +1,19 @@
 #include "../inc/permutator.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
+
+// tiny helper function to chek if the vector has duplicates without sorting it...
+bool hasDuplicates(const std::vector<int>& arr) {
+    for (std::size_t i = 0; i < arr.size(); ++i) {
+        for (std::size_t j = i + 1; j < arr.size(); ++j) {
+            if (arr[i] == arr[j])
+                return true;
+        }
+    }
+    return false;
+}
 
 permutation_data::permutation_data()
 {
@@ -119,6 +131,27 @@ Permutator::~Permutator()
 }
 
 
+bool Permutator::next_config(config_helper_obj& conv_helper)
+{
+    //TODO chek if the return value of Permuator has the same meaning as next_config...
+    if(pd->do_not_repeat_options)
+    {
+        bool return_value = false;
+        return_value=nextPermutation();
+        while((return_value == true)&&(check_all_rising_blocks()))
+        {
+            return_value = nextPermutation();
+        }
+        if(return_value==false){conv_helper.add_me_to_reset_list((config_reset_base*)this);}
+        return return_value;
+    }
+    else
+    {
+        bool return_value = nextPermutation();
+        if(return_value==false){conv_helper.add_me_to_reset_list((config_reset_base*)this);}
+        return return_value;
+    }
+}
 
 bool Permutator::nextPermutation()
 {
@@ -195,4 +228,112 @@ void Permutator::printPermutation(bool reverse)
         }
         cout << "]";
     }
+}
+bool Permutator::check_all_rising_blocks() // returns true if there is a problem within a rising block
+{
+    IF_VERBOSE(9) std::cout << "Permutator: check_all_rising_blocks: Enter Function" << std::endl;
+    if (pd->rising_block_list.size() == 0)
+    {
+        IF_VERBOSE(10) std::cout << "Permutator: check_all_rising_blocks: rising_block_list is empty" << std::endl;
+        return false; // as there are no block to check...
+    }
+
+    // TODO:use iterator! Don't know why it doesnt worked
+    //pair< vector<int>::iterator, vector<int>::iterator > it;
+    IF_VERBOSE(9) std::cout << "Permutator: check_all_rising_blocks: check blocks" << std::endl;
+    for(int i=0; i < pd->rising_block_list.size() ; ++i)
+    {
+        IF_VERBOSE(10) std::cout << "Permutator: check_all_rising_blocks: check Block Nr:" << i << std::endl;
+        vector<int>::iterator start = pd->rising_block_list[i].first;
+        vector<int>::iterator end = pd->rising_block_list[i].second;
+
+        vector<int>::iterator it;
+        int last_value=-1; //asuming that this value is not used in the permutator
+        for(it = start; it != end; ++it)
+        {
+            //IF_VERBOSE(10) std::cout << "Permutator: check_all_rising_blocks: checking next element. Last_value was:" << last_value << "current value is:" << (*it) << std::endl;
+            if(last_value < (*it) )
+            {
+                last_value = (*it);
+            }
+            else
+            {
+                return 1;
+            }
+        }
+    }
+    //TODO implement
+    return false;
+}
+
+void Permutator::add_rising_block(unsigned int start,unsigned int length)
+{
+    if(start+length > pd->permutationCntVec.size())
+    {
+        ERROR("Can't set block! Out of range!","Permutator::add_rising_block()")
+    }
+    pair<vector<int>::iterator, vector<int>::iterator> my_block;
+    vector<int>::iterator it = pd->permutationCntVec.begin();
+    for(int i=0; i <= pd->permutationCntVec.size(); ++i)
+    {
+        if(i == start){my_block.first = it;}
+        if(i == start+length){my_block.second = it;}
+        (++it);
+    }
+    pd->rising_block_list.push_back(my_block);
+}
+bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type typ)
+{
+    int MAX_SCHIFT=4; //Todo: MAke configurable or global or ...
+
+    IF_VERBOSE(5) std::cout << "Permutator::set_config_from_spec: Enter Function"<< std::endl;
+    switch(typ) {
+        case all_operations_only: {
+            IF_VERBOSE(5) std::cout << "Permutator::set_config_from_spec: Case: all_operations_only" << std::endl;
+            IF_VERBOSE(6) {
+                std::cout << "Print used spec s:" << std::endl;
+                s.print_spec();
+            }
+            // specify ranges:
+            pd->init(s.operation_set_size, true);
+            pd->do_not_repeat_options = true;// there shall not be duplicate operations, so we can shrink the search space
+            add_rising_block(0,
+                             s.operation_set_size); // there shall not be duplicate operations, so we can shrink the search space
+            for (int i = 0; i < pd->permutationCntMaxVec.size(); ++i) {
+                pd->permutationCntMaxVec[i] = s.diff_operation_count;
+                pd->permutationCntMinVec[i] = i; // there shall not be duplicate operations, so we can shrink the search space
+            }
+            break;
+        }
+        case shifts_only: {
+            IF_VERBOSE(5) std::cout << "Permutator::set_config_from_spec: Case: shifts_only" << std::endl;
+            IF_VERBOSE(6) {
+                std::cout << "Print used spec s:" << std::endl;
+                s.print_spec();
+            }
+            pd->init(s.input_count_A + s.input_count_B, true);
+            pd->do_not_repeat_options = true;// there shall not be duplicate operations, so we can shrink the search space
+            add_rising_block(0,
+                             s.input_count_A); // there shall not be duplicate shifts for input A, so we can shrink the search space
+            add_rising_block(s.input_count_A,
+                             s.input_count_B); // there shall not be duplicate shifts for input B, so we can shrink the search space
+
+            // loop For Input A
+            for (int i = 0; i < s.input_count_A; ++i) {
+                pd->permutationCntMaxVec[i] = MAX_SCHIFT;
+                pd->permutationCntMinVec[i] = i; // there shall not be duplicate shifts, so we can shrink the search space
+            }
+            // loop For Input B
+            int j = 0;
+            for (int i = s.input_count_A; i < s.input_count_A + s.input_count_B; ++i) {
+                pd->permutationCntMaxVec[i] = MAX_SCHIFT;
+                pd->permutationCntMinVec[i] = j++; // there shall not be duplicate shifts, so we can shrink the search space
+            }
+            break;
+        }
+        default:
+            std::cout << "Dummer Fehler... exit"; exit(-1);
+            //ERROR("Not suportet config type", "Permutator::set_config_from_spec()");
+    }
+    return 1;
 }

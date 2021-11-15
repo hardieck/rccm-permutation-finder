@@ -36,13 +36,22 @@ enum config_level // different // shal probably be removed
 class spec_sel_add : public base_obj
 {
 public:
-    spec_sel_add(unsigned int input_count_A,unsigned int input_count_B,unsigned int diff_operation_count,unsigned int operation_set_size)
+    spec_sel_add()
     {
-        this->input_count_A = input_count_A;
-        this->input_count_B = input_count_B;
-        this->diff_operation_count = diff_operation_count;
-        this->operation_set_size = operation_set_size;
-        this->usualy_used_sets = usualy_used_sets;
+        this->input_count_A = 0;
+        this->input_count_B = 0;
+        this->diff_operation_count = 0;
+        this->operation_set_size = 0;
+        this->usualy_used_sets ={};
+
+    };
+    spec_sel_add(unsigned int input_count_A_,unsigned int input_count_B_,unsigned int diff_operation_count_,unsigned int operation_set_size_)
+    {
+        this->input_count_A = input_count_A_;
+        this->input_count_B = input_count_B_;
+        this->diff_operation_count = diff_operation_count_;
+        this->operation_set_size = operation_set_size_;
+        //this->usualy_used_sets = usualy_used_sets;
 
     };
     unsigned int input_count_A; // number of inputs for inputs A
@@ -59,7 +68,17 @@ public:
         this->operation_set_size = rhs.operation_set_size;
         this->usualy_used_sets = rhs.usualy_used_sets;
         return (*this);
-    }
+    };
+    void print_spec() const
+    {
+        IF_VERBOSE(5) std::cout << "spec_sel_add.print_spec(): Enter Function" << std::endl;
+        std::cout << "input_count_A=" << input_count_A << std::endl;
+        std::cout << "input_count_B=" << input_count_B << std::endl;
+        std::cout << "diff_operation_count=" << diff_operation_count << std::endl;
+        std::cout << "operation_set_size=" << operation_set_size << std::endl;
+        std::cout << "usualy_used_sets:" << usualy_used_sets << std::endl;
+
+    };
 };
 class spec_rccm : public base_obj
 {
@@ -82,7 +101,7 @@ class config_reset_base : public base_obj // just to have a uniform way to reset
 public:
     config_reset_base(){}
     ~config_reset_base(){}
-    virtual bool config_reset()
+    virtual void reset_config()
     {
         ERROR("Virtual function is called. This should never happen!","config_reset_base:config_reset()");
         exit(-1);
@@ -112,7 +131,7 @@ public:
         std::list<config_reset_base*>::iterator it;
         for (it= reset_list.begin(); it != this->reset_list.end(); ++it)
         {
-            (*it)->config_reset();
+            (*it)->reset_config();
         }
         reset_list.clear(); //after a reset the list has to be filled again
     }

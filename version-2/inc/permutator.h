@@ -47,33 +47,42 @@ public:
     std::vector<int> permutationCntMaxVec;
     std::vector<int> permutationCntMinVec;
     std::vector<int> permutationCntVec;
+    std::vector<pair<vector<int>::iterator, vector<int>::iterator> > rising_block_list; //Specifie a start and end iterator for the permutationCntVec in which only rising values are allowed
+
+
     int permutationIndex;
     int permutationIndexMax;
     bool allCombinations;
     bool min_vec_is_used;
-    bool do_not_repeat_options; // to exclude all permutations with repeding operations or shifts(for the same input)
+    bool do_not_repeat_options; // to exclude all permutations with repeating operations or shifts(for the same input)
     void printPermutationData(bool block =false);
     void init(unsigned int new_size = 1, bool min_vec = false);
-    void init(const spec_sel_add&,permutator_type=shifts_and_all_operations,bool do_not_repeat=true);
 };
 
+//BAsic Permutation class. Do the lowes level of permutation with higher efficiency as the other layers.
 class Permutator : public config_reset_base
 {
 public:
-  Permutator(std::vector<int> *permutationCntMaxVec, bool allCombinations=true, std::vector<int> *permutationCntMinVec=nullptr);
-  Permutator();
-  ~Permutator();
 
-  bool nextPermutation();
-  void resetPermutation();
-  void reset_config(){resetPermutation();}
+    Permutator(std::vector<int> *permutationCntMaxVec, bool allCombinations=true, std::vector<int> *permutationCntMinVec=nullptr);
+    Permutator();
+    ~Permutator();
 
-  void printPermutation(bool reverse = false);
+    bool next_config(config_helper_obj& conv_helper); // external next config function.
+    void reset_config(){resetPermutation();} // Raper function for compatibility with the base class
 
-  permutation_data *pd;
-  bool dataowner;
+    std::set<int>* get_operation_from_config(); // transform internal permutation state to usable operation sets
+    std::vector<int>* get_shift_from_config(); // transform internal permutation state to usable shifts
+    void printPermutation(bool reverse = false);
+    bool set_config_from_spec(const spec_sel_add s,const permutator_type typ=all_operations_only);
 
-    std::set<int> get_config();
+    bool check_all_rising_blocks();
+    bool nextPermutation();// internal step. split from external to handle invalid intermediate results
+    void resetPermutation(); // internal step. kept from original code.
+    permutation_data *pd;
+    bool dataowner;
+    void add_rising_block(unsigned int start,unsigned int length);
+protected:
 };
 
 #endif // PERMUTATOR_H
