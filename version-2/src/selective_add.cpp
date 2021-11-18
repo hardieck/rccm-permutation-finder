@@ -52,6 +52,7 @@ bool selective_add::next_config(config_helper_obj& conv_helper)
 
 void selective_add::reset_config()
 {
+    IF_VERBOSE(8) ENTER_FUNCTION("selective_add::reset_config()")
     from_sp_use=0;
     init();
     init_permutators();
@@ -59,6 +60,7 @@ void selective_add::reset_config()
 
 void selective_add::init_permutators()
 {
+    IF_VERBOSE(8) ENTER_FUNCTION("selective_add::init_permutators()")
     spec_sel_add current_spec;
     switch(sel_add_search_space[from_sp_use])
     {
@@ -220,9 +222,10 @@ selective_add::selective_add()
 
 std::set<int>* gen_shift(std::set<int>* input_set, int shift)
 {
-    IF_VERBOSE(9) std::cout << "Enter gen_shift"<< std::endl;
-    IF_VERBOSE(10) std::cout << "input_set is: "<< *input_set << std::endl;
-    IF_VERBOSE(10) std::cout << "shift is: "<< shift<< std::endl;
+    IF_VERBOSE(7) ENTER_FUNCTION("gen_shift()")
+    IF_VERBOSE(9) std::cout << "shift is: "<< shift<< std::endl;
+    IF_VERBOSE(9) std::cout << "input_set points to: "<< input_set << std::endl;
+    IF_VERBOSE(9) std::cout << "input_set is: "<< *input_set << std::endl;
 
 
     std::set<int>* result = new std::set<int>();
@@ -231,6 +234,6 @@ std::set<int>* gen_shift(std::set<int>* input_set, int shift)
     {
         result->insert(i << shift);
     }
-    IF_VERBOSE(10) std::cout << "result_set is: "<< *result << std::endl;
+    IF_VERBOSE(9) std::cout << "result_set is: "<< *result << std::endl;
     return result;
 };

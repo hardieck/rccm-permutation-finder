@@ -4,25 +4,18 @@
 
 #include "../inc/calc_selective_adder_typ_b.h"
 
-calc_selective_adder_typ_b::calc_selective_adder_typ_b()
+//get_spec() need to be in each derived class to choose the correct spec wehen calld from base pointer
+spec_sel_add calc_selective_adder_typ_b::get_spec()
 {
-    //this->spec.input_count_A
-    //this->spec.input_count_B
-    inputs.resize(this->spec.input_count_A+this->spec.input_count_B);
-    shifts.resize(this->spec.input_count_A+this->spec.input_count_B);
-
-    //this->convfg->add_possible_set(std::set<int> {0, 1, 2, 3});
-    //this->convfg->add_possible_set(std::set<int> {0, 1, 2, 4});
-    //this->convfg->add_possible_set(std::set<int> {0, 1, 2, 5});
-    //this->convfg->add_possible_set(std::set<int> {0, 1, 2, 6});
+    return spec;
 }
+
 std::set<int>* calc_selective_adder_typ_b::compute(base_obj *parent_) {
-    IF_VERBOSE(8) std::cout << "Enter function: calc_selective_adder_typ_b/compute" << std::endl;
-    IF_VERBOSE(8) std::cout << "Enter function: calc_selective_adder_typ_a/compute" << std::endl;
+    IF_VERBOSE(5)ENTER_FUNCTION("calc_selective_adder_typ_b::compute()")
     selective_add *parent = (selective_add *) parent_;
 
 
-    cout << "inputs:" << inputs << std::endl;
+    IF_VERBOSE(6) cout << "inputs:" << inputs << std::endl;
 
     output.clear();
     //output.insert(*inputs[0]->begin());
@@ -54,20 +47,17 @@ std::set<int>* calc_selective_adder_typ_b::compute(base_obj *parent_) {
     std::set<int> &A1 = *gen_shift(inputs[0], parent->get_shift(0));
     std::set<int> &A2 = *gen_shift(inputs[1], parent->get_shift(1));
     std::set<int> &B1 = *gen_shift(inputs[2], parent->get_shift(2));
-    std::set<int> &B2 = *gen_shift(inputs[3], parent->get_shift(3));
 
 
     IF_VERBOSE(9) std::cout << "shifts are:" << std::endl;
     IF_VERBOSE(9) std::cout << "Shift 0:" << parent->get_shift(0) << std::endl;
     IF_VERBOSE(9) std::cout << "Shift 1:" << parent->get_shift(1) << std::endl;
     IF_VERBOSE(9) std::cout << "Shift 2:" << parent->get_shift(2) << std::endl;
-    IF_VERBOSE(9) std::cout << "Shift 3:" << parent->get_shift(3) << std::endl;
 
     IF_VERBOSE(9) std::cout << "input Sets after shifts are:" << std::endl;
     IF_VERBOSE(9) std::cout << "A1:" << A1 << std::endl;
     IF_VERBOSE(9) std::cout << "A2:" << A2 << std::endl;
     IF_VERBOSE(9) std::cout << "B1:" << B1 << std::endl;
-    IF_VERBOSE(9) std::cout << "B2:" << B2 << std::endl;
 
     this->output.clear();
 
@@ -78,59 +68,48 @@ std::set<int>* calc_selective_adder_typ_b::compute(base_obj *parent_) {
         IF_VERBOSE(9) std::cout << "calculate operation from config:  " << conf << std::endl;
         switch (conf) {
             case 0:
-                for (int a: A1) { for (int b: B1) { output.insert(a + b); }}
+                for (int a: A1) { for (int b: B1) { output.insert(a + b); }} //  A1 + B1
                 break;
             case 1:
-                for (int a: A1) { for (int b: B2) { output.insert(a + b); }}
+                for (int a: A1) { for (int b: B1) { output.insert( a - b); }} //  A1 - B1
                 break;
             case 2:
-                for (int a: A1) { for (int b: B1) { output.insert(a - b); }}
+                for (int a: A1) {                 { output.insert( a + 0); }} //  A1 + 0
                 break;
             case 3:
-                for (int a: A1) { for (int b: B2) { output.insert(a - b); }}
+                for (int a: A1) { for (int b: B1) { output.insert(-a + b); }} // -A1 + B1
                 break;
             case 4:
-                for (int a: A1) { for (int b: B1) { output.insert(-a + b); }}
+                for (int a: A1) {                 { output.insert(-a + 0); }} //  A1 + 0
                 break;
             case 5:
-                for (int a: A1) { for (int b: B2) { output.insert(-a + b); }}
+                for (int a: A2) { for (int b: B1) { output.insert( a + b); }} //  A2 + B1
                 break;
             case 6:
-                for (int a: A1) { for (int b: B1) { output.insert(-a - b); }}
+                for (int a: A2) { for (int b: B1) { output.insert( a - b); }} //  A2 - B1
                 break;
             case 7:
-                for (int a: A1) { for (int b: B2) { output.insert(-a - b); }}
+                for (int a: A2) {                 { output.insert( a + 0); }} //  A2 + 0
                 break;
             case 8:
-                for (int a: A2) { for (int b: B1) { output.insert(a + b); }}
+                for (int a: A2) { for (int b: B1) { output.insert(-a + b); }} // -A2 + B1
                 break;
             case 9:
-                for (int a: A2) { for (int b: B2) { output.insert(a + b); }}
+                for (int a: A2) { for (int b: B1) { output.insert(-a + 0); }} //  -A2 + 0
                 break;
             case 10:
-                for (int a: A2) { for (int b: B1) { output.insert(a - b); }}
+                for (int a: A2) { for (int b: B1) { output.insert( 0 + b); }} //  0 + B1
                 break;
             case 11:
-                for (int a: A2) { for (int b: B2) { output.insert(a - b); }}
+                for (int a: A2) { for (int b: B1) { output.insert( 0 + b); }} //  0 - B1
                 break;
             case 12:
-                for (int a: A2) { for (int b: B1) { output.insert(-a + b); }}
+                {               {                   output.insert(     0); }} //  0 + 0
                 break;
-            case 13:
-                for (int a: A2) { for (int b: B2) { output.insert(-a + b); }}
-                break;
-            case 14:
-                for (int a: A2) { for (int b: B1) { output.insert(-a - b); }}
-                break;
-            case 15:
-                for (int a: A2) { for (int b: B2) { output.insert(-a - b); }}
-                break;
+
         }
     }
     IF_VERBOSE(7) std::cout << "calculation result is:" << output << std::endl;
-
-    std::cout << (&output) << ":";
-    std::cout << (output) << std::endl;
     return &output;
 }
 

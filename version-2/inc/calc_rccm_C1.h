@@ -36,7 +36,7 @@ public:
 
         IF_VERBOSE(9) std::cout << "input Count of A is: "<< ((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().input_count_A << std::endl;
         IF_VERBOSE(9) std::cout << "input Count of B is: "<< ((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().input_count_B << std::endl;
-        const int input_count = ((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().input_count_A + ((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().input_count_A;
+        const int input_count = ((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().input_count_A + ((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().input_count_B;
         IF_VERBOSE(8) std::cout << "input Count is: "<<input_count << std::endl;
 
         for (int i=0; i < input_count;++i)
@@ -52,8 +52,7 @@ public:
 
         output.clear();
         output = *(parent->sel_add[0].calc->get_output());
-        std::cout << (&output) << ":";
-        std::cout << (output) << std::endl;
+        IF_VERBOSE(4) std::cout << "output is:" << (output) << std::endl;
 
         return &output;
 

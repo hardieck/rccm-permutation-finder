@@ -3,6 +3,12 @@
 //
 
 #include "../inc/calc_selective_adder_typ_a.h"
+
+//get_spec() need to be in each derived class to choose the correct spec wehen calld from base pointer
+spec_sel_add calc_selective_adder_typ_a::get_spec()
+{
+    return spec;
+}
 std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent_)
 {
     IF_VERBOSE(8) std::cout << "Enter function: calc_selective_adder_typ_a/compute" << std::endl;
@@ -14,9 +20,8 @@ std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent_)
     output.clear();
     //output.insert(*inputs[0]->begin());
 
-
-   //if (this->get_no_of_inputs() < 4){std::cout << "ERROR: not enough inputs are specified (" << this->get_no_of_inputs() << " inputs are specified)"  << std::endl;}
-   //if (this->get_no_of_inputs() <= 0) {std::cout << "ERROR: no inputs specified" << std::endl; exit(-1);}
+    //if (this->get_no_of_inputs() < 4){std::cout << "ERROR: not enough inputs are specified (" << this->get_no_of_inputs() << " inputs are specified)"  << std::endl;}
+    //if (this->get_no_of_inputs() <= 0) {std::cout << "ERROR: no inputs specified" << std::endl; exit(-1);}
 
        //00  A1 +B1
        //01  A1 +B2
@@ -42,7 +47,6 @@ std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent_)
    std::set<int> &A2 = *gen_shift(inputs[1], parent->get_shift(1));
    std::set<int> &B1 = *gen_shift(inputs[2], parent->get_shift(2));
    std::set<int> &B2 = *gen_shift(inputs[3], parent->get_shift(3));
-
 
    IF_VERBOSE(9) std::cout << "shifts are:"<< std::endl;
    IF_VERBOSE(9) std::cout << "Shift 0:"<< parent->get_shift(0) << std::endl;
@@ -110,7 +114,6 @@ std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent_)
            case 15:
                for (int a:A2) { for (int b:B2) { output.insert(-a - b); }}
                break;
-
        }
    }
    IF_VERBOSE(7) std::cout << "calculation result is:" << output << std::endl;

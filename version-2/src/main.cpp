@@ -14,7 +14,7 @@ void print_help();
 
 int main(int argc, char *argv[])
 {
-    global_verbose=10;
+    global_verbose=1;
     if (argc == 1)
     {
         print_help();
@@ -51,21 +51,32 @@ void print_help()
 }
 void do_debug()
 {
-    IF_VERBOSE(1) std::cout << "Enter Function: do_debug:" << std::endl;
+    IF_VERBOSE(2) std::cout << "Enter Function: do_debug:" << std::endl;
     rccm my_rccm;
 
     //TODO add funktion to init Connection structure
     my_rccm.rccm_search_space.push_back(typ_C1);
     my_rccm.sel_add.resize(1);
-    my_rccm.sel_add[0].sel_add_search_space.push_back(typ_A);
+    my_rccm.sel_add[0].sel_add_search_space.push_back(typ_B);
+    my_rccm.sel_add[0].init_permutators();
     my_rccm.sel_add[0].init();
 
-    std::set<int> *result;
-    result = my_rccm.compute(); std::cout << "result" << ":" << (*result) << std::endl;
-    my_rccm.next_config();
-    result = my_rccm.compute(); std::cout << "result" << ":" << (*result) << std::endl;
-    my_rccm.next_config();
-    result = my_rccm.compute(); std::cout << "result" << ":" << (*result) << std::endl;
+
+    std::vector< std::set<int> > results;
+    results.clear();
+    while(my_rccm.next_config())
+    {
+        my_rccm.compute();
+        results.push_back(*(my_rccm.calc->get_output()));
+    }
+    std::cout <<"result Table with " << results.size() << " Elements" << std::endl;
+    for(int i =0 ; i < results.size(); ++i)
+    {
+        std::cout << i << " result" << ": " << results[i] << std::endl;
+        if( i > 2000) {break;}
+    }
+
+
 
 //    config_helper_obj h;
 //    Permutator p;

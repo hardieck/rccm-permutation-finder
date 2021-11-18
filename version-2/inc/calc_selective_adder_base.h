@@ -22,10 +22,13 @@ public:
 
 
 public:
-    spec_sel_add get_spec();
+    virtual spec_sel_add get_spec()=0;
 protected:
-    spec_sel_add spec = spec_sel_add(1,1,1,1);
     void init();
+private:
+    spec_sel_add spec = spec_sel_add(1,1,1,1);
+    //DO NOT USE local spec value!!! use get_spec()!
+    //cause derived classes overload get_spec() but don't overload spec.
 
 };
 

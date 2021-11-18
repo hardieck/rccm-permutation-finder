@@ -16,7 +16,7 @@ public:
             string msg = "The inputs number input_no=" + to_string(input_no) + " is greater then the accessible inputs!" + "(Accessible are " + to_string(inputs.size() - 1) + ")";
             ERROR(msg,"calc_base::set_input()");
         }
-        std::cout << "set input Nr " << input_no << " to " << in_set << ":" << *in_set << std::endl;
+        IF_VERBOSE(8)std::cout << "set input Nr " << input_no << " to " << in_set << ":" << *in_set << std::endl;
         inputs[input_no] = in_set;
 
     };// connects the inputs "ports" to a source(mostly outputs of selective_add or the prime input set)
