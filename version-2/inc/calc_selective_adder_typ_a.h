@@ -16,7 +16,7 @@ class calc_selective_adder_typ_a : public calc_selective_adder_base
         init();
     };
     std::set<int>* compute(base_obj *parent_);
-    const spec_sel_add spec = spec_sel_add(2,2,16,4);
+    const spec_sel_add spec = spec_sel_add(2,2,16,4); //3,1,7,4
 };
 //const spec_sel_add calc_selective_adder_typ_a::spec = spec_sel_add(2,2,16,4);
 

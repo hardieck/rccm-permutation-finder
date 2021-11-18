@@ -50,6 +50,13 @@ bool selective_add::next_config(config_helper_obj& conv_helper)
     return false; // no config left. this was the last one
 }
 
+void selective_add::reset_config()
+{
+    from_sp_use=0;
+    init();
+    init_permutators();
+}
+
 void selective_add::init_permutators()
 {
     spec_sel_add current_spec;
@@ -170,7 +177,6 @@ std::set<int> *selective_add::compute()
 }
 void selective_add::init() {
     clear_calc_data();
-    from_sp_use = 0; // TODO: Fix!!! THis has to be the current type from the permutation list.
     switch (sel_add_search_space[from_sp_use]) {
         case typ_A:
             calc = static_cast<calc_base *>(new calc_selective_adder_typ_a);
@@ -184,6 +190,7 @@ void selective_add::init() {
         default:
             ERROR("Invalid Type", "selective_add::compute()");
     }
+//    init_permutators(); /TODO check if this can be removed
 }
 
 void selective_add::clear_calc_data() {
@@ -204,6 +211,11 @@ std::set<int> selective_add::get_operation_set() //return the current subset of 
 int selective_add::get_shift(unsigned int input_no)//return the current subset of shifts during permutation.
 {
     return this->perm_shift.pd->permutationCntVec[input_no];
+}
+
+selective_add::selective_add()
+{
+    this->from_sp_use=0;
 }
 
 std::set<int>* gen_shift(std::set<int>* input_set, int shift)

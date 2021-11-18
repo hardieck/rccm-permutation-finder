@@ -14,7 +14,7 @@ void print_help();
 
 int main(int argc, char *argv[])
 {
-    global_verbose=8;
+    global_verbose=10;
     if (argc == 1)
     {
         print_help();
@@ -52,25 +52,27 @@ void print_help()
 void do_debug()
 {
     IF_VERBOSE(1) std::cout << "Enter Function: do_debug:" << std::endl;
-//    rccm my_rccm;
-//
-//    my_rccm.sel_add_search_space.push_back(typ_C1);
-//    my_rccm.sel_add.resize(1);
-//    my_rccm.sel_add[0].sel_add_search_space.push_back(typ_A);
-//    std::set<int> *result = my_rccm.compute();
-//    my_rccm.next_config();
-//
-//    std::cout << std::endl;
-//    std::cout << "Final Super duper results from my_rccm:";
-//    std::cout << (result) << ":";
-//    std::cout << (*result) << std::endl;
+    rccm my_rccm;
 
-    config_helper_obj h;
-    Permutator p;
-    calc_selective_adder_typ_b sel_add_b;
-    p.set_config_from_spec(sel_add_b.spec,shifts_only);
-    p.pd->printPermutationData();
-    sel_add_b.spec.print_spec();
+    //TODO add funktion to init Connection structure
+    my_rccm.rccm_search_space.push_back(typ_C1);
+    my_rccm.sel_add.resize(1);
+    my_rccm.sel_add[0].sel_add_search_space.push_back(typ_A);
+    my_rccm.sel_add[0].init();
+
+    std::set<int> *result;
+    result = my_rccm.compute(); std::cout << "result" << ":" << (*result) << std::endl;
+    my_rccm.next_config();
+    result = my_rccm.compute(); std::cout << "result" << ":" << (*result) << std::endl;
+    my_rccm.next_config();
+    result = my_rccm.compute(); std::cout << "result" << ":" << (*result) << std::endl;
+
+//    config_helper_obj h;
+//    Permutator p;
+//    calc_selective_adder_typ_b sel_add_b;
+//    p.set_config_from_spec(sel_add_b.spec,shifts_only);
+//    p.pd->printPermutationData();
+//    sel_add_b.spec.print_spec();
 
 
 
@@ -79,13 +81,13 @@ void do_debug()
     //my_block.second=p.pd->permutationCntVec.end();
     //p.pd->rising_block_list.push_back(my_block);
 
-    p.reset_config();
-    while( p.next_config(h))
-    {
-        p.printPermutation();
-        std::cout << endl;
-    }
-    p.pd->printPermutationData();
+//    p.reset_config();
+//    while( p.next_config(h))
+//    {
+//        p.printPermutation();
+//        std::cout << endl;
+//    }
+//    p.pd->printPermutationData();
 }
 
 void do_debug_old()
