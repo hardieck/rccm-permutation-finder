@@ -266,7 +266,6 @@ bool Permutator::check_all_rising_blocks() // returns true if there is a problem
             }
         }
     }
-    //TODO implement
     return false;
 }
 
@@ -288,7 +287,7 @@ void Permutator::add_rising_block(unsigned int start,unsigned int length)
 }
 bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type typ)
 {
-    int MAX_SCHIFT=3; //Todo: MAke configurable or global or ...
+    int MAX_SCHIFT=1; //Todo: MAke configurable or global or ...
 
     IF_VERBOSE(5) std::cout << "Permutator::set_config_from_spec: Enter Function"<< std::endl;
     switch(typ) {

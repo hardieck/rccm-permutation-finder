@@ -83,7 +83,7 @@ std::set<int>* rccm::compute()
 {
     
     this->clear_calc_data();
-    from_sp_use=0; // TODO: Fix!!! THis has to be the current type from the permutation list.
+    from_sp_use=0;
     switch(rccm_search_space[from_sp_use])
     {
         case typ_C1: calc = new calc_rccm_C1; break;

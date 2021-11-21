@@ -43,7 +43,7 @@ std::set<int>* calc_selective_adder_typ_b::compute(base_obj *parent_) {
 
     IF_VERBOSE(8) std::cout << "load inputs into local names:" << std::endl;
 
-    //TODO read shifts from config and exert them to the inputs
+    //read shifts from config and export them to the inputs
     std::set<int> &A1 = *gen_shift(inputs[0], parent->get_shift(0));
     std::set<int> &A2 = *gen_shift(inputs[1], parent->get_shift(1));
     std::set<int> &B1 = *gen_shift(inputs[2], parent->get_shift(2));

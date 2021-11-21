@@ -18,7 +18,7 @@ SET(CMAKE_CACHEFILE_DIR ${dir})
 add_executable(AddNet_Permutator_v2
         src/main.cpp
         src/calc_rccm_base.cpp
-        src/calc_rccm_typ_3add.cpp
+        src/calc_rccm_C3.cpp
         src/calc_selective_adder_base.cpp
         src/calc_selective_adder_typ_a.cpp
         src/calc_selective_adder_typ_b.cpp
@@ -30,7 +30,7 @@ add_executable(AddNet_Permutator_v2
         inc/evaluate_result.h
         inc/selective_add.h
         inc/calc_rccm_base.h
-        inc/calc_rccm_typ_3add.h
+        inc/calc_rccm_C3.h
         inc/calc_selective_adder_base.h
         inc/permutator.h
         inc/calc_selective_adder_typ_a.h

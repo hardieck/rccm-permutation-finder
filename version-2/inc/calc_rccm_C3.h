@@ -1,6 +1,8 @@
 ////
 //// Created by hardieck on 9/27/19.
 ////
+//TODO: implement connection structure C3
+
 //
 //#ifndef ADDNET_PERMUTATOR_V2_CALC_RCCM_TYP_3ADD_H
 //#define ADDNET_PERMUTATOR_V2_CALC_RCCM_TYP_3ADD_H
@@ -54,7 +56,7 @@
 ////		s_add[1]->compute(this->s_add[0]);
 ////
 ////		return s_add[1]->get_output();
-//        std::set<int> a; // justr to make the error silent... / MH: TODO
+//        std::set<int> a; // justr to make the error silent... / MH:
 //        return a;
 //	};
 //};

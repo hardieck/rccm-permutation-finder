@@ -199,7 +199,7 @@ void selective_add::init_permutators()
 //    if (do_LUT_permutation) {
 //        for (unsigned int i = 1; i < shifts.size() + 1; ++i) {
 //            permut_state[i] = shifts[i-1];
-////            permut_min[i] = shift_config_min[i - 1]; // TODO: FIX!!!! commented to make error silent
+////            permut_min[i] = shift_config_min[i - 1]; // FIX!!!! commented to make error silent
 //            permut_max[i] = shift_config_max[i - 1];
 //        }
 //    }
@@ -249,7 +249,7 @@ void selective_add::init() {
         default:
             ERROR("Invalid Type", "selective_add::compute()");
     }
-    init_permutators(); //TODO check if this can be removed
+    init_permutators();
 }
 
 void selective_add::clear_calc_data() {
