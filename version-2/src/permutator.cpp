@@ -27,13 +27,14 @@ void permutation_data::init(unsigned int new_size, bool min_vec)
     permutationIndex=0;
     permutationCntMaxVec.resize(new_size);
     permutationCntVec.resize(new_size);
+    min_vec_is_used = min_vec;
     for (int i = 0; i < new_size;++i)
     {
         permutationCntMaxVec[i] = 0;
         permutationCntVec[i] = 0;
     }
 
-    if (min_vec_is_used or min_vec)
+    if (min_vec_is_used)
     {
         permutationCntMinVec.resize(new_size);
         for (int i = 0; i < new_size;++i)
@@ -138,7 +139,7 @@ bool Permutator::next_config(config_helper_obj& conv_helper)
     {
         bool return_value = false;
         return_value=nextPermutation();
-        while((return_value == true)&&(check_all_rising_blocks()))
+        while((return_value == true)&&(check_all_rising_blocks())) // rerun if there is (still) a problem with the block list
         {
             return_value = nextPermutation();
         }
@@ -155,6 +156,7 @@ bool Permutator::next_config(config_helper_obj& conv_helper)
 
 bool Permutator::nextPermutation()
 {
+    IF_VERBOSE(9) std::cout << "last config was: " << this->pd->permutationCntVec;
   if(pd->permutationIndexMax < 0) return false;
   if(pd->allCombinations)
   {
@@ -196,6 +198,7 @@ bool Permutator::nextPermutation()
 
       pd->permutationCntVec[pd->permutationIndex]++;
   }
+    IF_VERBOSE(9) std::cout << " next config is: " << this->pd->permutationCntVec << std::endl;
   return true;
 }
 
@@ -231,19 +234,20 @@ void Permutator::printPermutation(bool reverse)
 }
 bool Permutator::check_all_rising_blocks() // returns true if there is a problem within a rising block
 {
-    IF_VERBOSE(9) std::cout << "Permutator: check_all_rising_blocks: Enter Function" << std::endl;
+    IF_VERBOSE(8) std::cout << "Permutator: check_all_rising_blocks: Enter Function" << std::endl;
     if (pd->rising_block_list.size() == 0)
     {
-        IF_VERBOSE(10) std::cout << "Permutator: check_all_rising_blocks: rising_block_list is empty" << std::endl;
+        IF_VERBOSE(9) std::cout << "Permutator: check_all_rising_blocks: rising_block_list is empty" << std::endl;
         return false; // as there are no block to check...
     }
+    IF_VERBOSE(9) std::cout << "Permutator: check_all_rising_blocks: rising_block_list has size:" << pd->rising_block_list.size() << std::endl;
 
     // TODO:use iterator! Don't know why it doesnt worked
     //pair< vector<int>::iterator, vector<int>::iterator > it;
-    IF_VERBOSE(9) std::cout << "Permutator: check_all_rising_blocks: check blocks" << std::endl;
+    IF_VERBOSE(8) std::cout << "Permutator: check_all_rising_blocks: check blocks" << std::endl;
     for(int i=0; i < pd->rising_block_list.size() ; ++i)
     {
-        IF_VERBOSE(10) std::cout << "Permutator: check_all_rising_blocks: check Block Nr:" << i << std::endl;
+        IF_VERBOSE(9) std::cout << "Permutator: check_all_rising_blocks: check Block Nr:" << i << std::endl;
         vector<int>::iterator start = pd->rising_block_list[i].first;
         vector<int>::iterator end = pd->rising_block_list[i].second;
 
@@ -251,14 +255,14 @@ bool Permutator::check_all_rising_blocks() // returns true if there is a problem
         int last_value=-1; //asuming that this value is not used in the permutator
         for(it = start; it != end; ++it)
         {
-            //IF_VERBOSE(10) std::cout << "Permutator: check_all_rising_blocks: checking next element. Last_value was:" << last_value << "current value is:" << (*it) << std::endl;
+            //IF_VERBOSE(9) std::cout << "Permutator: check_all_rising_blocks: checking next element. Last_value was:" << last_value << "current value is:" << (*it) << std::endl;
             if(last_value < (*it) )
             {
                 last_value = (*it);
             }
             else
             {
-                return 1;
+                return true; // returns true if there is a problem within a rising block
             }
         }
     }
@@ -284,7 +288,7 @@ void Permutator::add_rising_block(unsigned int start,unsigned int length)
 }
 bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type typ)
 {
-    int MAX_SCHIFT=4; //Todo: MAke configurable or global or ...
+    int MAX_SCHIFT=3; //Todo: MAke configurable or global or ...
 
     IF_VERBOSE(5) std::cout << "Permutator::set_config_from_spec: Enter Function"<< std::endl;
     switch(typ) {
@@ -313,10 +317,8 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type
             }
             pd->init(s.input_count_A + s.input_count_B, true);
             pd->do_not_repeat_options = true;// there shall not be duplicate operations, so we can shrink the search space
-            add_rising_block(0,
-                             s.input_count_A); // there shall not be duplicate shifts for input A, so we can shrink the search space
-            add_rising_block(s.input_count_A,
-                             s.input_count_B); // there shall not be duplicate shifts for input B, so we can shrink the search space
+            add_rising_block(0,s.input_count_A); // there shall not be duplicate shifts for input A, so we can shrink the search space
+            add_rising_block(s.input_count_A,s.input_count_B); // there shall not be duplicate shifts for input B, so we can shrink the search space
 
             // loop For Input A
             for (int i = 0; i < s.input_count_A; ++i) {
@@ -325,15 +327,14 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type
             }
             // loop For Input B
             int j = 0;
-            for (int i = s.input_count_A; i < s.input_count_A + s.input_count_B; ++i) {
+            for (int i = s.input_count_A; i < (s.input_count_A + s.input_count_B); ++i) {
                 pd->permutationCntMaxVec[i] = MAX_SCHIFT;
                 pd->permutationCntMinVec[i] = j++; // there shall not be duplicate shifts, so we can shrink the search space
             }
             break;
         }
         default:
-            std::cout << "Dummer Fehler... exit"; exit(-1);
-            //ERROR("Not suportet config type", "Permutator::set_config_from_spec()");
+            ERROR("Not suportet config type", "Permutator::set_config_from_spec()");
     }
     return 1;
 }

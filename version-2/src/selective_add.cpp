@@ -5,6 +5,8 @@
 #include "../inc/selective_add.h"
 #include "../inc/calc_selective_adder_typ_a.h"
 #include "../inc/calc_selective_adder_typ_b.h"
+#include "../inc/debug.h"
+#include <string>
 //
 //std::set<int> selective_add::get_operation_set()
 //{
@@ -14,9 +16,55 @@
 //        return vec2set(mode_0_current_operation_set);
 //}
 //
+
+std::string selective_add::get_config()// return only the part for one Selective add with shifts in HM1 standart
+{
+    IF_VERBOSE(5) ENTER_FUNCTION("selective_add::get_config()")
+    IF_VERBOSE(6) std::cout << "Prepare current_config string and add Operation Type" << std::endl;
+    std::string current_config;
+    current_config.clear();
+    IF_VERBOSE(6) std::cout << "Add connection Structure." << std::endl;
+    switch (sel_add_search_space[from_sp_use]) {
+        case typ_A : current_config += "-A"; break;
+        case typ_B : current_config += "-B"; break;
+        case typ_C : current_config += "-C"; break;
+        default:
+        ERROR("Unsupported Selective Adder Type!", "selective_add::get_config()")
+    }
+    IF_VERBOSE(6) std::cout << "Add operations" << std::endl;
+    //std::set<int> op_set = get_operation_set();
+    spec_sel_add current_spec = get_spec();
+    for(unsigned int i=0; i < current_spec.operation_set_size;++i)
+    {
+        current_config += int2extendHEX(perm_operation.pd->permutationCntVec[i]);
+    }
+    current_config += "-"; // to slit operations from shifts
+    IF_VERBOSE(6) std::cout << "Add Shifts" << std::endl;
+    IF_VERBOSE(6) std::cout << "Add Shifts for input A" << std::endl;
+    for(unsigned int i=0; i < current_spec.input_count_A;++i)
+    {
+        current_config += int2extendHEX(get_shift(i));
+    }
+    current_config += "-"; // to slit shifts for input A from input B
+    IF_VERBOSE(6) std::cout << "Add Shifts for input B" << std::endl;
+    for(unsigned int i=0; i < current_spec.input_count_B;++i)
+    {
+        current_config += int2extendHEX(get_shift(i+ current_spec.input_count_A));
+    }
+    IF_VERBOSE(6) std::cout << "Add Shifts for input B" << std::endl;
+    return current_config;
+}
+bool selective_add::set_config(std::string new_config)// use only the part for one Selective add with shifts in HM1 standart
+{
+    IF_VERBOSE(5) ENTER_FUNCTION("selective_add::set_config(std::string new_config)")
+ERROR("Funktion is unsupported Yet","selective_add::set_config(std::string new_config)")
+    return false;
+}
+
 bool selective_add::next_config(config_helper_obj& conv_helper)
 {
-    IF_VERBOSE(9) std::cout << "selective_add: next_config: Enter Function" << std::endl;
+    IF_VERBOSE(9)
+    std::cout << "selective_add: next_config: Enter Function" << std::endl;
     bool new_config_was_set = false;
     IF_VERBOSE(10) std::cout << "selective_add: next_config: try next operation" << std::endl;
     new_config_was_set = this->perm_operation.next_config(conv_helper);
@@ -58,20 +106,29 @@ void selective_add::reset_config()
     init_permutators();
 }
 
-void selective_add::init_permutators()
+spec_sel_add selective_add::get_spec()
 {
-    IF_VERBOSE(8) ENTER_FUNCTION("selective_add::init_permutators()")
+    IF_VERBOSE(8) ENTER_FUNCTION("selective_add::get_spec()")
     spec_sel_add current_spec;
     switch(sel_add_search_space[from_sp_use])
     {
         case typ_A: {calc_selective_adder_typ_a obj; current_spec = obj.get_spec();} break;
         case typ_B: {calc_selective_adder_typ_b obj; current_spec = obj.get_spec();} break;
         default:
-            ERROR("unsupported Selective Adder type", "selective_add::init_permutators()")
+        ERROR("unsupported Selective Adder type", "selective_add::init_permutators()")
     }
+    return current_spec;
+}
+
+void selective_add::init_permutators()
+{
+    IF_VERBOSE(8) ENTER_FUNCTION("selective_add::init_permutators()")
+    spec_sel_add current_spec = this->get_spec();
 
     this->perm_shift.set_config_from_spec(current_spec,shifts_only);
+    this->perm_shift.resetPermutation();
     this->perm_operation.set_config_from_spec(current_spec,all_operations_only);
+    this->perm_operation.resetPermutation();
 }
 
 
@@ -192,7 +249,7 @@ void selective_add::init() {
         default:
             ERROR("Invalid Type", "selective_add::compute()");
     }
-//    init_permutators(); /TODO check if this can be removed
+    init_permutators(); //TODO check if this can be removed
 }
 
 void selective_add::clear_calc_data() {

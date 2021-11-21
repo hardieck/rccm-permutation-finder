@@ -5,6 +5,7 @@
 #ifndef ADDNET_PERMUTATOR_V2_DATATYPS_H
 #define ADDNET_PERMUTATOR_V2_DATATYPS_H
 
+#include "helper.h"
 #include <list>
 #include "base_obj.h"
 

@@ -18,7 +18,7 @@ public:
 	rccm();
 
     std::set<int>* compute();
-    calc_base* calc = nullptr;
+    calc_base* calc;
 
 	std::string get_config();
 	bool set_config(std::string new_config);
