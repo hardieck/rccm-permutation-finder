@@ -13,6 +13,7 @@
 class calc_selective_adder_base : public calc_base
 {
 public:
+    virtual sel_add_type type() const {return sel_add_type_NAN;}
     calc_selective_adder_base();
     virtual std::set<int>* compute(base_obj *parent_)=0;
 

@@ -7,6 +7,7 @@
 
 calc_rccm_base::calc_rccm_base()
 {
+    IF_VERBOSE(9) ENTER_FUNCTION("calc_rccm_base::calc_rccm_base()")
 }
 
 

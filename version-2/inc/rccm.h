@@ -5,12 +5,12 @@
 #ifndef ADDNET_PERMUTATOR_V2_RCCM_H
 #define ADDNET_PERMUTATOR_V2_RCCM_H
 
-#include "base_obj.h"
-#include "selective_add.h"
-#include "calc_base.h"
 #include <vector>
-#include "permutator.h"
 #include <string>
+
+#include "selective_add.h"
+#include "calc_rccm_base.h"
+#include "permutator.h"
 
 class rccm : public base_obj
 {
@@ -18,7 +18,7 @@ public:
 	rccm();
 
     std::set<int>* compute();
-    calc_base* calc;
+    calc_base* calc; // need to be calc base instead of calc_rccm_base to prevent circular dependency
 
 	std::string get_config();
 	bool set_config(std::string new_config);

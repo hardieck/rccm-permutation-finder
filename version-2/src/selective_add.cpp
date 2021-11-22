@@ -63,38 +63,43 @@ ERROR("Funktion is unsupported Yet","selective_add::set_config(std::string new_c
 
 bool selective_add::next_config(config_helper_obj& conv_helper)
 {
-    IF_VERBOSE(9)
-    std::cout << "selective_add: next_config: Enter Function" << std::endl;
+    IF_VERBOSE(8)ENTER_FUNCTION("selective_add::next_config(config_helper_obj& conv_helper)")
     bool new_config_was_set = false;
-    IF_VERBOSE(10) std::cout << "selective_add: next_config: try next operation" << std::endl;
+
+    IF_VERBOSE(9) std::cout << "selective_add: next_config: try next operation" << std::endl;
     new_config_was_set = this->perm_operation.next_config(conv_helper);
     if(new_config_was_set){
         IF_VERBOSE(10) std::cout << "selective_add: next_config: new Config was set" << std::endl;
-        conv_helper.reset_all_on_list(); // reset all previus operations to restart permutation with this new configuration
+        conv_helper.reset_all_on_list(); // reset all previous operations to restart permutation with this new configuration
         return 1;
     } // if a permutation was changed return true
-    IF_VERBOSE(10) std::cout << "selective_add: next_config: no config left, try next Shift coniguration" << std::endl;
+
+    IF_VERBOSE(9) std::cout << "selective_add: next_config: no operation config left, try next Shift configuration" << std::endl;
         new_config_was_set = this->perm_shift.next_config(conv_helper);
         if(new_config_was_set) {
             IF_VERBOSE(10) std::cout << "selective_add: next_config: new Config was set" << std::endl;
-            conv_helper.reset_all_on_list(); // reset all previus operations to restart permutation with this new configuration
+            conv_helper.reset_all_on_list(); // reset all previous operations to restart permutation with this new configuration
             return 1;
         }// if a permutation was changed return true
-    IF_VERBOSE(10) std::cout << "selective_add: next_config: no config left, try next selective adder type from search space" << std::endl;
+
+    IF_VERBOSE(9) std::cout << "selective_add: next_config: no shift config left, try next selective adder type from search space" << std::endl;
     //iterate over search space elements (typ_A typ_B typ_C,...)
-    if(from_sp_use-1 < sel_add_search_space.size()) {
-        ++from_sp_use; new_config_was_set = true;
-        IF_VERBOSE(10) std::cout << "selective_add: next_config: new Config was set" << std::endl;
-        conv_helper.reset_all_on_list(); // reset all previus operations to restart permutation with this new configuration
-        init_permutators(); //as the type changed the permutators have to reload the specs for the new type.
+    IF_VERBOSE(0) std::cout << "from_sp_use: " << from_sp_use << " sel_add_search_space.size()=" << sel_add_search_space.size() << std::endl;
+    if(from_sp_use < sel_add_search_space.size()-1)
+    {
+        ++from_sp_use;
+        new_config_was_set = true;
+        IF_VERBOSE(9) std::cout << "selective_add: next_config: new Config was set. use search space element:" << from_sp_use << std::endl;
+        conv_helper.reset_all_on_list(); // reset all previous operations to restart permutation with this new configuration
+        init(); //as the type changed the calc obj as to change and the permutators have to reload the specs for the new type.
         return 1;
     }
 
     //if there  is no config left
     //try different Connection structures from search space
-    IF_VERBOSE(10) std::cout << "selective_add: next_config: no config left" << std::endl;
-    IF_VERBOSE(10) std::cout << "selective_add: next_config: Iterate over all configurations from search space DONE" << std::endl;
+    IF_VERBOSE(9) std::cout << "selective_add: next_config: no selective adder type config left" << std::endl;
     conv_helper.add_me_to_reset_list((config_reset_base*) this);
+    IF_VERBOSE(9) std::cout << "selective_add: next_config: Iterate over all configurations from DONE" << std::endl;
     return false; // no config left. this was the last one
 }
 
@@ -103,7 +108,7 @@ void selective_add::reset_config()
     IF_VERBOSE(8) ENTER_FUNCTION("selective_add::reset_config()")
     from_sp_use=0;
     init();
-    init_permutators();
+    init_permutators();// if it doesn't happen in init it has to be done here
 }
 
 spec_sel_add selective_add::get_spec()
@@ -229,34 +234,53 @@ void selective_add::init_permutators()
 //void selective_add::set_mode_all() {}
 std::set<int> *selective_add::compute()
 {
-    IF_VERBOSE(9) std::cout << "selective_add: MH Debug Say: Jay" << std::endl;
+    IF_VERBOSE(9) ENTER_FUNCTION("selective_add::compute()")
+    init();
     calc->compute(this);
 
     return calc->get_output();
 }
-void selective_add::init() {
-    clear_calc_data();
-    switch (sel_add_search_space[from_sp_use]) {
-        case typ_A:
-            calc = static_cast<calc_base *>(new calc_selective_adder_typ_a);
-            break;
-        case typ_B:
-            calc = static_cast<calc_base *>(new calc_selective_adder_typ_b);
-            break;
-        case typ_C:
-            ERROR("Type c is not supported yet", "selective_add::compute()")
-            break;
-        default:
-            ERROR("Invalid Type", "selective_add::compute()");
+void selective_add::init() // update und eventually initialize calc and permutators
+{
+    IF_VERBOSE(4) ENTER_FUNCTION("selective_add::init()")
+    if(sel_add_search_space.size()==0){ ERROR("Can Not init without search space!","selective_add::init()")}
+    if((calc!=nullptr)&&(sel_add_search_space[from_sp_use] != ((calc_selective_adder_base*)calc)->type()))
+    {
+        IF_VERBOSE(5) std::cout << "calc pointer: " << calc << std::endl;
+        IF_VERBOSE(5) std::cout << "calc type: " << ((calc_selective_adder_base*)calc)->type() << " Searchg space type: " << sel_add_search_space[from_sp_use] << std::endl;
+        delete_calc();
     }
-    init_permutators();
+    if(calc==nullptr) // calc does not exist (anymore) and need to be initialized
+    {
+        IF_VERBOSE(5) std::cout << "new calc type will be set to: " << sel_add_search_space[from_sp_use] << std::endl;
+        switch (sel_add_search_space[from_sp_use]) {
+            case typ_A:
+                calc = static_cast<calc_base *>(new calc_selective_adder_typ_a);
+                break;
+            case typ_B:
+                calc = static_cast<calc_base *>(new calc_selective_adder_typ_b);
+                break;
+            case typ_C:
+            ERROR("Type c is not supported yet", "selective_add::compute()")
+                break;
+            default:
+            ERROR("Invalid Type", "selective_add::compute()");
+        }
+        init_permutators();// only init permutators if ther was a change
+    }
+    IF_VERBOSE(4)LEAVE_FUNCTION("selective_add::init()")
 }
 
-void selective_add::clear_calc_data() {
+void selective_add::delete_calc() // if existing delete calc object
+{
+    IF_VERBOSE(9)ENTER_FUNCTION("selective_add::delete_calc()")
     if (this->calc != nullptr)
     {
+        IF_VERBOSE(9) std::cout << "delete calc" << std::endl;
         delete calc;
+        calc= nullptr;
     }
+    IF_VERBOSE(9)LEAVE_FUNCTION("selective_add::delete_calc()")
 }
 
 std::set<int> selective_add::get_operation_set() //return the current subset of operations during permutation.
@@ -274,7 +298,9 @@ int selective_add::get_shift(unsigned int input_no)//return the current subset o
 
 selective_add::selective_add()
 {
-    this->from_sp_use=0;
+    IF_VERBOSE(3) ENTER_FUNCTION("selective_add::selective_add()")
+    from_sp_use=0;
+    calc = nullptr;
 }
 
 std::set<int>* gen_shift(std::set<int>* input_set, int shift)

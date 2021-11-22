@@ -18,28 +18,6 @@ std::set<int>* calc_selective_adder_typ_b::compute(base_obj *parent_) {
     IF_VERBOSE(6) cout << "inputs:" << inputs << std::endl;
 
     output.clear();
-    //output.insert(*inputs[0]->begin());
-
-
-    //if (this->get_no_of_inputs() < 4){std::cout << "ERROR: not enough inputs are specified (" << this->get_no_of_inputs() << " inputs are specified)"  << std::endl;}
-    //if (this->get_no_of_inputs() <= 0) {std::cout << "ERROR: no inputs specified" << std::endl; exit(-1);}
-
-    //00  A1 +B1
-    //01  A1 +B2
-    //02  A1 -B1
-    //03  A1 -B2
-    //04 -A1 +B1
-    //05 -A1 +B2
-    //06 -A1 -B1
-    //07 -A1 -B2
-    //08  A2 +B1
-    //09  A2 +B2
-    //10  A2 -B1
-    //11  A2 -B2
-    //12 -A2 +B1
-    //13 -A2 +B2
-    //14 -A2 -B1
-    //15 -A2 -B2
 
     IF_VERBOSE(8) std::cout << "load inputs into local names:" << std::endl;
 
@@ -58,8 +36,6 @@ std::set<int>* calc_selective_adder_typ_b::compute(base_obj *parent_) {
     IF_VERBOSE(9) std::cout << "A1:" << A1 << std::endl;
     IF_VERBOSE(9) std::cout << "A2:" << A2 << std::endl;
     IF_VERBOSE(9) std::cout << "B1:" << B1 << std::endl;
-
-    this->output.clear();
 
     IF_VERBOSE(8) std::cout << "calculate specified configs" << std::endl;
     IF_VERBOSE(8) std::cout << "operation set is:" << parent->get_operation_set() << std::endl;
@@ -106,7 +82,7 @@ std::set<int>* calc_selective_adder_typ_b::compute(base_obj *parent_) {
             case 12:
                 {               {                   output.insert(     0); }} //  0 + 0
                 break;
-
+            default: ERROR("unsupported Operation","calc_selective_adder_typ_b::compute(base_obj *parent_)")
         }
     }
     IF_VERBOSE(7) std::cout << "calculation result is:" << output << std::endl;

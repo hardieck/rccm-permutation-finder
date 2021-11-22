@@ -7,8 +7,9 @@
 
 rccm::rccm()
 {
+    IF_VERBOSE(3) ENTER_FUNCTION("rccm::rccm()")
     from_sp_use = 0;
-    calc_base* calc = nullptr;
+    calc = nullptr;
     sel_add.clear();
 }
 
@@ -59,38 +60,42 @@ bool rccm::set_config(std::string new_config)
 
 bool rccm::next_config()
 {
-    IF_VERBOSE(9) std::cout << "rccm: next_config: Enter Function" << std::endl;
+    IF_VERBOSE(8) ENTER_FUNCTION("rccm::next_config()")
     bool new_config_was_set = false;
-    for(int i=0; i<= sel_add.size();++i) // itereate over all selective adder and stop at first positive result
+    for(int i=0; i < sel_add.size();++i) // iterate over all selective adder and stop at first positive result
     {
-        IF_VERBOSE(10) std::cout << "rccm: next_config: try next config for sel_add["<< i << "]" << std::endl;
+        IF_VERBOSE(9) std::cout << "rccm: next_config: try next config for sel_add["<< i << "]" << std::endl;
         new_config_was_set=sel_add[i].next_config(conv_helper); // TODO: Add config level to support same shifts
         if(new_config_was_set)
         {
-            IF_VERBOSE(10) std::cout << "rccm: next_config: new Config was set" << std::endl;
+            IF_VERBOSE(9) std::cout << "rccm: next_config: new Config was set" << std::endl;
             return true;
         } // if a permutation was changed return true
     }
-    IF_VERBOSE(10) std::cout << "rccm: next_config: no config left, try next connection structure from search space" << std::endl;
+    IF_VERBOSE(9) std::cout << "rccm: next_config: no config left, try next connection structure from search space" << std::endl;
     // TODO: iterate over search space elements (C1 C2 C3,...)
     //if there  is no config left
     //try different Connection structures from search space
-    IF_VERBOSE(10) std::cout << "rccm: next_config: no config left" << std::endl;
-    IF_VERBOSE(10) std::cout << "rccm: next_config: Iterate over all configurations from search space DONE" << std::endl;
+    IF_VERBOSE(9) std::cout << "rccm: next_config: no config left" << std::endl;
+    IF_VERBOSE(9) std::cout << "rccm: next_config: Iterate over all configurations from search space DONE" << std::endl;
     return false; // no config left. this was the last one
 }
 std::set<int>* rccm::compute()
 {
-    
-    this->clear_calc_data();
-    from_sp_use=0;
-    switch(rccm_search_space[from_sp_use])
+    IF_VERBOSE(4) ENTER_FUNCTION("rccm::compute()")
+    // calc exists but points to a wrong type
+    if((calc!=nullptr)&&(rccm_search_space[from_sp_use] != ((calc_rccm_base*)calc)->type())){delete calc; calc= nullptr;}
+    if(calc==nullptr) // calc does not exist (anymore) and need to be initialized
     {
-        case typ_C1: calc = new calc_rccm_C1; break;
-        case typ_C2: ERROR("Type B is not supported yet", "rccm::compute()") break;
-        case typ_C3: ERROR("Type C is not supported yet", "rccm::compute()") break;
-        case typ_C4: ERROR("Type D is not supported yet", "rccm::compute()") break;
-        default: ERROR("Invalid Type","rccm::compute()");
+        switch (rccm_search_space[from_sp_use])
+        {
+            case typ_C1:calc = new calc_rccm_C1;break;
+            case typ_C2:ERROR("Type B is not supported yet", "rccm::compute()")break;
+            case typ_C3:ERROR("Type C is not supported yet", "rccm::compute()")break;
+            case typ_C4:ERROR("Type D is not supported yet", "rccm::compute()")break;
+            default:
+            ERROR("Invalid Type", "rccm::compute()");
+        }
     }
 
     return calc->compute(this);
@@ -108,8 +113,11 @@ selective_add* rccm::get_sel_add(unsigned int no)
 
 void rccm::clear_calc_data()
 {
+    IF_VERBOSE(6) ENTER_FUNCTION("rccm::delete_calc()")
+    IF_VERBOSE(6) std::cout << "calc points to : " << this->calc << std::endl;
     if (this->calc != nullptr)
     {
+        IF_VERBOSE(6) std::cout << "delete calc" << std::endl;
         delete calc;
     }
 }

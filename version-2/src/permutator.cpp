@@ -287,7 +287,7 @@ void Permutator::add_rising_block(unsigned int start,unsigned int length)
 }
 bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type typ)
 {
-    int MAX_SCHIFT=1; //Todo: MAke configurable or global or ...
+    int MAX_SCHIFT=4; //Todo: MAke configurable or global or ...
 
     IF_VERBOSE(5) std::cout << "Permutator::set_config_from_spec: Enter Function"<< std::endl;
     switch(typ) {
@@ -302,8 +302,11 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type
             pd->do_not_repeat_options = true;// there shall not be duplicate operations, so we can shrink the search space
             add_rising_block(0,
                              s.operation_set_size); // there shall not be duplicate operations, so we can shrink the search space
-            for (int i = 0; i < pd->permutationCntMaxVec.size(); ++i) {
-                pd->permutationCntMaxVec[i] = s.diff_operation_count;
+            unsigned int vec_size=pd->permutationCntMaxVec.size();
+            for (int i = 0; i < vec_size; ++i) {
+                //pd->permutationCntMaxVec[i] = s.diff_operation_count;
+                // there shall not be duplicate operations, so we can shrink the search space
+                pd->permutationCntMaxVec[vec_size-i-1] = s.diff_operation_count - i-1; // to create a rising values. // -1 cause vec_size  start counting by 1 // -1 cause diff_operation count start by 0
                 pd->permutationCntMinVec[i] = i; // there shall not be duplicate operations, so we can shrink the search space
             }
             break;

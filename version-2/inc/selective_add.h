@@ -36,7 +36,7 @@ public:
     void set_mode_list();
     std::vector<sel_add_type> sel_add_search_space;
     unsigned int from_sp_use;
-    void clear_calc_data();// clear all intermediate calculation data
+    void delete_calc();// clear all intermediate calculation data
     void init_permutators(); // initializes both permutators depending on current selective adder type ad resets them
 
 //protected:

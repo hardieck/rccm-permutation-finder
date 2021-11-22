@@ -51,31 +51,25 @@ void print_help()
 }
 int do_debug()
 {
-    global_verbose =1;
+    global_verbose =0;
     IF_VERBOSE(2) std::cout << "Enter Function: do_debug:" << std::endl;
     rccm my_rccm;
 
     my_rccm.rccm_search_space.push_back(typ_C1);
     my_rccm.sel_add.resize(1);
     my_rccm.sel_add[0].sel_add_search_space.push_back(typ_B);
-    my_rccm.sel_add[0].init();
-
+    my_rccm.sel_add[0].sel_add_search_space.push_back(typ_A);
     string config_string;
-    for(int i = 0; true;++i)
+    std::set<int>* result = nullptr;
+    unsigned int i =1;
+    do
     {
-        //auto result = my_rccm.compute();
+        std::set<int>* result = my_rccm.compute();
         config_string = my_rccm.get_config();
-        std::cout << config_string << " -> "; //<< result << std::endl;
-
-        if(config_string == "HM1-C1-9abc-23-3"){std::cout << "end" << std::endl; break;}
-        std::cout << "   perm_operation: "; my_rccm.sel_add[0].perm_operation.pd->printPermutationData();
-        my_rccm.next_config();
+        std::cout << config_string << " -> " << *result << " iteration:" << i++ << std::endl;
+        //if(config_string == "HM1-C1-B9abc-34-4"){ std::cout << "edit Verbose" << std::endl; global_verbose=10;}
     }
-
-    std::cout << "perm_operation:" << std::endl;
-    my_rccm.sel_add[0].perm_operation.pd->printPermutationData();
-
-
+    while(my_rccm.next_config());
 
     return 0;
 

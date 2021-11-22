@@ -12,12 +12,14 @@ class calc_selective_adder_typ_b : public calc_selective_adder_base
     public:
     calc_selective_adder_typ_b()
     {
+        IF_VERBOSE(6) ENTER_FUNCTION("calc_selective_adder_typ_b::calc_selective_adder_typ_b()")
         init();
     };
+    virtual sel_add_type type() const {return typ_B;}
     std::set<int>* compute(base_obj *parent_);
     virtual spec_sel_add get_spec();
 private:
-    const spec_sel_add spec = spec_sel_add(2,1,12,4);
+    const spec_sel_add spec = spec_sel_add(2,1,13,4);
     //DO NOT USE local spec value!!! use get_spec()! cause derived classes overload get_spec() but don't overload spec...
 };
 

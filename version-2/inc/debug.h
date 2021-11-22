@@ -23,6 +23,8 @@ using namespace std;
 #define IF_VERBOSE(verbose) if(global_verbose >= verbose) for(int i=0; i < verbose; i++) std::cout << "  "; if(global_verbose >= verbose)
 #define ERROR(x,from) std::cout << "ERROR: " << x << std::endl << "From: " << from << std::endl; exit(-1);
 #define ENTER_FUNCTION(x) std::cout << x << " Enter Function" << std::endl;
+#define LEAVE_FUNCTION(x) std::cout << x << " Leave Function" << std::endl;
+
 
 template<typename T>
 std::set<T> vec2set(const std::vector<T> &v)

@@ -68,6 +68,7 @@ public:
     Permutator();
     ~Permutator();
 
+    //TODO !! save a tone of time!!! make Permutator index jump if the next value is in same rising block and lower as the current one
     bool next_config(config_helper_obj& conv_helper); // external next config function.
     void reset_config(){resetPermutation();} // Raper function for compatibility with the base class
 

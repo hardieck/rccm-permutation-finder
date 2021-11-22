@@ -11,33 +11,40 @@
 class calc_rccm_C1 : public calc_rccm_base
 {
 public:
+    const rccm_type type = typ_C1;
     calc_rccm_C1()
     {
-        IF_VERBOSE(9) std::cout << "Enter Function: calc_rccm_C1/constructor:" << std::endl;
+        IF_VERBOSE(8) ENTER_FUNCTION("calc_rccm_C1::calc_rccm_C1()")
+        IF_VERBOSE(8) LEAVE_FUNCTION("calc_rccm_C1::calc_rccm_C1()")
     }
     std::set<int>* compute(base_obj *parent_)
     {
-        IF_VERBOSE(4) std::cout << "Enter Function: calc_rccm_C1/compute:" << std::endl;
-        rccm* parent = (rccm*) parent_;
+        IF_VERBOSE(4) ENTER_FUNCTION("calc_rccm_C1::compute(base_obj *parent_")
+        rccm* parent = static_cast<rccm *>(parent_);
         IF_VERBOSE(5) std::cout << "Parent infos: sel_add.size()=" << parent->sel_add.size() << std::endl;
 
-
         // clear all calculation data from last run:
-        for (auto& i: (parent->sel_add))
+        for (int i=0; i < parent->sel_add.size(); ++i)
         {
-            i.init();
+            IF_VERBOSE(9) std::cout << "init sel_add[" << i << "]" << std::endl;
+            parent->sel_add[i].init();
         }
-        //parent->sel_add[0].init();
 
         //Start with new calculations and describing the dataflow
 
         IF_VERBOSE(5) std::cout << "Set input of first selective_add to set:{1}" << std::endl;
         std::set<int> prime_input = {1}; // set the input element
 
-        IF_VERBOSE(9) std::cout << "input Count of A is: "<< ((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().input_count_A << std::endl;
-        IF_VERBOSE(9) std::cout << "input Count of B is: "<< ((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().input_count_B << std::endl;
-        const int input_count = ((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().input_count_A + ((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().input_count_B;
-        IF_VERBOSE(8) std::cout << "input Count is: "<<input_count << std::endl;
+        IF_VERBOSE(6) std::cout << "parent: "<< parent << std::endl;
+        IF_VERBOSE(6) std::cout << "(calc_selective_adder_base*)parent->sel_add[0].calc "<< parent->sel_add[0].calc << std::endl;
+        IF_VERBOSE(6) std::cout << "(calc_selective_adder_base*)parent->sel_add[0].calc->type "<< ((calc_selective_adder_base*)(parent->sel_add[0].calc))->type() << std::endl;
+        IF_VERBOSE(6) std::cout << "((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().print_spec() " << std::endl;
+        spec_sel_add my_s = ((calc_selective_adder_base*)(parent->sel_add[0].calc))->get_spec();
+
+        IF_VERBOSE(9) std::cout << "input Count of A is: "<< ((calc_selective_adder_base*)(parent->sel_add[0].calc))->get_spec().input_count_A << std::endl;
+        IF_VERBOSE(9) std::cout << "input Count of B is: "<< ((calc_selective_adder_base*)(parent->sel_add[0].calc))->get_spec().input_count_B << std::endl;
+        const int input_count = ((calc_selective_adder_base*)(parent->sel_add[0].calc))->get_spec().input_count_A + ((calc_selective_adder_base*)parent->sel_add[0].calc)->get_spec().input_count_B;
+        IF_VERBOSE(8) std::cout << "input Count is: "<< input_count << std::endl;
 
         for (int i=0; i < input_count;++i)
         {
@@ -54,8 +61,8 @@ public:
         output = *(parent->sel_add[0].calc->get_output());
         IF_VERBOSE(4) std::cout << "output is:" << (output) << std::endl;
 
+        IF_VERBOSE(4) LEAVE_FUNCTION("calc_rccm_C1::compute(base_obj *parent_")
         return &output;
-
     }
     const spec_rccm spec = spec_rccm(1);
 };
