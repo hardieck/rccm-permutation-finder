@@ -130,10 +130,20 @@ void selective_add::init_permutators()
     IF_VERBOSE(8) ENTER_FUNCTION("selective_add::init_permutators()")
     spec_sel_add current_spec = this->get_spec();
 
+    IF_VERBOSE(9) std::cout << "before" << std::endl;
+    IF_VERBOSE(9) this->perm_operation.pd->printPermutationData();
+    IF_VERBOSE(9) this->perm_shift.pd->printPermutationData();
+
     this->perm_shift.set_config_from_spec(current_spec,shifts_only);
     this->perm_shift.resetPermutation();
     this->perm_operation.set_config_from_spec(current_spec,all_operations_only);
     this->perm_operation.resetPermutation();
+
+    IF_VERBOSE(9) std::cout << "after" << std::endl;
+    IF_VERBOSE(9) this->perm_operation.pd->printPermutationData();
+    IF_VERBOSE(9) this->perm_shift.pd->printPermutationData();
+
+    IF_VERBOSE(0) LEAVE_FUNCTION("selective_add::init_permutators()")
 }
 
 

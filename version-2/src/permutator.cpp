@@ -17,6 +17,7 @@ bool hasDuplicates(const std::vector<int>& arr) {
 
 permutation_data::permutation_data()
 {
+    IF_VERBOSE(9)ENTER_FUNCTION("permutation_data::permutation_data()")
     allCombinations = true;
     min_vec_is_used = false;
     init(1,false);
@@ -61,10 +62,12 @@ void permutation_data::printPermutationData(bool block)
         std::cout << "permutationCntMaxVec: " << permutationCntMaxVec << std::endl;
         std::cout << "permutationCntMinVec: " << permutationCntMinVec << std::endl;
         std::cout << "min_vec_is_used: " << min_vec_is_used << std::endl;
+        std::cout << "rising_block_list size: " << rising_block_list.size() << std::endl;
+
     }
     else
     {
-        std::cout << "allCombinations: " << allCombinations << " permutationIndexMax: " << permutationIndexMax << " permutationIndex: " << permutationIndex << " permutationCntVec: " << permutationCntVec <<  " permutationCntMaxVec: " << permutationCntMaxVec << " permutationCntMinVec: " << permutationCntMinVec << " min_vec_is_used: " << min_vec_is_used << std::endl;
+        std::cout << "allCombinations: " << allCombinations << " permutationIndexMax: " << permutationIndexMax << " permutationIndex: " << permutationIndex << " permutationCntVec: " << permutationCntVec <<  " permutationCntMaxVec: " << permutationCntMaxVec << " permutationCntMinVec: " << permutationCntMinVec << " min_vec_is_used: " << min_vec_is_used << " rising_block_list size: " << rising_block_list.size() << std::endl;
     }
 }
 
@@ -288,6 +291,15 @@ void Permutator::add_rising_block(unsigned int start,unsigned int length)
 bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type typ)
 {
     int MAX_SCHIFT=4; //Todo: MAke configurable or global or ...
+    if(dataowner)
+    {
+        delete pd;
+        pd = new permutation_data();
+    }
+    else
+    {
+        ERROR("Cant use function without being data owner", "Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type typ)")
+    }
 
     IF_VERBOSE(5) std::cout << "Permutator::set_config_from_spec: Enter Function"<< std::endl;
     switch(typ) {
@@ -300,8 +312,7 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type
             // specify ranges:
             pd->init(s.operation_set_size, true);
             pd->do_not_repeat_options = true;// there shall not be duplicate operations, so we can shrink the search space
-            add_rising_block(0,
-                             s.operation_set_size); // there shall not be duplicate operations, so we can shrink the search space
+            add_rising_block(0,s.operation_set_size); // there shall not be duplicate operations, so we can shrink the search space
             unsigned int vec_size=pd->permutationCntMaxVec.size();
             for (int i = 0; i < vec_size; ++i) {
                 //pd->permutationCntMaxVec[i] = s.diff_operation_count;

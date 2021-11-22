@@ -57,8 +57,8 @@ int do_debug()
 
     my_rccm.rccm_search_space.push_back(typ_C1);
     my_rccm.sel_add.resize(1);
-    my_rccm.sel_add[0].sel_add_search_space.push_back(typ_B);
     my_rccm.sel_add[0].sel_add_search_space.push_back(typ_A);
+    my_rccm.sel_add[0].sel_add_search_space.push_back(typ_B);
     string config_string;
     std::set<int>* result = nullptr;
     unsigned int i =1;
