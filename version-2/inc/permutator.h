@@ -46,8 +46,11 @@ public:
     ~permutation_data(){};
     permutation_data& operator=(const permutation_data& rhs);
     std::vector<int> permutationCntMaxVec;
-    std::vector<int> permutationCntMinVec;
+    std::vector<int> permutationCntMinVec; // contains reset values if min_vec is used.
     std::vector<int> permutationCntVec;
+    std::vector<bool> risingBlockBreakVec;// contains true far each beginning of a rising block if rising_block is used.
+    //rising blocks are groups of indexes within each value is unique (with rising value for simplicity)
+    //TODO remove rising_block_list and exchange function with risingBlockBreakVec
     std::vector<pair<vector<int>::iterator, vector<int>::iterator> > rising_block_list; //Specifie a start and end iterator for the permutationCntVec in which only rising values are allowed
 
 
@@ -55,9 +58,9 @@ public:
     int permutationIndexMax;
     bool allCombinations;
     bool min_vec_is_used;
-    bool do_not_repeat_options; // to exclude all permutations with repeating operations or shifts(for the same input)
+    bool rising_block_is_used; // to exclude all permutations with repeating operations or shifts(for the same input)
     void printPermutationData(bool block =false);
-    void init(unsigned int new_size = 1, bool min_vec = false);
+    void init(unsigned int new_size = 1, bool min_vec = false, bool rising_block = false);
 };
 
 //BAsic Permutation class. Do the lowes level of permutation with higher efficiency as the other layers.

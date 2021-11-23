@@ -9,10 +9,11 @@ permutation_data::permutation_data()
     IF_VERBOSE(9)ENTER_FUNCTION("permutation_data::permutation_data()")
     allCombinations = true;
     min_vec_is_used = false;
+    rising_block_is_used = false;
     init(1,false);
 }
 
-void permutation_data::init(unsigned int new_size, bool min_vec)
+void permutation_data::init(unsigned int new_size, bool min_vec, bool rising_block)
 {
     permutationIndex=0;
     permutationCntMaxVec.resize(new_size);
@@ -35,6 +36,18 @@ void permutation_data::init(unsigned int new_size, bool min_vec)
     else
     {
         permutationCntMinVec.clear();
+    }
+    if (min_vec_is_used)
+    {
+        risingBlockBreakVec.resize(new_size);
+        for (int i = 0; i < new_size;++i)
+        {
+            risingBlockBreakVec[i] = true;
+        }
+    }
+    else
+    {
+        risingBlockBreakVec.clear();
     }
     permutationIndex = 0;
     permutationIndexMax = permutationCntMaxVec.size()-1;
@@ -127,7 +140,7 @@ Permutator::~Permutator()
 bool Permutator::next_config(config_helper_obj& conv_helper)
 {
     //TODO chek if the return value of Permuator has the same meaning as next_config...
-    if(pd->do_not_repeat_options)
+    if(pd->rising_block_is_used)
     {
         bool return_value = false;
         return_value=nextPermutation();
@@ -302,7 +315,7 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type
             }
             // specify ranges:
             pd->init(s.operation_set_size, true);
-            pd->do_not_repeat_options = true;// there shall not be duplicate operations, so we can shrink the search space
+            pd->rising_block_is_used = true;// there shall not be duplicate operations, so we can shrink the search space
             add_rising_block(0,s.operation_set_size); // there shall not be duplicate operations, so we can shrink the search space
             unsigned int vec_size=pd->permutationCntMaxVec.size();
             for (int i = 0; i < vec_size; ++i) {
@@ -320,7 +333,7 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type
                 s.print_spec();
             }
             pd->init(s.input_count_A + s.input_count_B, true);
-            pd->do_not_repeat_options = true;// there shall not be duplicate operations, so we can shrink the search space
+            pd->rising_block_is_used = true;// there shall not be duplicate operations, so we can shrink the search space
             add_rising_block(0,s.input_count_A); // there shall not be duplicate shifts for input A, so we can shrink the search space
             add_rising_block(s.input_count_A,s.input_count_B); // there shall not be duplicate shifts for input B, so we can shrink the search space
 
