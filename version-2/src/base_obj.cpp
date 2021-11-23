@@ -4,3 +4,5 @@
 
 
 #include "../inc/base_obj.h"
+
+long long base_obj::obj_count { 0 };

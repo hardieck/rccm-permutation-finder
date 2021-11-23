@@ -5,6 +5,7 @@
 #include "../inc/helper.h"
 #include "../inc/debug.h"
 
+#include  "../inc/datatyps.h"
 
 char int2extendHEX(int input)
 {

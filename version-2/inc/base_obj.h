@@ -12,8 +12,10 @@
 class base_obj
 {
 public:
-    base_obj(){};
-    ~base_obj(){};
+    static long long obj_count;
+    base_obj(){++obj_count;};
+    base_obj (const base_obj &obj){++obj_count;}
+    virtual ~base_obj(){--obj_count;};
 };
 
 

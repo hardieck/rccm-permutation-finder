@@ -3,11 +3,9 @@
 //
 
 #include "../inc/calc_rccm_base.h"
-
+#include "../inc/calc_base.h"
 
 calc_rccm_base::calc_rccm_base()
-{
-    IF_VERBOSE(9) ENTER_FUNCTION("calc_rccm_base::calc_rccm_base()")
-}
+{}
 
 

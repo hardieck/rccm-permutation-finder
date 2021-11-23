@@ -5,8 +5,10 @@
 #include "../inc/calc_selective_adder_typ_a.h"
 
 //get_spec() need to be in each derived class to choose the correct spec wehen calld from base pointer
-spec_sel_add calc_selective_adder_typ_a::get_spec()
+const spec_sel_add calc_selective_adder_typ_a::get_spec()
 {
+    IF_VERBOSE(9)ENTER_FUNCTION("calc_selective_adder_typ_a::get_spec()")
+    IF_VERBOSE(9)LEAVE_FUNCTION("calc_selective_adder_typ_a::get_spec()")
     return spec;
 }
 std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent_)

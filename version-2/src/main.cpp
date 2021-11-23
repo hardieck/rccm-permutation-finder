@@ -51,41 +51,49 @@ void print_help()
 }
 int do_debug()
 {
-    global_verbose =0;
-    IF_VERBOSE(2) std::cout << "Enter Function: do_debug:" << std::endl;
-    rccm my_rccm;
-
-    my_rccm.rccm_search_space.push_back(typ_C1);
-    my_rccm.sel_add.resize(1);
-    my_rccm.sel_add[0].sel_add_search_space.push_back(typ_A);
-    my_rccm.sel_add[0].sel_add_search_space.push_back(typ_B);
-    string config_string;
-    std::set<int>* result = nullptr;
-    unsigned int i =1;
-    do
     {
-        std::set<int>* result = my_rccm.compute();
-        config_string = my_rccm.get_config();
-        std::cout << config_string << " -> " << *result << " iteration:" << i++ << std::endl;
-        //if(config_string == "HM1-C1-B9abc-34-4"){ std::cout << "edit Verbose" << std::endl; global_verbose=10;}
+        global_verbose = 0;
+        IF_VERBOSE(2) std::cout << "Enter Function: do_debug:" << std::endl;
+        rccm my_rccm;
+
+        my_rccm.rccm_search_space.push_back(typ_C2);
+        my_rccm.sel_add.resize(2);
+        my_rccm.sel_add[0].sel_add_search_space.push_back(typ_A);
+        my_rccm.sel_add[0].sel_add_search_space.push_back(typ_B);
+        my_rccm.sel_add[1].sel_add_search_space.push_back(typ_A);
+        my_rccm.sel_add[1].sel_add_search_space.push_back(typ_B);
+        string config_string;
+        std::set<int> *result = nullptr;
+        unsigned int i = 1;
+        do {
+            std::set<int> *result = my_rccm.compute();
+            config_string = my_rccm.get_config();
+            if (i % 100000 == 0) {
+                std::cout << config_string << " -> " << *result << " iteration:" << i << std::endl;
+            }
+            //if(config_string == "HM1-C1-B9abc-34-4"){ std::cout << "edit Verbose" << std::endl; global_verbose=10;}
+            ++i;
+        } while (my_rccm.next_config());
     }
-    while(my_rccm.next_config());
+    std::cout << "memory leak is " << base_obj::obj_count << std::endl;
+    std::cout << "memory leak from base_obj is " << base_obj::obj_count << std::endl<< std::endl;
+
 
     return 0;
 
-    std::vector< std::set<int> > results;
-    results.clear();
-    while(my_rccm.next_config())
-    {
-        my_rccm.compute();
-        results.push_back(*(my_rccm.calc->get_output()));
-    }
-    std::cout <<"result Table with " << results.size() << " Elements" << std::endl;
-    for(int i =0 ; i < results.size(); ++i)
-    {
-        std::cout << i << " result" << ": " << results[i] << std::endl;
-        if( i > 2000) {break;}
-    }
+//    std::vector< std::set<int> > results;
+//    results.clear();
+//    while(my_rccm.next_config())
+//    {
+//        my_rccm.compute();
+//        results.push_back(*(my_rccm.calc->get_output()));
+//    }
+//    std::cout <<"result Table with " << results.size() << " Elements" << std::endl;
+//    for(int i =0 ; i < results.size(); ++i)
+//    {
+//        std::cout << i << " result" << ": " << results[i] << std::endl;
+//        if( i > 2000) {break;}
+//    }
 
 
 
@@ -111,7 +119,7 @@ int do_debug()
 //    }
 //    p.pd->printPermutationData();
 
-    return 0;
+    //return 0;
 }
 
 void do_debug_old()
@@ -155,7 +163,7 @@ void do_debug_old()
     i=0;
     Permutator p2(&myvec);
     p.resetPermutation();
-    do{;
+    do{
         std::cout << "cycle: " << i++ << " ->";
         p.printPermutation();p.pd->printPermutationData();
     }while(p.nextPermutation());

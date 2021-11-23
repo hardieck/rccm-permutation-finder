@@ -15,6 +15,7 @@ class calc_selective_adder_base : public calc_base
 public:
     virtual sel_add_type type() const {return sel_add_type_NAN;}
     calc_selective_adder_base();
+    virtual ~calc_selective_adder_base();
     virtual std::set<int>* compute(base_obj *parent_)=0;
 
 protected:
@@ -23,11 +24,11 @@ public:
 
 
 public:
-    virtual spec_sel_add get_spec()=0;
+    virtual const spec_sel_add get_spec()=0;
 protected:
     void init();
 private:
-    spec_sel_add spec = spec_sel_add(1,1,1,1);
+    const spec_sel_add spec = spec_sel_add(1,1,1,1);
     //DO NOT USE local spec value!!! use get_spec()!
     //cause derived classes overload get_spec() but don't overload spec.
 

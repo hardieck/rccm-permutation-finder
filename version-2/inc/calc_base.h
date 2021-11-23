@@ -9,6 +9,9 @@
 class calc_base : public base_obj
 {
 public:
+    static long long mem_leek;
+    calc_base(){};
+    virtual ~calc_base(){};
     void set_input(unsigned int input_no, std::set<int>* in_set)
     {
         if (input_no >= inputs.size())

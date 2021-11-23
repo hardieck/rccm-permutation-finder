@@ -4,9 +4,8 @@
 
 #include "../inc/calc_selective_adder_base.h"
 #include <iostream>
-
-calc_selective_adder_base::calc_selective_adder_base()
-{}
+calc_selective_adder_base::calc_selective_adder_base(){}
+calc_selective_adder_base::~calc_selective_adder_base(){}
 void calc_selective_adder_base::init()
 {
     //DO NOT USE local spec value!!! use get_spec()! cause derived classes overload get_spec() but don't overload spec...
@@ -17,8 +16,10 @@ void calc_selective_adder_base::init()
     inputs.resize(get_spec().input_count_A+get_spec().input_count_B);
     output.clear();
 }
-spec_sel_add calc_selective_adder_base::get_spec()
+const spec_sel_add calc_selective_adder_base::get_spec()
 {
+    IF_VERBOSE(9)ENTER_FUNCTION("calc_selective_adder_base::get_spec()")
+    IF_VERBOSE(9)LEAVE_FUNCTION("calc_selective_adder_base::get_spec()")
     return spec;
 }
 

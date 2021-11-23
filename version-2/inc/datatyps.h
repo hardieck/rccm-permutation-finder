@@ -57,6 +57,7 @@ public:
         //this->usualy_used_sets = usualy_used_sets;
 
     };
+    virtual ~spec_sel_add(){};
     unsigned int input_count_A; // number of inputs for inputs A
     unsigned int input_count_B; //number of inputs for inputs B
     unsigned int diff_operation_count; // number of different operations
@@ -74,18 +75,19 @@ public:
     };
     void print_spec() const
     {
-        IF_VERBOSE(5) std::cout << "spec_sel_add.print_spec(): Enter Function" << std::endl;
+        IF_VERBOSE(5) ENTER_FUNCTION("print_spec::print_spec()")
         std::cout << "input_count_A=" << input_count_A << std::endl;
         std::cout << "input_count_B=" << input_count_B << std::endl;
         std::cout << "diff_operation_count=" << diff_operation_count << std::endl;
         std::cout << "operation_set_size=" << operation_set_size << std::endl;
         std::cout << "usualy_used_sets:" << usualy_used_sets << std::endl;
-
+        IF_VERBOSE(5) LEAVE_FUNCTION("print_spec::print_spec()")
     };
 };
 class spec_rccm : public base_obj
 {
 public:
+    virtual ~spec_rccm(){};
     spec_rccm(unsigned int add_sel_count)
     {
         this->add_sel_count = add_sel_count;
@@ -116,6 +118,7 @@ class config_helper_obj : public base_obj // to handle all objects that need to 
 public:
     std::list<config_reset_base*> reset_list;
 
+    ~config_helper_obj(){}
     config_helper_obj()
     {
         reset_list.clear();

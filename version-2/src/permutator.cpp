@@ -290,7 +290,7 @@ void Permutator::add_rising_block(unsigned int start,unsigned int length)
 }
 bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type typ)
 {
-    int MAX_SCHIFT=4; //Todo: MAke configurable or global or ...
+    int MAX_SCHIFT=2; //Todo: MAke configurable or global or ...
     if(dataowner)
     {
         delete pd;

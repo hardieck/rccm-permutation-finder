@@ -4,6 +4,7 @@
 
 #include "../inc/rccm.h"
 #include "../inc/calc_rccm_C1.h"
+#include "../inc/calc_rccm_C2.h"
 
 rccm::rccm()
 {
@@ -12,7 +13,10 @@ rccm::rccm()
     calc = nullptr;
     sel_add.clear();
 }
-
+rccm::~rccm()
+{
+    delete_calc();
+}
 
 std::string rccm::get_config()
 {
@@ -84,15 +88,15 @@ std::set<int>* rccm::compute()
 {
     IF_VERBOSE(4) ENTER_FUNCTION("rccm::compute()")
     // calc exists but points to a wrong type
-    if((calc!=nullptr)&&(rccm_search_space[from_sp_use] != ((calc_rccm_base*)calc)->type())){delete calc; calc= nullptr;}
+    if((calc!=nullptr)&&(rccm_search_space[from_sp_use] != ((calc_rccm_base*)calc)->type())){delete_calc();}
     if(calc==nullptr) // calc does not exist (anymore) and need to be initialized
     {
         switch (rccm_search_space[from_sp_use])
         {
             case typ_C1:calc = new calc_rccm_C1;break;
-            case typ_C2:ERROR("Type B is not supported yet", "rccm::compute()")break;
-            case typ_C3:ERROR("Type C is not supported yet", "rccm::compute()")break;
-            case typ_C4:ERROR("Type D is not supported yet", "rccm::compute()")break;
+            case typ_C2:calc = new calc_rccm_C2;break;
+            case typ_C3:ERROR("Type C3 is not supported yet", "rccm::compute()")break;
+            case typ_C4:ERROR("Type C4 is not supported yet", "rccm::compute()")break;
             default:
             ERROR("Invalid Type", "rccm::compute()");
         }
@@ -111,7 +115,7 @@ selective_add* rccm::get_sel_add(unsigned int no)
     return &(sel_add[no]);
 }
 
-void rccm::clear_calc_data()
+void rccm::delete_calc()
 {
     IF_VERBOSE(6) ENTER_FUNCTION("rccm::delete_calc()")
     IF_VERBOSE(6) std::cout << "calc points to : " << this->calc << std::endl;
@@ -119,5 +123,6 @@ void rccm::clear_calc_data()
     {
         IF_VERBOSE(6) std::cout << "delete calc" << std::endl;
         delete calc;
+        calc = nullptr;
     }
 }

@@ -16,9 +16,10 @@ class rccm : public base_obj
 {
 public:
 	rccm();
+    ~rccm();
 
     std::set<int>* compute();
-    calc_base* calc; // need to be calc base instead of calc_rccm_base to prevent circular dependency
+    calc_base* calc = nullptr; // need to be calc base instead of calc_rccm_base to prevent circular dependency
 
 	std::string get_config();
 	bool set_config(std::string new_config);
@@ -34,7 +35,7 @@ public:
     std::vector<selective_add> sel_add; // store the selective adder objects (can differ in size for any connection Structure)
 protected:
     config_helper_obj conv_helper;// only used by next_config to handle the reset.
-    void clear_calc_data();
+    void delete_calc();
 };
 
 

@@ -19,6 +19,7 @@ class calc_rccm_base : public calc_base
 public:
     virtual rccm_type type() const {return rccm_type_NAN;}
 	calc_rccm_base();
+    virtual ~calc_rccm_base(){};
 
 protected:
     const spec_rccm spec = spec_rccm(1);

@@ -5,7 +5,6 @@
 #include "../inc/selective_add.h"
 #include "../inc/calc_selective_adder_typ_a.h"
 #include "../inc/calc_selective_adder_typ_b.h"
-#include "../inc/debug.h"
 #include <string>
 //
 //std::set<int> selective_add::get_operation_set()
@@ -84,7 +83,7 @@ bool selective_add::next_config(config_helper_obj& conv_helper)
 
     IF_VERBOSE(9) std::cout << "selective_add: next_config: no shift config left, try next selective adder type from search space" << std::endl;
     //iterate over search space elements (typ_A typ_B typ_C,...)
-    IF_VERBOSE(0) std::cout << "from_sp_use: " << from_sp_use << " sel_add_search_space.size()=" << sel_add_search_space.size() << std::endl;
+    IF_VERBOSE(9) std::cout << "from_sp_use: " << from_sp_use << " sel_add_search_space.size()=" << sel_add_search_space.size() << std::endl;
     if(from_sp_use < sel_add_search_space.size()-1)
     {
         ++from_sp_use;
@@ -143,7 +142,7 @@ void selective_add::init_permutators()
     IF_VERBOSE(9) this->perm_operation.pd->printPermutationData();
     IF_VERBOSE(9) this->perm_shift.pd->printPermutationData();
 
-    IF_VERBOSE(0) LEAVE_FUNCTION("selective_add::init_permutators()")
+    IF_VERBOSE(8) LEAVE_FUNCTION("selective_add::init_permutators()")
 }
 
 
@@ -288,7 +287,7 @@ void selective_add::delete_calc() // if existing delete calc object
     {
         IF_VERBOSE(9) std::cout << "delete calc" << std::endl;
         delete calc;
-        calc= nullptr;
+        calc=nullptr;
     }
     IF_VERBOSE(9)LEAVE_FUNCTION("selective_add::delete_calc()")
 }
@@ -311,6 +310,10 @@ selective_add::selective_add()
     IF_VERBOSE(3) ENTER_FUNCTION("selective_add::selective_add()")
     from_sp_use=0;
     calc = nullptr;
+}
+selective_add::~selective_add()
+{
+    delete_calc();
 }
 
 std::set<int>* gen_shift(std::set<int>* input_set, int shift)

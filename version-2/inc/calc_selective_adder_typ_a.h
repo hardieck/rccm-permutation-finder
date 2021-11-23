@@ -16,7 +16,7 @@ public:
     };
     virtual sel_add_type type() const {return typ_A;}
     std::set<int>* compute(base_obj *parent_);
-    virtual spec_sel_add get_spec();
+    virtual const spec_sel_add get_spec();
 private:
     const spec_sel_add spec = spec_sel_add(3,1,7,4);
     //DO NOT USE local spec value!!! use get_spec()! cause derived classes overload get_spec() but don't overload spec...

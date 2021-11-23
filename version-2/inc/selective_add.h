@@ -16,8 +16,8 @@
 class selective_add : public config_reset_base
 {
 public:
-
     selective_add();
+    ~selective_add();
     std::set<int>* compute();
     void init();
     calc_base* calc = nullptr;

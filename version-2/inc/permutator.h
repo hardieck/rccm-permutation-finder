@@ -43,6 +43,7 @@ class permutation_data : public base_obj
 {
 public:
     permutation_data();
+    ~permutation_data(){};
     permutation_data& operator=(const permutation_data& rhs);
     std::vector<int> permutationCntMaxVec;
     std::vector<int> permutationCntMinVec;
@@ -63,7 +64,7 @@ public:
 class Permutator : public config_reset_base
 {
 public:
-
+    static long long mem_leek;
     Permutator(std::vector<int> *permutationCntMaxVec, bool allCombinations=true, std::vector<int> *permutationCntMinVec=nullptr);
     Permutator();
     ~Permutator();
