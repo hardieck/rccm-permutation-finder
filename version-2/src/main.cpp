@@ -64,19 +64,21 @@ int memory_leek_test()
         my_rccm.sel_add[0].sel_add_search_space.push_back(typ_A);
         my_rccm.sel_add[0].sel_add_search_space.push_back(typ_B);
         my_rccm.sel_add[1].sel_add_search_space.push_back(typ_A);
+        my_rccm.sel_add[1].sel_add_search_space.push_back(typ_B);
         string config_string;
         std::set<int> *result = nullptr;
         unsigned int i = 1;
         do {
             std::set<int> *result = my_rccm.compute();
             config_string = my_rccm.get_config();
-            //if (i % 10000 == 0)
+            if (i % 10000 == 0)
             {
                 std::cout << config_string << " -> " << *result << " iteration:" << i << std::endl;
             }
             //if(config_string == "HM1-C1-B9abc-34-4"){ std::cout << "edit Verbose" << std::endl; global_verbose=10;}
             ++i;
         } while (my_rccm.next_config());
+        std::cout << config_string << " -> " << *result << " iteration:" << i << std::endl;
     }
     std::cout << "memory leak is " << base_obj::obj_count << std::endl;
     std::cout << "memory leak from base_obj is " << base_obj::obj_count << std::endl<< std::endl;
@@ -87,23 +89,31 @@ int permutator_test_1()
 {
     IF_VERBOSE(1) ENTER_FUNCTION("permutator_test_1")
     config_helper_obj h;
-    Permutator p;
+//    std::vector<int> v= {4,4,4};
+//    std::vector<int> v_min= {0,1,0};
+//    std::vector<bool> v_break= {0,0,1};
+//    Permutator p;
+//    p.pd->init(3, true, true);
+//    p.pd->permutationCntMaxVec = v;
+//    p.pd->permutationCntMinVec = v_min;
+//    p.pd->risingBlockBreakVec = v_break;
+
+
+
     calc_selective_adder_typ_a sel_add_a;
-    p.set_config_from_spec(sel_add_a.get_spec(),shifts_only);
-    p.pd->printPermutationData();
+    Permutator p;
+    //p.set_config_from_spec(sel_add_a.get_spec(),shifts_only);
+    p.set_config_from_spec(sel_add_a.get_spec(),all_operations_only);
     sel_add_a.get_spec().print_spec();
 
-    pair<vector<int>::iterator, vector<int>::iterator> my_block;
-    my_block.first=p.pd->permutationCntVec.begin();
-    my_block.second=p.pd->permutationCntVec.end();
-    p.pd->rising_block_list.push_back(my_block);
-
     p.reset_config();
-    while( p.next_config(h))
+    p.pd->printPermutationData();
+
+    do
     {
-        p.printPermutation();
-        std::cout << endl;
+        p.printPermutation(); p.pd->printPermutationData();
     }
+    while( p.next_config(h));
     p.pd->printPermutationData();
 
     return 0;
@@ -163,8 +173,8 @@ int permutator_test_2()
 int do_debug()
 {
     global_verbose = 1;
-    //memory_leek_test();
-    permutator_test_1();
+    memory_leek_test();
+    //permutator_test_1();
     //permutator_test_2();
 
     return 0;

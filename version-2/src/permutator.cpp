@@ -19,6 +19,7 @@ void permutation_data::init(unsigned int new_size, bool min_vec, bool rising_blo
     permutationCntMaxVec.resize(new_size);
     permutationCntVec.resize(new_size);
     min_vec_is_used = min_vec;
+    rising_block_is_used = rising_block;
     for (int i = 0; i < new_size;++i)
     {
         permutationCntMaxVec[i] = 0;
@@ -37,12 +38,12 @@ void permutation_data::init(unsigned int new_size, bool min_vec, bool rising_blo
     {
         permutationCntMinVec.clear();
     }
-    if (min_vec_is_used)
+    if (rising_block_is_used)
     {
         risingBlockBreakVec.resize(new_size);
         for (int i = 0; i < new_size;++i)
         {
-            risingBlockBreakVec[i] = true;
+            risingBlockBreakVec[i] = false;
         }
     }
     else
@@ -64,12 +65,13 @@ void permutation_data::printPermutationData(bool block)
         std::cout << "permutationCntMaxVec: " << permutationCntMaxVec << std::endl;
         std::cout << "permutationCntMinVec: " << permutationCntMinVec << std::endl;
         std::cout << "min_vec_is_used: " << min_vec_is_used << std::endl;
-        std::cout << "rising_block_list size: " << rising_block_list.size() << std::endl;
+        std::cout << "rising_block_is_used: " << rising_block_is_used << std::endl;
+        std::cout << "risingBlockBreakVec size: " << risingBlockBreakVec << std::endl;
 
     }
     else
     {
-        std::cout << "allCombinations: " << allCombinations << " permutationIndexMax: " << permutationIndexMax << " permutationIndex: " << permutationIndex << " permutationCntVec: " << permutationCntVec <<  " permutationCntMaxVec: " << permutationCntMaxVec << " permutationCntMinVec: " << permutationCntMinVec << " min_vec_is_used: " << min_vec_is_used << " rising_block_list size: " << rising_block_list.size() << std::endl;
+        std::cout << "allCombinations: " << allCombinations << " permutationIndexMax: " << permutationIndexMax << " permutationIndex: " << permutationIndex << " permutationCntVec: " << permutationCntVec <<  " permutationCntMaxVec: " << permutationCntMaxVec << " permutationCntMinVec: " << permutationCntMinVec << " min_vec_is_used: " << min_vec_is_used <<" rising_block_is_used: " << rising_block_is_used << " risingBlockBreakVec: " << risingBlockBreakVec << std::endl;
     }
 }
 
@@ -82,6 +84,8 @@ permutation_data& permutation_data::operator=(const permutation_data& rhs)
     permutationIndexMax = rhs.permutationIndexMax;
     allCombinations = rhs.allCombinations;
     min_vec_is_used = rhs.min_vec_is_used;
+    rising_block_is_used = rhs.rising_block_is_used;
+    risingBlockBreakVec = rhs.risingBlockBreakVec;
     return *this;
 }
 
@@ -144,10 +148,10 @@ bool Permutator::next_config(config_helper_obj& conv_helper)
     {
         bool return_value = false;
         return_value=nextPermutation();
-        while((return_value == true)&&(check_all_rising_blocks())) // rerun if there is (still) a problem with the block list
-        {
-            return_value = nextPermutation();
-        }
+//        while((return_value == true)&&(check_all_rising_blocks())) // rerun if there is (still) a problem with the block list
+//        {
+//            return_value = nextPermutation();
+//        }
         if(return_value==false){conv_helper.add_me_to_reset_list((config_reset_base*)this);}
         return return_value;
     }
@@ -166,14 +170,28 @@ bool Permutator::nextPermutation()
   if(pd->allCombinations)
   {
     //modify permutation, for that first move index to position to increment:
-    while(pd->permutationCntVec[pd->permutationIndex] == (pd->permutationCntMaxVec)[pd->permutationIndex])
-    {
-      if(pd->permutationIndex == pd->permutationIndexMax)
+      //if(pd->rising_block_is_used== false)
+      if(pd->rising_block_is_used)
       {
-        return false; //no further permutations
+          //modify permutation, for that first move index to position to increment
+          //AND as long as the end isn't reached skip all index values where the current element is one less the next element until a rising break point is reached
+          while ((pd->permutationCntVec[pd->permutationIndex] == (pd->permutationCntMaxVec)[pd->permutationIndex]) || ((pd->permutationIndex != pd->permutationIndexMax) && ((pd->risingBlockBreakVec[pd->permutationIndex+1] == false)) && ((pd->permutationCntVec[pd->permutationIndex] + 1) == (pd->permutationCntVec[pd->permutationIndex + 1]))))
+          {
+              if (pd->permutationIndex == pd->permutationIndexMax) {
+                  return false; //no further permutations
+              }
+              pd->permutationIndex++;
+
+          }
       }
-        pd->permutationIndex++;
-    }
+      else {
+          while (pd->permutationCntVec[pd->permutationIndex] == (pd->permutationCntMaxVec)[pd->permutationIndex]) {
+              if (pd->permutationIndex == pd->permutationIndexMax) {
+                  return false; //no further permutations
+              }
+              pd->permutationIndex++;
+          }
+      }
 
       pd->permutationCntVec[pd->permutationIndex]++;
 
@@ -282,6 +300,15 @@ void Permutator::add_rising_block(unsigned int start,unsigned int length)
     {
         ERROR("Can't set block! Out of range!","Permutator::add_rising_block()")
     }
+    pd->risingBlockBreakVec[start] = true;
+
+    if(start + length < pd->permutationCntVec.size()) // end point is only needed if there is something after
+    {
+        pd->risingBlockBreakVec[start + length] = true;
+    }
+
+    //TODO remove everything ather here from this function
+
     pair<vector<int>::iterator, vector<int>::iterator> my_block;
     vector<int>::iterator it = pd->permutationCntVec.begin();
     for(int i=0; i <= pd->permutationCntVec.size(); ++i)
@@ -314,7 +341,7 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type
                 s.print_spec();
             }
             // specify ranges:
-            pd->init(s.operation_set_size, true);
+            pd->init(s.operation_set_size, true, true);
             pd->rising_block_is_used = true;// there shall not be duplicate operations, so we can shrink the search space
             add_rising_block(0,s.operation_set_size); // there shall not be duplicate operations, so we can shrink the search space
             unsigned int vec_size=pd->permutationCntMaxVec.size();
@@ -332,7 +359,7 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type
                 std::cout << "Print used spec s:" << std::endl;
                 s.print_spec();
             }
-            pd->init(s.input_count_A + s.input_count_B, true);
+            pd->init(s.input_count_A + s.input_count_B, true, true);
             pd->rising_block_is_used = true;// there shall not be duplicate operations, so we can shrink the search space
             add_rising_block(0,s.input_count_A); // there shall not be duplicate shifts for input A, so we can shrink the search space
             add_rising_block(s.input_count_A,s.input_count_B); // there shall not be duplicate shifts for input B, so we can shrink the search space
@@ -355,3 +382,4 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type
     }
     return 1;
 }
+
