@@ -4,17 +4,6 @@
 
 using namespace std;
 
-// tiny helper function to chek if the vector has duplicates without sorting it...
-bool hasDuplicates(const std::vector<int>& arr) {
-    for (std::size_t i = 0; i < arr.size(); ++i) {
-        for (std::size_t j = i + 1; j < arr.size(); ++j) {
-            if (arr[i] == arr[j])
-                return true;
-        }
-    }
-    return false;
-}
-
 permutation_data::permutation_data()
 {
     IF_VERBOSE(9)ENTER_FUNCTION("permutation_data::permutation_data()")
@@ -235,6 +224,8 @@ void Permutator::printPermutation(bool reverse)
         cout << "]";
     }
 }
+
+// TODO: replace function with index scypping funktionality... and make risign standard
 bool Permutator::check_all_rising_blocks() // returns true if there is a problem within a rising block
 {
     IF_VERBOSE(8) std::cout << "Permutator: check_all_rising_blocks: Enter Function" << std::endl;
