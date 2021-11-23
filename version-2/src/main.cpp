@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <cstring>
 #include "../inc/permutator.h"
-#include "../inc/calc_selective_adder_typ_b.h"
+#include "../inc/calc_selective_adder_typ_a.h"
 
 
 int do_debug();
@@ -49,8 +49,11 @@ void print_help()
     cout << "--do_debug                                     Run the debug function" << endl;
     cout << "--verbose=0...9                                Verbosity level (0: no information, 9: all information during optimization), default:1" << endl;
 }
-int do_debug()
+
+
+int memory_leek_test()
 {
+    IF_VERBOSE(1) ENTER_FUNCTION("memory_leek_test")
     {
         global_verbose = 0;
         IF_VERBOSE(2) std::cout << "Enter Function: do_debug:" << std::endl;
@@ -75,52 +78,41 @@ int do_debug()
             ++i;
         } while (my_rccm.next_config());
     }
+    std::cout << "memory leak is " << base_obj::obj_count << std::endl;
+    std::cout << "memory leak from base_obj is " << base_obj::obj_count << std::endl<< std::endl;
     return 0;
-
-//    std::vector< std::set<int> > results;
-//    results.clear();
-//    while(my_rccm.next_config())
-//    {
-//        my_rccm.compute();
-//        results.push_back(*(my_rccm.calc->get_output()));
-//    }
-//    std::cout <<"result Table with " << results.size() << " Elements" << std::endl;
-//    for(int i =0 ; i < results.size(); ++i)
-//    {
-//        std::cout << i << " result" << ": " << results[i] << std::endl;
-//        if( i > 2000) {break;}
-//    }
-
-
-
-//    config_helper_obj h;
-//    Permutator p;
-//    calc_selective_adder_typ_b sel_add_b;
-//    p.set_config_from_spec(sel_add_b.spec,shifts_only);
-//    p.pd->printPermutationData();
-//    sel_add_b.spec.print_spec();
-
-
-
-    //pair<vector<int>::iterator, vector<int>::iterator> my_block;
-    //my_block.first=p.pd->permutationCntVec.begin();
-    //my_block.second=p.pd->permutationCntVec.end();
-    //p.pd->rising_block_list.push_back(my_block);
-
-//    p.reset_config();
-//    while( p.next_config(h))
-//    {
-//        p.printPermutation();
-//        std::cout << endl;
-//    }
-//    p.pd->printPermutationData();
-
-    //return 0;
 }
 
-void do_debug_old()
+int permutator_test_1()
 {
-   IF_VERBOSE(1) std::cout << "Enter Function: do_debug:" << std::endl;
+    IF_VERBOSE(1) ENTER_FUNCTION("permutator_test_1")
+    config_helper_obj h;
+    Permutator p;
+    calc_selective_adder_typ_a sel_add_a;
+    p.set_config_from_spec(sel_add_a.get_spec(),shifts_only);
+    p.pd->printPermutationData();
+    sel_add_a.get_spec().print_spec();
+
+    pair<vector<int>::iterator, vector<int>::iterator> my_block;
+    my_block.first=p.pd->permutationCntVec.begin();
+    my_block.second=p.pd->permutationCntVec.end();
+    p.pd->rising_block_list.push_back(my_block);
+
+    p.reset_config();
+    while( p.next_config(h))
+    {
+        p.printPermutation();
+        std::cout << endl;
+    }
+    p.pd->printPermutationData();
+
+    return 0;
+}
+
+
+int permutator_test_2()
+{
+   IF_VERBOSE(1) ENTER_FUNCTION("permutator_test_2")
     //calc_rccm_typ_3add test;
 
     //IF_VERBOSE(1) std::cout << "Init done! Now Compute" << std::endl;
@@ -164,5 +156,16 @@ void do_debug_old()
         p.printPermutation();p.pd->printPermutationData();
     }while(p.nextPermutation());
 
+    return 0;
+}
 
+
+int do_debug()
+{
+    global_verbose = 1;
+    //memory_leek_test();
+    permutator_test_1();
+    //permutator_test_2();
+
+    return 0;
 }
