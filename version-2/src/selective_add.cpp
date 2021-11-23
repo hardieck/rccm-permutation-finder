@@ -6,6 +6,7 @@
 #include "../inc/calc_selective_adder_typ_a.h"
 #include "../inc/calc_selective_adder_typ_b.h"
 #include <string>
+#include <memory>
 //
 //std::set<int> selective_add::get_operation_set()
 //{
@@ -322,7 +323,6 @@ std::set<int>* gen_shift(std::set<int>* input_set, int shift)
     IF_VERBOSE(9) std::cout << "shift is: "<< shift<< std::endl;
     IF_VERBOSE(9) std::cout << "input_set points to: "<< input_set << std::endl;
     IF_VERBOSE(9) std::cout << "input_set is: "<< *input_set << std::endl;
-
 
     std::set<int>* result = new std::set<int>();
 

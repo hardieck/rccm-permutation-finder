@@ -70,6 +70,11 @@ std::set<int>* calc_selective_adder_typ_a::compute(base_obj *parent_)
     }
     IF_VERBOSE(7) std::cout << "calculation result is:" << output << std::endl;
     IF_VERBOSE(5)LEAVE_FUNCTION("calc_selective_adder_typ_a::compute()")
+
+    delete &A1;
+    delete &A2;
+    delete &A3;
+    delete &B1;
     return &output;
 }
 

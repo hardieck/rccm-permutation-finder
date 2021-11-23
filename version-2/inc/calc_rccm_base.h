@@ -12,6 +12,7 @@
 #include "calc_selective_adder_base.h"
 #include "calc_base.h"
 #include "rccm.h"
+#include <memory>
 
 
 class calc_rccm_base : public calc_base

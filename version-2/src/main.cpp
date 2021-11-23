@@ -68,7 +68,7 @@ int do_debug()
         do {
             std::set<int> *result = my_rccm.compute();
             config_string = my_rccm.get_config();
-            if (i % 100000 == 0) {
+            if (i % 10000 == 0) {
                 std::cout << config_string << " -> " << *result << " iteration:" << i << std::endl;
             }
             //if(config_string == "HM1-C1-B9abc-34-4"){ std::cout << "edit Verbose" << std::endl; global_verbose=10;}

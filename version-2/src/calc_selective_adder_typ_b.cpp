@@ -87,6 +87,9 @@ std::set<int>* calc_selective_adder_typ_b::compute(base_obj *parent_) {
             default: ERROR("unsupported Operation","calc_selective_adder_typ_b::compute(base_obj *parent_)")
         }
     }
+    delete &A1;
+    delete &A2;
+    delete &B1;
     IF_VERBOSE(7) std::cout << "calculation result is:" << output << std::endl;
     return &output;
 }
