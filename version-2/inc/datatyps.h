@@ -11,16 +11,17 @@
 
 enum rccm_type // add a type for each rccm dataflow structure / Connection Structure  (without shifts or selecetiv adder specification)
 {
+    rccm_type_downtCare= -1,// just for position keys in search space plan
     rccm_type_NAN    = 0, // not a number for a uninitialized state
     typ_C1 = 1, // 1 add (single selective adder)
     typ_C2 = 2, // 2 add (two selective adders in a row)
     typ_C3 = 3,  // 3 add (to selective adder besides each other followed by a third to fuse the outputs)
     typ_C4 = 4  // 4 add ()
-
 };
 
 enum sel_add_type // add a type for each selective adder option
 {
+    sel_add_type_downtCare= -1,// just for position keys in search space plan
     sel_add_type_NAN   = 0, // not a number for a uninitialized state
     typ_A = 1,
     typ_B = 2,
@@ -36,6 +37,51 @@ enum config_level // different // shal probably be removed
     structure = 3,
     all = 4
 };
+
+class sspk : public base_obj //search space position key
+{
+public:
+    rccm_type key_level1;// Connection structure type
+    int key_level2; // number of selective add in a connection strucutre
+    sel_add_type key_level3; // selective add type
+
+    sspk(rccm_type _key_level0=rccm_type_downtCare,int _key_level2 = -1, sel_add_type _key_level3=sel_add_type_downtCare)
+    {
+
+    };
+    ~sspk(){};
+
+    sspk& operator=(const sspk& rhs)
+    {
+        this->key_level1 = rhs.key_level1;
+        this->key_level2 = rhs.key_level2;
+        this->key_level3 = rhs.key_level3;
+        return (*this);
+    };
+    bool operator==(const sspk& rhs) const
+    {
+        if((this->key_level1 != -1)&&(rhs.key_level1 != -1))
+        {
+            if(this->key_level1 != rhs.key_level1) {return false;}
+        }
+        if((this->key_level2 != -1)&&(rhs.key_level2!= -1))
+        {
+            if(this->key_level2 != rhs.key_level2) {return false;}
+        }
+        if((this->key_level3 != -1)&&(rhs.key_level3!= -1))
+        {
+            if(this->key_level3 != rhs.key_level3) {return false;}
+        }
+
+        return true;
+    };
+    bool operator!=(const sspk& rhs) const
+    {
+        return !((*this)==rhs);
+    };
+
+};
+
 
 class spec_sel_add : public base_obj
 {

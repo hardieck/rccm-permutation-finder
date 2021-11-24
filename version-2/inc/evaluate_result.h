@@ -13,6 +13,9 @@
 #include "rccm.h"
 #include <algorithm>
 
+
+//TODO: make results mergable... so that only parts of search space can be done seperatly (for Example in multiple threads) to fuse them together again
+// make a result class to handle...
 //class evaluate_result : public base_obj
 //{
 //public:
