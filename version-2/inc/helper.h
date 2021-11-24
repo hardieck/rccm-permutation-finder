@@ -8,5 +8,6 @@
 
 
 char int2extendHEX(int input);
+int extendHEX2int(char input);
 
 #endif //ADDNET_PERMUTATOR_V2_HELPER_H

@@ -34,4 +34,4 @@ add_executable(AddNet_Permutator_v2
         inc/calc_selective_adder_base.h
         inc/permutator.h
         inc/calc_selective_adder_typ_a.h
-        inc/calc_selective_adder_typ_b.h inc/debug.h src/debug.cpp src/base_obj.cpp inc/base_obj.h inc/datatyps.h src/calc_rccm_C1.cpp inc/calc_rccm_C1.h inc/calc_base.h src/helper.cpp inc/helper.h src/calc_rccm_C2.cpp inc/calc_rccm_C2.h)
+        inc/calc_selective_adder_typ_b.h inc/debug.h src/debug.cpp src/base_obj.cpp inc/base_obj.h inc/datatyps.h src/calc_rccm_C1.cpp inc/calc_rccm_C1.h inc/calc_base.h src/helper.cpp inc/helper.h src/calc_rccm_C2.cpp inc/calc_rccm_C2.h src/search_space_plan.cpp inc/search_space_plan.h)
