@@ -169,11 +169,47 @@ int permutator_test_2()
     return 0;
 }
 
+int RCCM_C3_test()
+{
+    IF_VERBOSE(1) ENTER_FUNCTION("memory_leek_test")
+    {
+        global_verbose = 0;
+        IF_VERBOSE(2) std::cout << "Enter Function: do_debug:" << std::endl;
+        rccm my_rccm;
+
+        my_rccm.rccm_search_space.push_back(typ_C1);
+        my_rccm.sel_add.resize(1);
+        my_rccm.sel_add[0].sel_add_search_space.push_back(typ_A);
+        my_rccm.sel_add[0].sel_add_search_space.push_back(typ_B);
+        //my_rccm.sel_add[1].sel_add_search_space.push_back(typ_A);
+        //my_rccm.sel_add[2].sel_add_search_space.push_back(typ_A);
+        string config_string;
+        std::set<int> *result = nullptr;
+        unsigned int i = 1;
+        do {
+            std::set<int> *result = my_rccm.compute();
+            config_string = my_rccm.get_config();
+            if (i % 1 == 0)
+            {
+                std::cout << config_string << " -> " << *result << " iteration:" << i << std::endl;
+            }
+            //if(config_string == "HM1-C1-B9abc-34-4"){ std::cout << "edit Verbose" << std::endl; global_verbose=10;}
+            ++i;
+        } while (my_rccm.next_config());
+
+        result = my_rccm.compute();
+        config_string = my_rccm.get_config();
+        std::cout << config_string << " -> " << *result << " iteration:" << i << std::endl;
+    }
+    return 0;
+}
+
 
 int do_debug()
 {
     global_verbose = 1;
-    memory_leek_test();
+    //memory_leek_test();
+    RCCM_C3_test();
     //permutator_test_1();
     //permutator_test_2();
 

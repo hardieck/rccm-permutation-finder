@@ -5,6 +5,7 @@
 #include "../inc/rccm.h"
 #include "../inc/calc_rccm_C1.h"
 #include "../inc/calc_rccm_C2.h"
+#include "../inc/calc_rccm_C3.h"
 
 rccm::rccm()
 {
@@ -95,7 +96,7 @@ std::set<int>* rccm::compute()
         {
             case typ_C1:calc = new calc_rccm_C1;break;
             case typ_C2:calc = new calc_rccm_C2;break;
-            case typ_C3:ERROR("Type C3 is not supported yet", "rccm::compute()")break;
+            case typ_C3:calc = new calc_rccm_C3;break;
             case typ_C4:ERROR("Type C4 is not supported yet", "rccm::compute()")break;
             default:
             ERROR("Invalid Type", "rccm::compute()");
