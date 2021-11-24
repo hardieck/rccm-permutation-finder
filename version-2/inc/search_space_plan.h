@@ -57,6 +57,8 @@ public:
     //-----------------------------
     //wich evaluation shall be done for all
 
+    vector<>
+
 };
 
 
