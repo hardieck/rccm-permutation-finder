@@ -19,6 +19,49 @@ rccm::~rccm()
     delete_calc();
 }
 
+void rccm::init()
+{
+    IF_VERBOSE(4) ENTER_FUNCTION("rccm::init()")
+    if(rccm_search_space.size()==0){ ERROR("Can Not init without search space!","selective_add::init()")}
+    if((calc!=nullptr)&&(rccm_search_space[from_sp_use] != ((calc_rccm_base*)calc)->type()))
+    {
+        IF_VERBOSE(5) std::cout << "calc pointer: " << calc << std::endl;
+        IF_VERBOSE(5) std::cout << "calc type: " << ((calc_rccm_base*)calc)->type() << " Searchg space type: " << rccm_search_space[from_sp_use] << std::endl;
+        delete_calc();
+    }
+    if(calc==nullptr) // calc does not exist (anymore) and need to be initialized
+    {
+        IF_VERBOSE(5) std::cout << "new calc type will be set to: " << rccm_search_space[from_sp_use] << std::endl;
+        switch (rccm_search_space[from_sp_use]) {
+            case typ_C1:
+                calc = static_cast<calc_base *>(new calc_rccm_C1);
+                break;
+            case typ_C2:
+                calc = static_cast<calc_base *>(new calc_rccm_C2);
+                break;
+            case typ_C3:
+                calc = static_cast<calc_base *>(new calc_rccm_C3);
+                break;
+            default:
+            ERROR("Invalid Type", "rccm::init()");
+        }
+        init_sel_add();// only init selective add if ther was a change
+    }
+}
+void rccm::init_sel_add()
+{
+    sel_add.clear();
+    sel_add.resize(((calc_rccm_base*)calc)->get_spec().add_sel_count);
+    for(int i=0; i< sel_add.size();++i)
+    {
+       //TODO make dependent from search space obj!
+       //TODO and invent search space obj...
+       sel_add[i].sel_add_search_space.push_back(typ_A);
+       sel_add[i].sel_add_search_space.push_back(typ_B);
+       sel_add[i].init();
+    }
+}
+
 std::string rccm::get_config()
 {
     IF_VERBOSE(2) ENTER_FUNCTION("rccm::get_config()")
@@ -79,6 +122,16 @@ bool rccm::next_config()
     }
     IF_VERBOSE(9) std::cout << "rccm: next_config: no config left, try next connection structure from search space" << std::endl;
     // TODO: iterate over search space elements (C1 C2 C3,...)
+    if(from_sp_use < rccm_search_space.size()-1)
+    {
+        ++from_sp_use;
+        new_config_was_set = true;
+        IF_VERBOSE(9) std::cout << "rccm: next_config: new Config was set. use search space element:" << from_sp_use << std::endl;
+        conv_helper.reset_all_on_list(); // reset all previous operations to restart permutation with this new configuration
+        init(); //as the type changed the calc obj as to change and the permutators have to reload the specs for the new type.
+        return 1;
+    }
+
     //if there  is no config left
     //try different Connection structures from search space
     IF_VERBOSE(9) std::cout << "rccm: next_config: no config left" << std::endl;

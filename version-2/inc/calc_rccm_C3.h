@@ -16,6 +16,9 @@ public:
         IF_VERBOSE(8) ENTER_FUNCTION("calc_rccm_C1::calc_rccm_C1()")
         IF_VERBOSE(8) LEAVE_FUNCTION("calc_rccm_C1::calc_rccm_C1()")
     }
+    const spec_rccm get_spec(){
+        return this->spec;
+    }
     std::set<int>* compute(base_obj *parent_)
     {
         IF_VERBOSE(4) ENTER_FUNCTION("calc_rccm_C1::compute(base_obj *parent_")

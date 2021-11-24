@@ -22,8 +22,12 @@ public:
 	calc_rccm_base();
     virtual ~calc_rccm_base(){};
 
-protected:
+    virtual const spec_rccm get_spec()=0;
+
+private:
     const spec_rccm spec = spec_rccm(1);
+    //DO NOT USE local spec value!!! use get_spec()!
+    //cause derived classes overload get_spec() but don't overload spec.
 };
 
 

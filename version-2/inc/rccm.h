@@ -21,13 +21,16 @@ public:
     std::set<int>* compute();
     calc_base* calc = nullptr; // need to be calc base instead of calc_rccm_base to prevent circular dependency
 
+
 	std::string get_config();
 	bool set_config(std::string new_config);
     bool parse_config_string(string);
+    void init();
 
 	bool next_config();
     void reset_config();
 
+    void init_sel_add();
     selective_add* get_sel_add(unsigned int no);
     std::vector<rccm_type> rccm_search_space;
     unsigned int from_sp_use;

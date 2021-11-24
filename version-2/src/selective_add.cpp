@@ -271,10 +271,10 @@ void selective_add::init() // update und eventually initialize calc and permutat
                 calc = static_cast<calc_base *>(new calc_selective_adder_typ_b);
                 break;
             case typ_C:
-            ERROR("Type c is not supported yet", "selective_add::compute()")
+            ERROR("Type c is not supported yet", "selective_add::init()")
                 break;
             default:
-            ERROR("Invalid Type", "selective_add::compute()");
+            ERROR("Invalid Type", "selective_add::init()");
         }
         init_permutators();// only init permutators if ther was a change
     }
