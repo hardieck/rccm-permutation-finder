@@ -28,6 +28,7 @@ enum sel_add_type // add a type for each selective adder option
 };
 
 
+//TODO remove enum and replace by new search space plan
 enum config_level // different // shal probably be removed
 {
     operation = 1,
@@ -48,13 +49,13 @@ public:
         this->usualy_used_sets ={};
 
     };
-    spec_sel_add(unsigned int input_count_A_,unsigned int input_count_B_,unsigned int diff_operation_count_,unsigned int operation_set_size_)
+    spec_sel_add(unsigned int input_count_A_,unsigned int input_count_B_,unsigned int diff_operation_count_,unsigned int operation_set_size_, vector<set<int>> usualy_used_sets_={})
     {
         this->input_count_A = input_count_A_;
         this->input_count_B = input_count_B_;
         this->diff_operation_count = diff_operation_count_;
         this->operation_set_size = operation_set_size_;
-        //this->usualy_used_sets = usualy_used_sets;
+        this->usualy_used_sets = usualy_used_sets_;
 
     };
     virtual ~spec_sel_add(){};

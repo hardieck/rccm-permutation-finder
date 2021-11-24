@@ -21,6 +21,7 @@ public:
     //to define
     //max shift
     //operation search level (operation only, shifts only, etc)
+    //
 
     //Typolegy options C1, C2, C3
     //operation options A, B, C
