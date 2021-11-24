@@ -10,6 +10,7 @@ permutation_data::permutation_data()
     allCombinations = true;
     min_vec_is_used = false;
     rising_block_is_used = false;
+    p_typ=unspecified;
     init(1,false);
 }
 
@@ -66,12 +67,14 @@ void permutation_data::printPermutationData(bool block)
         std::cout << "permutationCntMinVec: " << permutationCntMinVec << std::endl;
         std::cout << "min_vec_is_used: " << min_vec_is_used << std::endl;
         std::cout << "rising_block_is_used: " << rising_block_is_used << std::endl;
-        std::cout << "risingBlockBreakVec size: " << risingBlockBreakVec << std::endl;
+        std::cout << "risingBlockBreakVec: " << risingBlockBreakVec << std::endl;
+        std::cout << "p_typ: " << p_typ << std::endl;
+
 
     }
     else
     {
-        std::cout << "allCombinations: " << allCombinations << " permutationIndexMax: " << permutationIndexMax << " permutationIndex: " << permutationIndex << " permutationCntVec: " << permutationCntVec <<  " permutationCntMaxVec: " << permutationCntMaxVec << " permutationCntMinVec: " << permutationCntMinVec << " min_vec_is_used: " << min_vec_is_used <<" rising_block_is_used: " << rising_block_is_used << " risingBlockBreakVec: " << risingBlockBreakVec << std::endl;
+        std::cout << "allCombinations: " << allCombinations << " permutationIndexMax: " << permutationIndexMax << " permutationIndex: " << permutationIndex << " permutationCntVec: " << permutationCntVec <<  " permutationCntMaxVec: " << permutationCntMaxVec << " permutationCntMinVec: " << permutationCntMinVec << " min_vec_is_used: " << min_vec_is_used <<" rising_block_is_used: " << rising_block_is_used << " risingBlockBreakVec: " << risingBlockBreakVec << " p_typ: " << p_typ << std::endl;
     }
 }
 
@@ -86,6 +89,7 @@ permutation_data& permutation_data::operator=(const permutation_data& rhs)
     min_vec_is_used = rhs.min_vec_is_used;
     rising_block_is_used = rhs.rising_block_is_used;
     risingBlockBreakVec = rhs.risingBlockBreakVec;
+    p_typ = rhs.p_typ;
     return *this;
 }
 
@@ -319,23 +323,24 @@ void Permutator::add_rising_block(unsigned int start,unsigned int length)
     }
     pd->rising_block_list.push_back(my_block);
 }
-bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type typ)
+bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_typ typ)
 {
     int MAX_SCHIFT=2; //Todo: MAke configurable or global or ...
     if(dataowner)
     {
         delete pd;
         pd = new permutation_data();
+        pd->p_typ = typ;
     }
     else
     {
-        ERROR("Cant use function without being data owner", "Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type typ)")
+        ERROR("Cant use function without being data owner", "Permutator::set_config_from_spec(const spec_sel_add s,const permutator_typ typ)")
     }
 
     IF_VERBOSE(5) std::cout << "Permutator::set_config_from_spec: Enter Function"<< std::endl;
     switch(typ) {
-        case all_operations_only: {
-            IF_VERBOSE(5) std::cout << "Permutator::set_config_from_spec: Case: all_operations_only" << std::endl;
+        case operations_only: {
+            IF_VERBOSE(5) std::cout << "Permutator::set_config_from_spec: Case: operations_only" << std::endl;
             IF_VERBOSE(6) {
                 std::cout << "Print used spec s:" << std::endl;
                 s.print_spec();
@@ -351,6 +356,18 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_type
                 pd->permutationCntMaxVec[vec_size-i-1] = s.diff_operation_count - i-1; // to create a rising values. // -1 cause vec_size  start counting by 1 // -1 cause diff_operation count start by 0
                 pd->permutationCntMinVec[i] = i; // there shall not be duplicate operations, so we can shrink the search space
             }
+            break;
+        }
+        case usual_operations_only: {
+            IF_VERBOSE(5) std::cout << "Permutator::set_config_from_spec: Case: usual_operations_only" << std::endl;
+            IF_VERBOSE(6) {
+                std::cout << "Print used spec s:" << std::endl;
+                s.print_spec();
+            }
+            // specify ranges:
+            pd->init(1, false, false);
+            unsigned int vec_size=pd->permutationCntMaxVec.size();
+            pd->permutationCntMaxVec[0] = s.usualy_used_sets.size()-1;
             break;
         }
         case shifts_only: {

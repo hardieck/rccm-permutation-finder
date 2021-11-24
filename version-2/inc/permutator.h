@@ -30,13 +30,12 @@
 #include "datatyps.h"
 
 using namespace std;
-enum permutator_type
+enum permutator_typ
 {
+    unspecified,
     shifts_only,
-    usual_operations_only,
-    all_operations_only,
-    shifts_and_usual_operations,
-    shifts_and_all_operations
+    operations_only,
+    usual_operations_only
 };
 
 class permutation_data : public base_obj
@@ -53,7 +52,7 @@ public:
     //TODO remove rising_block_list and exchange function with risingBlockBreakVec
     std::vector<pair<vector<int>::iterator, vector<int>::iterator> > rising_block_list; //Specifie a start and end iterator for the permutationCntVec in which only rising values are allowed
 
-
+    permutator_typ p_typ;
     int permutationIndex;
     int permutationIndexMax;
     bool allCombinations;
@@ -67,7 +66,6 @@ public:
 class Permutator : public config_reset_base
 {
 public:
-    static long long mem_leek;
     Permutator(std::vector<int> *permutationCntMaxVec, bool allCombinations=true, std::vector<int> *permutationCntMinVec=nullptr);
     Permutator();
     ~Permutator();
@@ -79,7 +77,7 @@ public:
     std::set<int>* get_operation_from_config(); // transform internal permutation state to usable operation sets
     std::vector<int>* get_shift_from_config(); // transform internal permutation state to usable shifts
     void printPermutation(bool reverse = false);
-    bool set_config_from_spec(const spec_sel_add s,const permutator_type typ=all_operations_only);
+    bool set_config_from_spec(const spec_sel_add s,const permutator_typ typ=operations_only);
 
     bool check_all_rising_blocks();
     bool nextPermutation();// internal step. split from external to handle invalid intermediate results

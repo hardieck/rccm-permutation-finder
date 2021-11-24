@@ -103,7 +103,7 @@ int permutator_test_1()
     calc_selective_adder_typ_a sel_add_a;
     Permutator p;
     //p.set_config_from_spec(sel_add_a.get_spec(),shifts_only);
-    p.set_config_from_spec(sel_add_a.get_spec(),all_operations_only);
+    p.set_config_from_spec(sel_add_a.get_spec(), operations_only);
     sel_add_a.get_spec().print_spec();
 
     p.reset_config();
@@ -177,16 +177,15 @@ int RCCM_C3_test()
         rccm my_rccm;
 
         my_rccm.rccm_search_space.push_back(typ_C1);
-        my_rccm.rccm_search_space.push_back(typ_C2);
-        my_rccm.init();
         //my_rccm.rccm_search_space.push_back(typ_C2);
+        my_rccm.init();
         string config_string;
         std::set<int> *result = nullptr;
         unsigned int i = 1;
         do {
             std::set<int> *result = my_rccm.compute();
             config_string = my_rccm.get_config();
-            if (i % 100 == 0)
+            if (i % 1 == 0)
             {
                 std::cout << config_string << " -> " << *result << " iteration:" << i << std::endl;
             }

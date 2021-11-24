@@ -32,12 +32,19 @@ std::string selective_add::get_config()// return only the part for one Selective
         ERROR("Unsupported Selective Adder Type!", "selective_add::get_config()")
     }
     IF_VERBOSE(6) std::cout << "Add operations" << std::endl;
-    //std::set<int> op_set = get_operation_set();
+    std::set<int> op_set = get_operation_set();
     spec_sel_add current_spec = get_spec();
-    for(unsigned int i=0; i < current_spec.operation_set_size;++i)
+    //for(unsigned int i=0; i < current_spec.operation_set_size;++i)
+    //{
+    //    current_config += int2extendHEX(perm_operation.pd->permutationCntVec[i]);
+    //}
+    std::set<int>::const_iterator it;
+    for(it =op_set.begin(); it != op_set.end(); ++it)
     {
-        current_config += int2extendHEX(perm_operation.pd->permutationCntVec[i]);
+        current_config += int2extendHEX(*it);
     }
+
+
     current_config += "-"; // to slit operations from shifts
     IF_VERBOSE(6) std::cout << "Add Shifts" << std::endl;
     IF_VERBOSE(6) std::cout << "Add Shifts for input A" << std::endl;
@@ -134,13 +141,16 @@ void selective_add::init_permutators()
     IF_VERBOSE(9) this->perm_operation.pd->printPermutationData();
     IF_VERBOSE(9) this->perm_shift.pd->printPermutationData();
 
+    //TODO make dependent from search space plan
     this->perm_shift.set_config_from_spec(current_spec,shifts_only);
     this->perm_shift.resetPermutation();
-    this->perm_operation.set_config_from_spec(current_spec,all_operations_only);
+    //TODO change for usual_operations_only test, and make dependent from search space plan
+    this->perm_operation.set_config_from_spec(current_spec, operations_only);
+    //this->perm_operation.set_config_from_spec(current_spec, usual_operations_only);
     this->perm_operation.resetPermutation();
 
     IF_VERBOSE(9) std::cout << "after" << std::endl;
-    IF_VERBOSE(9) this->perm_operation.pd->printPermutationData();
+    IF_VERBOSE(0) this->perm_operation.pd->printPermutationData();
     IF_VERBOSE(9) this->perm_shift.pd->printPermutationData();
 
     IF_VERBOSE(8) LEAVE_FUNCTION("selective_add::init_permutators()")
@@ -295,6 +305,10 @@ void selective_add::delete_calc() // if existing delete calc object
 
 std::set<int> selective_add::get_operation_set() //return the current subset of operations during permutation.
 {
+    if(this->perm_operation.pd->p_typ == usual_operations_only)
+    {
+        return (static_cast<calc_selective_adder_base *>(this->calc)->get_spec().usualy_used_sets[this->perm_operation.pd->permutationCntVec[0]]);
+    }
     // converting the vector elements into a set and returns it.
     std::set<int> my_op_set(std::make_move_iterator(this->perm_operation.pd->permutationCntVec.begin()),
                   std::make_move_iterator(this->perm_operation.pd->permutationCntVec.end()));

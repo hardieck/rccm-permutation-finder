@@ -19,7 +19,7 @@ class calc_selective_adder_typ_b : public calc_selective_adder_base
     std::set<int>* compute(base_obj *parent_);
     virtual const spec_sel_add get_spec();
 private:
-    const spec_sel_add spec = spec_sel_add(2,1,13,4);
+    const spec_sel_add spec = spec_sel_add(2,1,13,4,{{0,1,2,3},{3,4,5,6}});
     //DO NOT USE local spec value!!! use get_spec()! cause derived classes overload get_spec() but don't overload spec...
 };
 
