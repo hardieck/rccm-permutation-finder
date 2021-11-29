@@ -20,6 +20,45 @@ search_space_plan::~search_space_plan()
 {
 }
 
+vector<rccm_type> search_space_plan::get_search_space_rccm()
+{
+    return search_space_rccm;
+}
+vector<sel_add_type> search_space_plan::get_search_space_sel_add(const sspk &position_key) //return vec of sel_Add_types
+{
+    unsigned int x=0;
+    for(int i=0; i< search_space_sel_add.size();++i)
+    {
+        if(search_space_sel_add[i].first == position_key) {x = i;}
+    }
+    return search_space_sel_add[x].second;
+}
+int search_space_plan::get_sel_add_max_shift(const sspk &position_key) // return max shift
+{
+    unsigned int x = 0;
+    for (int i = 0; i < sel_add_max_shift.size(); ++i) {
+        if (sel_add_max_shift[i].first == position_key) { x = i; }
+    }
+    return sel_add_max_shift[x].second;
+}
+//sel_add_type search_space_plan::get_sel_add_operating_mode(const sspk &position_key) // return mode
+//{
+//    unsigned int x = 0;
+//    for (int i = 0; i < sel_add_max_shift.size(); ++i) {
+//        if (sel_add_max_shift[i].first == position_key) { x = i; }
+//    }
+//    return sel_add_max_shift[x].second;
+//}
+config_level search_space_plan::get_sel_add_config_level(const sspk &position_key)
+{
+    unsigned int x = 0;
+    for (int i = 0; i < sel_add_config_level.size(); ++i) {
+        if (sel_add_config_level[i].first == position_key) { x = i;}
+    }
+    return sel_add_config_level[x].second;
+}
+//search_space_plan::get_sel_add_operating_mode(rccm_type,nr,sel_Add_type); return mode
+
 void search_space_plan::init_empty_slots()
 {
     //TODO implment init_empty_slots for  sel_add_operating_mode

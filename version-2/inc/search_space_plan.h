@@ -48,11 +48,11 @@ public:
 
     //getter funktions to initializ the rccm and selective_Add class:
 
-    //get_search_space_rccm() just return search space...
+    vector<rccm_type> get_search_space_rccm(); //just return search space...
 
     //multiple lists one for each.
     // for each call go throu all lines in the list and modify output for each fit... before return.
-        set<int> get_search_space_sel_add(const sspk &position_key); //return vec of sel_Add_types
+        std::vector<sel_add_type> get_search_space_sel_add(const sspk &position_key); //return vec of sel_Add_types
         int get_sel_add_max_shift(const sspk &position_key); // return max shift
         sel_add_type get_sel_add_operating_mode(const sspk &position_key); // return mode
         //get_sel_add_operating_mode(rccm_type,nr,sel_Add_type); return mode
