@@ -33,7 +33,7 @@ public:
 
     void init_sel_add();
     selective_add* get_sel_add(unsigned int no);
-    std::vector<rccm_type> rccm_search_space;
+    std::vector<rccm_type> rccm_search_space; // copy from ssp; // TODO maby remove and make direkt link to ssp
     unsigned int from_sp_use;
 
     std::vector<selective_add> sel_add; // store the selective adder objects (can differ in size for any connection Structure)

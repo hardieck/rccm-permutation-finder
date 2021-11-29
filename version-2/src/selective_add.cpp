@@ -261,8 +261,10 @@ std::set<int> *selective_add::compute()
 
     return calc->get_output();
 }
-void selective_add::init() // update und eventually initialize calc and permutators
+void selective_add::init(shared_ptr<search_space_plan> _ssp = nullptr, int _sel_add_pos=0) // update und eventually initialize calc and permutators
 {
+    sel_add_pos = _sel_add_pos;
+
     IF_VERBOSE(4) ENTER_FUNCTION("selective_add::init()")
     if(sel_add_search_space.size()==0){ ERROR("Can Not init without search space!","selective_add::init()")}
     if((calc!=nullptr)&&(sel_add_search_space[from_sp_use] != ((calc_selective_adder_base*)calc)->type()))

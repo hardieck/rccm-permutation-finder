@@ -17,8 +17,10 @@ rccm::rccm(shared_ptr<search_space_plan> _ssp)
         ssp = _ssp;
     else
     {
-        ssp = static_cast<const shared_ptr<search_space_plan>>(new search_space_plan);
+        //ssp = static_cast<const shared_ptr<search_space_plan>>(new search_space_plan);
+        ssp = make_shared<search_space_plan>();
     }
+    ssp->init_empty_slots();
     sel_add.clear();
 }
 rccm::~rccm()
@@ -29,7 +31,9 @@ rccm::~rccm()
 void rccm::init()
 {
     IF_VERBOSE(4) ENTER_FUNCTION("rccm::init()")
-    if(rccm_search_space.size()==0){ ERROR("Can Not init without search space!","selective_add::init()")}
+    if(rccm_search_space.size()==0) {
+        rccm_search_space = ssp->get_search_space_rccm();
+    }
     if((calc!=nullptr)&&(rccm_search_space[from_sp_use] != ((calc_rccm_base*)calc)->type()))
     {
         IF_VERBOSE(5) std::cout << "calc pointer: " << calc << std::endl;
@@ -61,11 +65,11 @@ void rccm::init_sel_add()
     sel_add.resize(((calc_rccm_base*)calc)->get_spec().add_sel_count);
     for(int i=0; i< sel_add.size();++i)
     {
+        sspk key(rccm_search_space[from_sp_use],i);
        //TODO make dependent from search space obj!
        //TODO and invent search space obj...
-       sel_add[i].sel_add_search_space.push_back(typ_A);
-       sel_add[i].sel_add_search_space.push_back(typ_B);
-       sel_add[i].init();
+       sel_add[i].sel_add_search_space=ssp->get_search_space_sel_add(key);
+       sel_add[i].init(ssp,i);
     }
 }
 

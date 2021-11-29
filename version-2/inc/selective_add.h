@@ -9,6 +9,7 @@
 #include "base_obj.h"
 #include "calc_base.h"
 #include "permutator.h"
+#include "search_space_plan.h"
 
 #include <vector>
 #include <set>
@@ -19,7 +20,7 @@ public:
     selective_add();
     ~selective_add();
     std::set<int>* compute();
-    void init();
+    void init(shared_ptr<search_space_plan> _ssp, int _sel_add_pos);
     calc_base* calc = nullptr;
 
 
@@ -42,7 +43,8 @@ public:
 //protected:
     Permutator perm_shift;
     Permutator perm_operation;
-
+    int sel_add_pos; // position of selective add in rccm;
+    shared_ptr<search_space_plan> ssp;
 };
 
 std::set<int>* gen_shift(std::set<int>* input_set, int shift);
