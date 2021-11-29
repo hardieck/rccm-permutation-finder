@@ -4,6 +4,7 @@
 
 #include "debug.h"
 #include "datatyps.h"
+#include <memory>
 
 #ifndef ADDNET_PERMUTATOR_V2_BASE_OBJ_H
 #define ADDNET_PERMUTATOR_V2_BASE_OBJ_H

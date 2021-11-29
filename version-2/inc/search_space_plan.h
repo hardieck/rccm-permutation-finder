@@ -5,16 +5,21 @@
 #ifndef ADDNET_PERMUTATOR_V2_SEARCH_SPACE_PLAN_H
 #define ADDNET_PERMUTATOR_V2_SEARCH_SPACE_PLAN_H
 
-#include "base_obj.h"
+#include "datatyps.h"
 
+using namespace std;
 
 class search_space_plan : base_obj
 {
 public:
     search_space_plan();
+
     ~search_space_plan();
 
-    void add_rule(string rule);
+    void add_rule(std::string rule);
+    sspk generate_key_from_sting(std::string key_string);
+    void print();
+    void init_empty_slots();
 
 
     // devault plan... (test A and B complete)
@@ -47,17 +52,21 @@ public:
 
     //multiple lists one for each.
     // for each call go throu all lines in the list and modify output for each fit... before return.
-        //get_search_space_sel_add(rccm_type,nr) return vec of sel_Add_types
-        //get_sel_add_max_shift(rccm_type,nr,sel_Add_type) return max shift
-        //get_sel_add_operating_mode(rccm_type,nr,sel_Add_type) return mode
-        //get_sel_add_operating_mode(rccm_type,nr,sel_Add_type) return mode
-        //get_sel_add_config_level(rccm_type,nr,sel_Add_type) return level
+        set<int> get_search_space_sel_add(const sspk &position_key); //return vec of sel_Add_types
+        int get_sel_add_max_shift(const sspk &position_key); // return max shift
+        sel_add_type get_sel_add_operating_mode(const sspk &position_key); // return mode
+        //get_sel_add_operating_mode(rccm_type,nr,sel_Add_type); return mode
+        config_level get_sel_add_config_level(const sspk &position_key); // return level
 
-    // maby a whoami funktion to get the position key  could be helpful...
+    // maybe a whoami funktion to get the position key  could be helpful...
     //-----------------------------
     //wich evaluation shall be done for all
 
-    vector<>
+    vector<rccm_type> search_space_rccm;
+    vector<pair<sspk,vector<sel_add_type>>> search_space_sel_add;
+    vector<pair<sspk,int>> sel_add_max_shift;
+    //vector<pair<sspk,int>> sel_add_operating_mode;
+    vector<pair<sspk,config_level>> sel_add_config_level;
 
 };
 

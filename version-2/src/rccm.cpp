@@ -7,11 +7,18 @@
 #include "../inc/calc_rccm_C2.h"
 #include "../inc/calc_rccm_C3.h"
 
-rccm::rccm()
+rccm::rccm(shared_ptr<search_space_plan> _ssp)
 {
+
     IF_VERBOSE(3) ENTER_FUNCTION("rccm::rccm()")
     from_sp_use = 0;
     calc = nullptr;
+    if (_ssp != nullptr)
+        ssp = _ssp;
+    else
+    {
+        ssp = static_cast<const shared_ptr<search_space_plan>>(new search_space_plan);
+    }
     sel_add.clear();
 }
 rccm::~rccm()

@@ -5,6 +5,7 @@
 #include "../inc/selective_add.h"
 #include "../inc/calc_selective_adder_typ_a.h"
 #include "../inc/calc_selective_adder_typ_b.h"
+#include "../inc/helper.h"
 #include <string>
 #include <memory>
 //

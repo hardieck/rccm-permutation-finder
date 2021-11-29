@@ -2,6 +2,11 @@
 // Created by hardieck on 11/21/21.
 //
 
+#include <vector>
+#include <string>
+#include <sstream>
+#include <iostream>
+
 #include "../inc/helper.h"
 #include "../inc/debug.h"
 
@@ -98,4 +103,64 @@ int extendHEX2int(char input)
         ERROR("Expand int is only defined up to z or 35!","extendHEX2int(char input)")
 
     }
+}
+
+std::vector<std::string> split_string_by(std::string input,char seperator)
+{
+    stringstream ss( input);
+    vector<string> result;
+
+    while( ss.good() )
+    {
+        string substr;
+        getline( ss, substr, seperator );
+        result.push_back( substr );
+    }
+    return result;
+}
+bool isNumber(const std::string& str)
+{
+    for (char const &c : str) {
+        if (std::isdigit(c) == 0) return false;
+    }
+    return true;
+}
+rccm_type get_rccm_type_from_string(string input)
+{
+    if(input.size() != 2) { ERROR("Invalid Syntax!","get_rccm_type_from_string(string input)")}
+    else if (input[0] == 'C')
+    {
+        //v[0].erase(v[0].begin(),++(v[0].begin())); // removing leading C
+        input.erase(0,1); // removing leading C
+        switch(std::stoi(input))
+        {
+            case 1: return typ_C1; break;
+            case 2: return typ_C2; break;
+            case 3: return typ_C3; break;
+            case 4: return typ_C4; break;
+            default: ERROR("UNSUPPORTED Connection structure type!","get_rccm_type_from_string(string input)")
+        }
+    }
+    else
+    ERROR("UNSUPPORTED Connection structure type!","get_rccm_type_from_string(string input)")
+}
+sel_add_type get_sel_add_type_from_string(string input)
+{
+    if(input.size() != 1) { ERROR("Invalid Syntax!","get_sel_add_type_from_string(string)")}
+    else
+    {
+        char c = input[0];
+        switch(c)
+        {
+            case 'A': return typ_A; break;
+            case 'B': return typ_B; break;
+            case 'C': return typ_C; break;
+            default: ERROR("UNSUPPORTED Connection structure type!","get_sel_add_type_from_string(string)")
+        }
+    }
+}
+std::ostream &operator<<(std::ostream &s, const sspk &rhs)
+{
+    s << "sspk{"<< rhs.key_level1 << "," << rhs.key_level2 << "," << rhs.key_level3 << "}";
+    return s;
 }

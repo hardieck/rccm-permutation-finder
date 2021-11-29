@@ -7,6 +7,7 @@
 #include <cstring>
 #include "../inc/permutator.h"
 #include "../inc/calc_selective_adder_typ_a.h"
+#include "../inc/helper.h"
 
 
 int do_debug();
@@ -174,6 +175,9 @@ int RCCM_C3_test()
     IF_VERBOSE(1) ENTER_FUNCTION("RCCM_C3_test")
     {
         global_verbose = 0;
+        search_space_plan ssp;
+        ssp.add_rule("hallo toll");
+
         rccm my_rccm;
 
         my_rccm.rccm_search_space.push_back(typ_C1);
@@ -199,15 +203,33 @@ int RCCM_C3_test()
     }
     return 0;
 }
+int string_seperator_test()
+{
+    global_verbose = 10;
+    search_space_plan ssp;
+    std::string s;
+    ssp.add_rule("set_rccm C1,C2");
+    ssp.add_rule("set_sel_add A,B,C for C2,2,A");
+    ssp.add_rule("set_sel_add A,B,C for C1,~,~");
+    ssp.add_rule("set_max_shift 5 for ~~~");
+    ssp.add_rule("set_max_shift 3");
+    ssp.add_rule("set_max_shift 4 for C3,2,A");
+    std::cout << "---------------------------------"<< std::endl;;
+    ssp.print();
+
+
+    return 1;
+}
 
 
 int do_debug()
 {
     global_verbose = 1;
     //memory_leek_test();
-    RCCM_C3_test();
+    //RCCM_C3_test();
     //permutator_test_1();
     //permutator_test_2();
+    string_seperator_test();
 
     return 0;
 }

@@ -11,11 +11,12 @@
 #include "selective_add.h"
 #include "calc_rccm_base.h"
 #include "permutator.h"
+#include "search_space_plan.h"
 
 class rccm : public base_obj
 {
 public:
-	rccm();
+	rccm(shared_ptr<search_space_plan> _ssp = nullptr);
     ~rccm();
 
     std::set<int>* compute();
@@ -36,6 +37,7 @@ public:
     unsigned int from_sp_use;
 
     std::vector<selective_add> sel_add; // store the selective adder objects (can differ in size for any connection Structure)
+    shared_ptr<search_space_plan> ssp= nullptr;
 protected:
     config_helper_obj conv_helper;// only used by next_config to handle the reset.
     void delete_calc();
