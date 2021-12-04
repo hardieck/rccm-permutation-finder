@@ -16,6 +16,10 @@ bool isNumber(const std::string& str);
 rccm_type get_rccm_type_from_string(string input);
 sel_add_type get_sel_add_type_from_string(string input);
 std::ostream &operator<<(std::ostream &s, const sspk &rhs);
+std::ostream& operator<<(std::ostream& out, const rccm_type value);
+std::ostream& operator<<(std::ostream& out, const sel_add_type value);
+std::ostream& operator<<(std::ostream& out, const config_level value);
+
 
 
 #endif //ADDNET_PERMUTATOR_V2_HELPER_H

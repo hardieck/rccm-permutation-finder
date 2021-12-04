@@ -20,7 +20,7 @@ public:
     selective_add();
     ~selective_add();
     std::set<int>* compute();
-    void init(shared_ptr<search_space_plan> _ssp, int _sel_add_pos);
+    void init(shared_ptr<search_space_plan> _ssp = nullptr, int _sel_add_pos=-1,rccm_type _current_rccm_type=rccm_type_NAN);
     calc_base* calc = nullptr;
 
 
@@ -33,6 +33,7 @@ public:
     spec_sel_add get_spec();
     std::set<int> get_operation_set(); // read out set from coresponding permutaotr and interprate it
     int get_shift(unsigned int input_no); // read out set from coresponding permutator and interprate it
+    const sspk get_current_key() const; // returns a key of the current possition in search space
 
     void set_mode_list();
     std::vector<sel_add_type> sel_add_search_space;
@@ -43,6 +44,8 @@ public:
 //protected:
     Permutator perm_shift;
     Permutator perm_operation;
+
+    rccm_type current_rccm_type;
     int sel_add_pos; // position of selective add in rccm;
     shared_ptr<search_space_plan> ssp;
 };

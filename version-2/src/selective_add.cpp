@@ -133,6 +133,12 @@ spec_sel_add selective_add::get_spec()
     return current_spec;
 }
 
+
+const sspk selective_add::get_current_key() const
+{
+    return sspk(current_rccm_type,sel_add_pos,sel_add_search_space[from_sp_use]);
+}
+
 void selective_add::init_permutators()
 {
     IF_VERBOSE(8) ENTER_FUNCTION("selective_add::init_permutators()")
@@ -143,10 +149,10 @@ void selective_add::init_permutators()
     IF_VERBOSE(9) this->perm_shift.pd->printPermutationData();
 
     //TODO make dependent from search space plan
-    this->perm_shift.set_config_from_spec(current_spec,shifts_only);
+    this->perm_shift.set_config_from_spec(current_spec,shifts_only,ssp->get_sel_add_max_shift(get_current_key()));
     this->perm_shift.resetPermutation();
     //TODO change for usual_operations_only test, and make dependent from search space plan
-    this->perm_operation.set_config_from_spec(current_spec, operations_only);
+    this->perm_operation.set_config_from_spec(current_spec, ssp->get_sel_add_operating_mode(get_current_key()));
     //this->perm_operation.set_config_from_spec(current_spec, usual_operations_only);
     this->perm_operation.resetPermutation();
 
@@ -261,9 +267,23 @@ std::set<int> *selective_add::compute()
 
     return calc->get_output();
 }
-void selective_add::init(shared_ptr<search_space_plan> _ssp = nullptr, int _sel_add_pos=0) // update und eventually initialize calc and permutators
+void selective_add::init(shared_ptr<search_space_plan> _ssp, int _sel_add_pos, rccm_type _current_rccm_type) // update und eventually initialize calc and permutators
 {
-    sel_add_pos = _sel_add_pos;
+    if(_ssp!= nullptr)
+    {
+        ssp = _ssp;
+    }
+    if(_sel_add_pos!= -1)
+    {
+        sel_add_pos = _sel_add_pos;
+    }
+    if(_current_rccm_type!= rccm_type_NAN)
+    {
+        current_rccm_type = _current_rccm_type;
+    }
+
+    if((ssp == nullptr)||(sel_add_pos==-1)||(current_rccm_type==rccm_type_NAN)) { ERROR("Insufficient Init information!","selective_add::init(shared_ptr<search_space_plan> _ssp, int _sel_add_pos)")}
+
 
     IF_VERBOSE(4) ENTER_FUNCTION("selective_add::init()")
     if(sel_add_search_space.size()==0){ ERROR("Can Not init without search space!","selective_add::init()")}

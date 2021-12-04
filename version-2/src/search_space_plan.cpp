@@ -11,7 +11,7 @@ search_space_plan::search_space_plan()
     this->search_space_rccm.clear();
     this->search_space_sel_add.clear();
     this->sel_add_max_shift.clear();
-    //this->sel_add_operating_mode.clear();
+    this->sel_add_operating_mode.clear();
     this->sel_add_config_level.clear();
 
 
@@ -27,37 +27,44 @@ vector<rccm_type> search_space_plan::get_search_space_rccm()
 vector<sel_add_type> search_space_plan::get_search_space_sel_add(const sspk &position_key) //return vec of sel_Add_types
 {
     unsigned int x=0;
+    bool found_no_match=true;
     for(int i=0; i< search_space_sel_add.size();++i)
     {
-        if(search_space_sel_add[i].first == position_key) {x = i;}
+        if(search_space_sel_add[i].first == position_key) {x = i;found_no_match = false;}
     }
+    if(found_no_match){ ERROR("No rule for current Key","search_space_plan::get_sel_add_max_shift(const sspk &position_key)")}
     return search_space_sel_add[x].second;
 }
 int search_space_plan::get_sel_add_max_shift(const sspk &position_key) // return max shift
 {
     unsigned int x = 0;
+    bool found_no_match=true;
     for (int i = 0; i < sel_add_max_shift.size(); ++i) {
-        if (sel_add_max_shift[i].first == position_key) { x = i; }
+        if (sel_add_max_shift[i].first == position_key) { x = i;found_no_match = false;}
     }
+    if(found_no_match){ ERROR("No rule for current Key","search_space_plan::get_sel_add_max_shift(const sspk &position_key)")}
     return sel_add_max_shift[x].second;
 }
-//sel_add_type search_space_plan::get_sel_add_operating_mode(const sspk &position_key) // return mode
-//{
-//    unsigned int x = 0;
-//    for (int i = 0; i < sel_add_max_shift.size(); ++i) {
-//        if (sel_add_max_shift[i].first == position_key) { x = i; }
-//    }
-//    return sel_add_max_shift[x].second;
-//}
+permutator_typ search_space_plan::get_sel_add_operating_mode(const sspk &position_key) // return mode
+{
+    unsigned int x = 0;
+    bool found_no_match=true;
+    for (int i = 0; i < sel_add_operating_mode.size(); ++i) {
+        if (sel_add_operating_mode[i].first == position_key) { x = i; found_no_match = false;}
+    }
+    if(found_no_match){ ERROR("No rule for current Key","search_space_plan::get_sel_add_max_shift(const sspk &position_key)")}
+    return sel_add_operating_mode[x].second;
+}
 config_level search_space_plan::get_sel_add_config_level(const sspk &position_key)
 {
     unsigned int x = 0;
+    bool found_no_match=true;
     for (int i = 0; i < sel_add_config_level.size(); ++i) {
-        if (sel_add_config_level[i].first == position_key) { x = i;}
+        if (sel_add_config_level[i].first == position_key) { x = i;found_no_match = false;}
     }
+    if(found_no_match){ ERROR("No rule for current Key","search_space_plan::get_sel_add_max_shift(const sspk &position_key)")}
     return sel_add_config_level[x].second;
 }
-//search_space_plan::get_sel_add_operating_mode(rccm_type,nr,sel_Add_type); return mode
 
 void search_space_plan::init_empty_slots()
 {
@@ -72,6 +79,13 @@ void search_space_plan::init_empty_slots()
         elem.second = all;
         sel_add_config_level.push_back(elem);
     }
+    if(sel_add_operating_mode.size() ==0)
+    {
+        pair<sspk,permutator_typ> elem;
+        elem.first = this->generate_key_from_sting("~~~");
+        elem.second = operations_only;
+        sel_add_operating_mode.push_back(elem);
+    }
 }
 
 
@@ -83,6 +97,8 @@ void search_space_plan::add_rule(std::string rule)
     // set_max_shift A,B,C for C1,~,~
     // set_config_level all for ~,~,
     // set_rccm C1 (for ~,~,~ )
+    // set_operation_mode all (for ~,~,~ )
+    // set_op_mode usal (for ~,~,~ )
 
     // if for X,y,z is missing equal to ~,~,~
 
@@ -153,7 +169,28 @@ void search_space_plan::add_rule(std::string rule)
                     ERROR("Max Shift has to be a number!","search_space_plan::add_rule(std::string rule)")
                 }
             }
-            else if (v[0] == "set_operating_mode") {ERROR("UNSUPPORTED OPTION YET (set_operating_mode)","search_space_plan::add_rule(std::string rule)")}
+            else if (v[0] == "set_operation_mode")
+            {
+                IF_VERBOSE(6) std::cout << "Found rule: set_operation_mode" << std::endl;
+                if (v[1] == "all")
+                {
+                    pair<sspk,permutator_typ> elem;
+                    elem.first = key;
+                    elem.second = operations_only;
+                    sel_add_operating_mode.push_back(elem);
+                }else
+                if (v[1] == "usal")
+                {
+                    pair<sspk,permutator_typ> elem;
+                    elem.first = key;
+                    elem.second = usual_operations_only;
+                    sel_add_operating_mode.push_back(elem);
+                }
+                else
+                {
+                    ERROR("Unknown Parameter for set_operation_mode","search_space_plan::add_rule(std::string rule)")
+                }
+            }
             else if (v[0] == "set_config_level") {ERROR("UNSUPPORTED OPTION YET (set_config_level)","search_space_plan::add_rule(std::string rule)")}
             else {
                 ERROR("Unsupported Set Command! (Example: set_sel_add A,B,C for C3,2,~)",

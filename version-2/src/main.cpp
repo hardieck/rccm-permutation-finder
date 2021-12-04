@@ -170,36 +170,58 @@ int permutator_test_2()
     return 0;
 }
 
-int RCCM_C3_test()
+int RCCM_test()
 {
-    IF_VERBOSE(1) ENTER_FUNCTION("RCCM_C3_test")
+    IF_VERBOSE(1) ENTER_FUNCTION("RCCM_test")
     {
         global_verbose = 0;
-        search_space_plan ssp;
-        ssp.add_rule("hallo toll");
+        auto ssp = make_shared<search_space_plan>();
+        ssp->add_rule("set_rccm C3");
+        ssp->add_rule("set_max_shift 3");
+        ssp->add_rule("set_sel_add A,B for ~,~,~");
+        ssp->add_rule("set_sel_add B for C3,2,~");
+        ssp->add_rule("set_operation_mode usal for ~,~,~");
+        ssp->init_empty_slots();
+        ssp->print();
 
-        rccm my_rccm;
+        sspk key1;
+        sspk key2(typ_C1,0,sel_add_type_downtCare);
+        sspk key3(typ_C1,0,sel_add_type_downtCare);
+        std::cout << "key1 " << key1 << std::endl;
+        std::cout << "key2 " << key2 << std::endl;
+        std::cout << "key3 " << key3 << std::endl;
 
-        my_rccm.rccm_search_space.push_back(typ_C1);
-        //my_rccm.rccm_search_space.push_back(typ_C2);
+
+        std::cout << "key1 == key1 : " << (key1 == key1) << std::endl;
+        std::cout << "key1 == key2 : " << (key1 == key2) << std::endl;
+        std::cout << "key1 == key3 : " << (key1 == key3) << std::endl;
+        std::cout << "key2 == key3 : " << (key2 == key3) << std::endl;
+        std::cout << "key2 == key2 : " << (key2 == key2) << std::endl;
+
+
+
+
+
+
+
+        rccm my_rccm(ssp);
         my_rccm.init();
         string config_string;
         std::set<int> *result = nullptr;
-        unsigned int i = 1;
+        unsigned int i = 0;
         do {
             std::set<int> *result = my_rccm.compute();
             config_string = my_rccm.get_config();
             if (i % 1 == 0)
             {
-                std::cout << config_string << " -> " << *result << " iteration:" << i << std::endl;
+                std::cout << config_string << " size=" << result->size() <<  " iteration:" << ++i << " -> " << *result <<  std::endl;
             }
             //if(config_string == "HM1-C1-B9abc-34-4"){ std::cout << "edit Verbose" << std::endl; global_verbose=10;}
-            ++i;
         } while (my_rccm.next_config());
 
         result = my_rccm.compute();
         config_string = my_rccm.get_config();
-        std::cout << config_string << " -> " << *result << " iteration:" << i << std::endl;
+        std::cout << config_string << " size=" << result->size() <<  " iteration:" << i << " -> " << *result <<  std::endl;
     }
     return 0;
 }
@@ -226,10 +248,10 @@ int do_debug()
 {
     global_verbose = 1;
     //memory_leek_test();
-    //RCCM_C3_test();
+    RCCM_test();
     //permutator_test_1();
     //permutator_test_2();
-    string_seperator_test();
+    //string_seperator_test();
 
     return 0;
 }

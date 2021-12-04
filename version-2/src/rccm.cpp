@@ -69,7 +69,7 @@ void rccm::init_sel_add()
        //TODO make dependent from search space obj!
        //TODO and invent search space obj...
        sel_add[i].sel_add_search_space=ssp->get_search_space_sel_add(key);
-       sel_add[i].init(ssp,i);
+       sel_add[i].init(ssp,i,rccm_search_space[from_sp_use]);
     }
 }
 

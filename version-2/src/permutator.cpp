@@ -323,9 +323,8 @@ void Permutator::add_rising_block(unsigned int start,unsigned int length)
     }
     pd->rising_block_list.push_back(my_block);
 }
-bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_typ typ)
+bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_typ typ, int max_shift)
 {
-    int MAX_SCHIFT=2; //Todo: MAke configurable or global or ...
     if(dataowner)
     {
         delete pd;
@@ -383,13 +382,13 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_typ 
 
             // loop For Input A
             for (int i = 0; i < s.input_count_A; ++i) {
-                pd->permutationCntMaxVec[i] = MAX_SCHIFT;
+                pd->permutationCntMaxVec[i] = max_shift;
                 pd->permutationCntMinVec[i] = i; // there shall not be duplicate shifts, so we can shrink the search space
             }
             // loop For Input B
             int j = 0;
             for (int i = s.input_count_A; i < (s.input_count_A + s.input_count_B); ++i) {
-                pd->permutationCntMaxVec[i] = MAX_SCHIFT;
+                pd->permutationCntMaxVec[i] = max_shift;
                 pd->permutationCntMinVec[i] = j++; // there shall not be duplicate shifts, so we can shrink the search space
             }
             break;

@@ -164,3 +164,42 @@ std::ostream &operator<<(std::ostream &s, const sspk &rhs)
     s << "sspk{"<< rhs.key_level1 << "," << rhs.key_level2 << "," << rhs.key_level3 << "}";
     return s;
 }
+std::ostream& operator<<(std::ostream& out, const rccm_type value)
+{
+    const char* s = 0;
+    switch(value){
+        case(rccm_type_downtCare): s = "~"; break;
+        case(rccm_type_NAN): s = "NAN"; break;
+        case(typ_C1): s = "C1"; break;
+        case(typ_C2): s = "C2"; break;
+        case(typ_C3): s = "C3"; break;
+        case(typ_C4): s = "C3"; break;
+        default: return out << "unknown:" << to_string(value).c_str();
+    }
+    return out << s;
+}
+std::ostream& operator<<(std::ostream& out, const sel_add_type value)
+{
+    const char* s = 0;
+    switch(value){
+        case(sel_add_type_downtCare): s = "~"; break;
+        case(sel_add_type_NAN): s = "NAN"; break;
+        case(typ_A): s = "A"; break;
+        case(typ_B): s = "B"; break;
+        case(typ_C): s = "C"; break;
+        default: return out << "unknown:" << to_string(value).c_str();
+    }
+    return out << s;
+}
+std::ostream& operator<<(std::ostream& out, const config_level value)
+{
+    const char* s = 0;
+    switch(value){
+        case(operation): s = "operation"; break;
+        case(shifts): s = "shifts"; break;
+        case(structure): s = "structure"; break;
+        case(all): s = "all"; break;
+        default: return out << "unknown:" << to_string(value).c_str();
+    }
+    return out << s;
+}

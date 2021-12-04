@@ -54,7 +54,7 @@ public:
     // for each call go throu all lines in the list and modify output for each fit... before return.
         std::vector<sel_add_type> get_search_space_sel_add(const sspk &position_key); //return vec of sel_Add_types
         int get_sel_add_max_shift(const sspk &position_key); // return max shift
-        sel_add_type get_sel_add_operating_mode(const sspk &position_key); // return mode
+        permutator_typ get_sel_add_operating_mode(const sspk &position_key); // return mode
         //get_sel_add_operating_mode(rccm_type,nr,sel_Add_type); return mode
         config_level get_sel_add_config_level(const sspk &position_key); // return level
 
@@ -65,7 +65,7 @@ public:
     vector<rccm_type> search_space_rccm;
     vector<pair<sspk,vector<sel_add_type>>> search_space_sel_add;
     vector<pair<sspk,int>> sel_add_max_shift;
-    //vector<pair<sspk,int>> sel_add_operating_mode;
+    vector<pair<sspk,permutator_typ>> sel_add_operating_mode;
     vector<pair<sspk,config_level>> sel_add_config_level;
 
 };

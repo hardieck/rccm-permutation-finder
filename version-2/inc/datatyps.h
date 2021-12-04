@@ -27,6 +27,14 @@ enum sel_add_type // add a type for each selective adder option
     typ_C = 3
 };
 
+enum permutator_typ
+{
+    unspecified,
+    shifts_only,
+    operations_only,
+    usual_operations_only
+};
+
 
 //TODO remove enum and replace by new search space plan
 enum config_level // different // shal probably be removed
@@ -44,9 +52,11 @@ public:
     int key_level2; // number of selective add in a connection strucutre
     sel_add_type key_level3; // selective add type
 
-    sspk(rccm_type _key_level0=rccm_type_downtCare,int _key_level2 = -1, sel_add_type _key_level3=sel_add_type_downtCare)
+    sspk(rccm_type _key_level1 = rccm_type_downtCare,int _key_level2 = -1, sel_add_type _key_level3=sel_add_type_downtCare)
     {
-
+        key_level1=_key_level1;
+        key_level2=_key_level2;
+        key_level3=_key_level3;
     };
     ~sspk(){};
 
