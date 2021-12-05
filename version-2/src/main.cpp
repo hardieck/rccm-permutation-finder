@@ -81,7 +81,7 @@ void print_help()
     cout << "                                               A <key> is a specified position in the sarch space. It supports also don't care values (~). The last specified rule that firs is used."<< endl;
     cout << "                                               < key > = < RCCM Typology, selective add position in Typology (starting by 0), Type of selective adder >"<< endl;
     cout << "                                               Key Examples"<< endl;
-    cout << "                                                ~,~,~ ->  all don't care, will fits everything"<< endl;
+    cout << "                                                ~,~,~ ->  all don't care: rule applies for everything"<< endl;
     cout << "                                               C1,~,~ ->  rule for everything in typology C1"<< endl;
     cout << "                                                ~,~,B ->  rule for all Selective adder type B in search space"<< endl;
     cout << "                                               C2,1,~ ->  rule for the second (starting by 0!) selective adder in typology C2"<< endl;

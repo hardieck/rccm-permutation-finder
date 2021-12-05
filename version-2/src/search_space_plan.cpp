@@ -69,22 +69,16 @@ config_level search_space_plan::get_sel_add_config_level(const sspk &position_ke
 void search_space_plan::init_empty_slots()
 {
     //TODO implment init_empty_slots for  sel_add_operating_mode
-    if(search_space_rccm.size() ==0){add_rule("set_rccm C1,C2");}
-    if(search_space_sel_add.size() ==0){add_rule("set_sel_add A");}
-    if(sel_add_max_shift.size() ==0){add_rule("set_max_shift 4");}
+    if(search_space_rccm.size() ==0){add_rule("set_rccm C1");}
+    if(search_space_sel_add.size() ==0){add_rule("set_sel_add A,B");}
+    if(sel_add_max_shift.size() ==0){add_rule("set_max_shift 2");}
+    if(sel_add_operating_mode.size() ==0){add_rule("set_operation_mode usal");}
     if(sel_add_config_level.size() ==0)
     {
         pair<sspk,config_level> elem;
         elem.first = this->generate_key_from_sting("~~~");
         elem.second = all;
         sel_add_config_level.push_back(elem);
-    }
-    if(sel_add_operating_mode.size() ==0)
-    {
-        pair<sspk,permutator_typ> elem;
-        elem.first = this->generate_key_from_sting("~~~");
-        elem.second = operations_only;
-        sel_add_operating_mode.push_back(elem);
     }
 }
 
