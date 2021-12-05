@@ -5,6 +5,7 @@
 #include "../inc/selective_add.h"
 #include "../inc/calc_selective_adder_typ_a.h"
 #include "../inc/calc_selective_adder_typ_b.h"
+#include "../inc/calc_selective_adder_typ_c.h"
 #include "../inc/helper.h"
 #include <string>
 #include <memory>
@@ -127,8 +128,9 @@ spec_sel_add selective_add::get_spec()
     {
         case typ_A: {calc_selective_adder_typ_a obj; current_spec = obj.get_spec();} break;
         case typ_B: {calc_selective_adder_typ_b obj; current_spec = obj.get_spec();} break;
+        case typ_C: {calc_selective_adder_typ_c obj; current_spec = obj.get_spec();} break;
         default:
-        ERROR("unsupported Selective Adder type", "selective_add::init_permutators()")
+        ERROR("unsupported Selective Adder type", "selective_add::get_spec()")
     }
     return current_spec;
 }
@@ -304,7 +306,7 @@ void selective_add::init(shared_ptr<search_space_plan> _ssp, int _sel_add_pos, r
                 calc = static_cast<calc_base *>(new calc_selective_adder_typ_b);
                 break;
             case typ_C:
-            ERROR("Type c is not supported yet", "selective_add::init()")
+                calc = static_cast<calc_base *>(new calc_selective_adder_typ_c);
                 break;
             default:
             ERROR("Invalid Type", "selective_add::init()");

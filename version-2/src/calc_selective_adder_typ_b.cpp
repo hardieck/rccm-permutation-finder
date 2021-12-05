@@ -4,7 +4,7 @@
 
 #include "../inc/calc_selective_adder_typ_b.h"
 
-//get_spec() need to be in each derived class to choose the correct spec wehen calld from base pointer
+//get_spec() need to be in each derived class to choose the correct spec when called from base pointer
 const spec_sel_add calc_selective_adder_typ_b::get_spec()
 {
     IF_VERBOSE(9)ENTER_FUNCTION("calc_selective_adder_typ_b::get_spec()")
