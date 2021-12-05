@@ -44,6 +44,8 @@ enum config_level // different // shal probably be removed
     structure = 3,
     all = 4
 };
+typedef std::set<int> coeff_set;
+typedef std::pair<string,coeff_set> rccm_result;
 
 class sspk : public base_obj //search space position key
 {

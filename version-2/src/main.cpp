@@ -8,6 +8,7 @@
 #include "../inc/permutator.h"
 #include "../inc/calc_selective_adder_typ_a.h"
 #include "../inc/helper.h"
+#include "../inc/evaluate_count.h"
 
 #define VERSION_MAJOR 2
 #define VERSION_MINOR 0
@@ -64,6 +65,11 @@ int main(int argc, char *argv[])
     rccm my_rccm(ssp);
     my_rccm.init();
 
+    // init evaluation:
+    evaluate_count my_eval;
+    my_eval.count_size=true;
+
+
     // Do Search:
     // TODO following code make as function from somewhere...
     IF_VERBOSE(2) std::cout << std::endl << "Start RCCM search" << std::endl;
@@ -73,11 +79,15 @@ int main(int argc, char *argv[])
     do {
         std::set<int> *result = my_rccm.compute();
         config_string = my_rccm.get_config();
+
+        my_eval.evaluate(config_string, *result);
         //if (i % 1 == 0)
         {
-            IF_VERBOSE(1) std::cout << config_string << " size=" << result->size() <<  " iteration:" << ++i << " -> " << *result <<  std::endl;
+            IF_VERBOSE(2) std::cout << config_string << " size=" << result->size() <<  " iteration:" << ++i << " -> " << *result <<  std::endl;
         }
     } while (my_rccm.next_config());
+
+    my_eval.print_result();
     IF_VERBOSE(2) std::cout << std::endl << "Finished RCCM search" << std::endl;
 
     IF_VERBOSE(8) std::cout << std::endl << "Finished. Safe end of Toolflow. Normal Quit." << std::endl;
@@ -229,6 +239,9 @@ int RCCM_test()
 {
     IF_VERBOSE(1) ENTER_FUNCTION("RCCM_test")
     {
+
+        evaluate_count my_eval;
+        my_eval.count_size=true;
         global_verbose = 0;
         auto ssp = make_shared<search_space_plan>();
         ssp->add_rule("set_rccm C1");
@@ -272,6 +285,8 @@ int RCCM_test()
             if (i % 1 == 0)
             {
                 std::cout << config_string << " size=" << result->size() <<  " iteration:" << ++i << " -> " << *result <<  std::endl;
+
+                my_eval.evaluate(config_string,*result);
             }
             //if(config_string == "HM1-C1-B9abc-34-4"){ std::cout << "edit Verbose" << std::endl; global_verbose=10;}
         } while (my_rccm.next_config());
@@ -279,6 +294,8 @@ int RCCM_test()
         result = my_rccm.compute();
         config_string = my_rccm.get_config();
         std::cout << config_string << " size=" << result->size() <<  " iteration:" << i << " -> " << *result <<  std::endl;
+
+        my_eval.print_result();
     }
     return 0;
 }
