@@ -66,10 +66,8 @@ void rccm::init_sel_add()
     for(int i=0; i< sel_add.size();++i)
     {
         sspk key(rccm_search_space[from_sp_use],i);
-       //TODO make dependent from search space obj!
-       //TODO and invent search space obj...
-       sel_add[i].sel_add_search_space=ssp->get_search_space_sel_add(key);
-       sel_add[i].init(ssp,i,rccm_search_space[from_sp_use]);
+        sel_add[i].sel_add_search_space=ssp->get_search_space_sel_add(key);
+        sel_add[i].init(ssp,i,rccm_search_space[from_sp_use]);
     }
 }
 

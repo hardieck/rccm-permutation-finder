@@ -157,7 +157,7 @@ void selective_add::init_permutators()
     this->perm_operation.resetPermutation();
 
     IF_VERBOSE(9) std::cout << "after" << std::endl;
-    IF_VERBOSE(0) this->perm_operation.pd->printPermutationData();
+    IF_VERBOSE(9) this->perm_operation.pd->printPermutationData();
     IF_VERBOSE(9) this->perm_shift.pd->printPermutationData();
 
     IF_VERBOSE(8) LEAVE_FUNCTION("selective_add::init_permutators()")

@@ -103,7 +103,13 @@ void search_space_plan::add_rule(std::string rule)
     // if for X,y,z is missing equal to ~,~,~
 
 
-
+    {// remove the -- indicator
+        bool replaced = false;
+        string s1("--");
+        string s2("");
+        replaced=replace(rule, s1, s2);
+        IF_VERBOSE(2) std::cout << "Add_Search_Space_rule: " << rule << std::endl;
+    }
 
     std::vector<std::string> v;
     v= split_string_by(rule,' ');
@@ -134,7 +140,7 @@ void search_space_plan::add_rule(std::string rule)
             break;
         case 4: {
             if (v[2] != "for") {
-                ERROR("Unsupported Command! (Example: set_sel_add A,B,C for C3,2,~)",
+                ERROR("Unsupported Command! :" << rule << " (Example: set_sel_add A,B,C for C3,2,~)",
                       "search_space_plan::add_rule(std::string rule)")
             }
             //get key
@@ -193,7 +199,7 @@ void search_space_plan::add_rule(std::string rule)
             }
             else if (v[0] == "set_config_level") {ERROR("UNSUPPORTED OPTION YET (set_config_level)","search_space_plan::add_rule(std::string rule)")}
             else {
-                ERROR("Unsupported Set Command! (Example: set_sel_add A,B,C for C3,2,~)",
+                ERROR("Unsupported Set Command!: " << rule << " (Example: set_sel_add A,B,C for C3,2,~)",
                       "search_space_plan::add_rule(std::string rule)")
             }
         }

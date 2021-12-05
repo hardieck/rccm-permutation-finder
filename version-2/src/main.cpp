@@ -15,7 +15,9 @@ void print_help();
 
 int main(int argc, char *argv[])
 {
-    global_verbose=10;
+    auto ssp = make_shared<search_space_plan>();
+
+    global_verbose=1;
     if (argc == 1)
     {
         print_help();
@@ -28,15 +30,40 @@ int main(int argc, char *argv[])
         } else if (strstr(argv[i], "--help")) {
             print_help();
             exit(0);
+        } else if (strstr(argv[i], "--set_")) {
+            ssp->add_rule(argv[i]);
         } else if (strstr(argv[i], "--debug")) {
             // do the stuff I had prepared!
             do_debug();
+            exit(0);
         } else {
             cout << "Error: Illegal Option: " << argv[i] << endl << endl;
             print_help();
-            exit(0);
+            exit(-1);
         }
     }
+
+    // init rest of search space:
+    ssp->init_empty_slots();
+    //init my_rccm with the plan from ssp;
+    rccm my_rccm(ssp);
+    my_rccm.init();
+
+    // Do Search:
+    // TODO following code make as function from somewhere...
+    IF_VERBOSE(2) std::cout << std::endl << "Start RCCM search" << std::endl;
+    string config_string;
+    std::set<int> *result = nullptr;
+    unsigned int i = 0;
+    do {
+        std::set<int> *result = my_rccm.compute();
+        config_string = my_rccm.get_config();
+        //if (i % 1 == 0)
+        {
+            IF_VERBOSE(1) std::cout << config_string << " size=" << result->size() <<  " iteration:" << ++i << " -> " << *result <<  std::endl;
+        }
+    } while (my_rccm.next_config());
+    IF_VERBOSE(2) std::cout << std::endl << "Finished RCCM search" << std::endl;
 
     IF_VERBOSE(8) std::cout << std::endl << "Finished. Safe end of Toolflow. Normal Quit." << std::endl;
 	return 0;
@@ -47,6 +74,19 @@ void print_help()
     cout << "General Options:" << endl;
     cout << "Option                                         Meaning" << endl;
     cout << "--help                                         Prints this help" << endl;
+    cout << "'--set_rccm C1,C2,C3'                          Set rccm search space to C1 and C2 and C3 " << endl;
+    cout << "'--set_sel_add A,B,C for <key>'                Set sel_add search space to type A and B and C for the specified key" << endl;
+    cout << "'--set_max_shift X for <key>'                  Set upper border for shifts used in the selective add for specified key to X(int)" << endl;
+    cout << "'--set_operation_mode <usal/all> for <key>'    switch between two cases: Test all possible Operation combinations, or test only usal operation sets in the selective add for specified key" << endl;
+    cout << "                                               A <key> is a specified position in the sarch space. It supports also don't care values (~). The last specified rule that firs is used."<< endl;
+    cout << "                                               < key > = < RCCM Typology, selective add position in Typology (starting by 0), Type of selective adder >"<< endl;
+    cout << "                                               Key Examples"<< endl;
+    cout << "                                                ~,~,~ ->  all don't care, will fits everything"<< endl;
+    cout << "                                               C1,~,~ ->  rule for everything in typology C1"<< endl;
+    cout << "                                                ~,~,B ->  rule for all Selective adder type B in search space"<< endl;
+    cout << "                                               C2,1,~ ->  rule for the second (starting by 0!) selective adder in typology C2"<< endl;
+    cout << "                                               C3,3,B ->  rule for the third (starting by 0!) selective adder if it is type B in typology C3"<< endl;
+    cout << "                                               always last fitting rule is used! so Start with global settings then specify details!"<< endl;
     cout << "--do_debug                                     Run the debug function" << endl;
     cout << "--verbose=0...9                                Verbosity level (0: no information, 9: all information during optimization), default:1" << endl;
 }
@@ -176,11 +216,13 @@ int RCCM_test()
     {
         global_verbose = 0;
         auto ssp = make_shared<search_space_plan>();
-        ssp->add_rule("set_rccm C3");
-        ssp->add_rule("set_max_shift 3");
+        ssp->add_rule("set_rccm C1");
+        ssp->add_rule("set_max_shift 4");
         ssp->add_rule("set_sel_add A,B for ~,~,~");
         ssp->add_rule("set_sel_add B for C3,2,~");
-        ssp->add_rule("set_operation_mode usal for ~,~,~");
+        ssp->add_rule("set_sel_add B for C2,1,~");
+        ssp->add_rule("set_operation_mode all for ~,~,~");
+        ssp->add_rule("set_operation_mode usal for ~,~,B");
         ssp->init_empty_slots();
         ssp->print();
 
