@@ -13,7 +13,7 @@ const spec_sel_add calc_selective_adder_typ_c::get_spec()
 }
 
 std::set<int>* calc_selective_adder_typ_c::compute(base_obj *parent_) {
-    IF_VERBOSE(5)ENTER_FUNCTION("calc_selective_adder_typ_b::compute()")
+    IF_VERBOSE(5)ENTER_FUNCTION("calc_selective_adder_typ_c::compute()")
     selective_add *parent = (selective_add *) parent_;
 
 

@@ -79,11 +79,11 @@ int main(int argc, char *argv[])
     do {
         std::set<int> *result = my_rccm.compute();
         config_string = my_rccm.get_config();
-
         my_eval.evaluate(config_string, *result);
         //if (i % 1 == 0)
         {
             IF_VERBOSE(2) std::cout << config_string << " size=" << result->size() <<  " iteration:" << ++i << " -> " << *result <<  std::endl;
+            //if(i == 209475) {global_verbose=10;}
         }
     } while (my_rccm.next_config());
 

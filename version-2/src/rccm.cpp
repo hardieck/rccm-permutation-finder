@@ -73,13 +73,13 @@ void rccm::init_sel_add()
 
 std::string rccm::get_config()
 {
-    IF_VERBOSE(2) ENTER_FUNCTION("rccm::get_config()")
-    IF_VERBOSE(3) std::cout << "Prepair config string and add header" << std::endl;
+    IF_VERBOSE(5) ENTER_FUNCTION("rccm::get_config()")
+    IF_VERBOSE(6) std::cout << "Prepair config string and add header" << std::endl;
     string current_config;
     current_config.clear();
     current_config = "HM1";
 
-    IF_VERBOSE(3) std::cout << "Add connection Structer." << std::endl;
+    IF_VERBOSE(5) std::cout << "Add connection Structer." << std::endl;
     IF_VERBOSE(9) std::cout << "Data Info: from_sp_use = " << from_sp_use << std::endl;
     IF_VERBOSE(9) std::cout << "Data Info: rccm_search_space.size() = " << rccm_search_space.size() << std::endl;
     IF_VERBOSE(9) std::cout << "Data Info: rccm_search_space[from_sp_use] = " << rccm_search_space[from_sp_use] << std::endl;
@@ -93,17 +93,17 @@ std::string rccm::get_config()
         default:
             ERROR("Unsupported Connection Structure!", "rccm::get_config()")
     }
-    IF_VERBOSE(3) std::cout << "iterate through selective adders" << std::endl;
+    IF_VERBOSE(5) std::cout << "iterate through selective adders" << std::endl;
     for(int i=0; i< sel_add.size(); ++i)
     {
-        IF_VERBOSE(4) std::cout << "Start with Selective add:" << i << std::endl;
+        IF_VERBOSE(6) std::cout << "Start with Selective add:" << i << std::endl;
         string sel_add_conf = sel_add[i].get_config();
-        IF_VERBOSE(4) std::cout << "Config of Selective add:" << i << " is: " << sel_add_conf << std::endl;
+        IF_VERBOSE(6) std::cout << "Config of Selective add:" << i << " is: " << sel_add_conf << std::endl;
         current_config += sel_add_conf;
     }
     // read a string with configuration specifications and generate the subconfigurations out of it
     // to configure the selective adder in terms of possible operation sets and the current used one.
-    IF_VERBOSE(2) std::cout << "current config is: " << current_config << std::endl;
+    IF_VERBOSE(5) std::cout << "current config is: " << current_config << std::endl;
     return current_config;
 }
 
@@ -130,7 +130,6 @@ bool rccm::next_config()
         } // if a permutation was changed return true
     }
     IF_VERBOSE(9) std::cout << "rccm: next_config: no config left, try next connection structure from search space" << std::endl;
-    // TODO: iterate over search space elements (C1 C2 C3,...)
     if(from_sp_use < rccm_search_space.size()-1)
     {
         ++from_sp_use;

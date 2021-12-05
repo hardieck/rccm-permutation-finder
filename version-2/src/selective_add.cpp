@@ -271,6 +271,7 @@ std::set<int> *selective_add::compute()
 }
 void selective_add::init(shared_ptr<search_space_plan> _ssp, int _sel_add_pos, rccm_type _current_rccm_type) // update und eventually initialize calc and permutators
 {
+    IF_VERBOSE(4) ENTER_FUNCTION("selective_add::init()")
     if(_ssp!= nullptr)
     {
         ssp = _ssp;
@@ -286,13 +287,11 @@ void selective_add::init(shared_ptr<search_space_plan> _ssp, int _sel_add_pos, r
 
     if((ssp == nullptr)||(sel_add_pos==-1)||(current_rccm_type==rccm_type_NAN)) { ERROR("Insufficient Init information!","selective_add::init(shared_ptr<search_space_plan> _ssp, int _sel_add_pos)")}
 
-
-    IF_VERBOSE(4) ENTER_FUNCTION("selective_add::init()")
     if(sel_add_search_space.size()==0){ ERROR("Can Not init without search space!","selective_add::init()")}
     if((calc!=nullptr)&&(sel_add_search_space[from_sp_use] != ((calc_selective_adder_base*)calc)->type()))
     {
         IF_VERBOSE(5) std::cout << "calc pointer: " << calc << std::endl;
-        IF_VERBOSE(5) std::cout << "calc type: " << ((calc_selective_adder_base*)calc)->type() << " Searchg space type: " << sel_add_search_space[from_sp_use] << std::endl;
+        IF_VERBOSE(5) std::cout << "calc type: " << ((calc_selective_adder_base*)calc)->type() << " Search space type: " << sel_add_search_space[from_sp_use] << std::endl;
         delete_calc();
     }
     if(calc==nullptr) // calc does not exist (anymore) and need to be initialized

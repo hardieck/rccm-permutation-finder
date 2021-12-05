@@ -11,7 +11,7 @@ class calc_selective_adder_typ_a : public calc_selective_adder_base
 public:
     calc_selective_adder_typ_a()
     {
-        IF_VERBOSE(6) ENTER_FUNCTION("calc_selective_adder_typ_b::calc_selective_adder_typ_a()")
+        IF_VERBOSE(6) ENTER_FUNCTION("calc_selective_adder_typ_a::calc_selective_adder_typ_a()")
         init();
     };
     virtual sel_add_type type() const {return typ_A;}

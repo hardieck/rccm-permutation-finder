@@ -57,7 +57,7 @@ public:
 
         // set inputs for sel add 1
         // set inputs for A
-        for (int i=0; i < ((calc_selective_adder_base*)(parent->sel_add[0].calc))->get_spec().input_count_A;++i)
+        for (int i=0; i < ((calc_selective_adder_base*)(parent->sel_add[1].calc))->get_spec().input_count_A;++i)
         {
             IF_VERBOSE(9) std::cout << "Set selective_add set input nr: " << i << std::endl;
             parent->sel_add[1].calc->set_input(i,parent->sel_add[0].calc->get_output());
