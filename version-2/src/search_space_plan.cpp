@@ -160,8 +160,10 @@ void search_space_plan::add_rule(std::string rule)
                 pair<sspk,int> elem;
                 // set int and set key
                 if(isNumber(v[1])) {
+
                     elem.first = key;
                     elem.second = std::stoi(v[1]);
+                    if (elem.second < 2) { ERROR("Minimum Shift value is 2!", "search_space_plan::add_rule(std::string rule)")}
                     sel_add_max_shift.push_back(elem);
                 }
                 else

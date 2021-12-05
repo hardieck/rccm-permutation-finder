@@ -20,7 +20,7 @@ void print_help();
 int main(int argc, char *argv[])
 {
     IF_VERBOSE(0){
-        std::cout << "RCCM-Finder Version: "<<  VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_REVISION << " Compiled:"  << __DATE__ << " at " << __TIME__ << std::endl;
+        std::cout << "RCCM-Finder Version: "<<  VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_REVISION << " Compiled: "  << __DATE__ << " at " << __TIME__ << std::endl;
         // reaped the function call:
         std::cout << "Called with: ";
         for (int i = 1; i < argc; ++i) {
