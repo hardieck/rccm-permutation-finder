@@ -9,13 +9,28 @@
 #include "../inc/calc_selective_adder_typ_a.h"
 #include "../inc/helper.h"
 
+#define VERSION_MAJOR 2
+#define VERSION_MINOR 0
+#define VERSION_REVISION 0
+
 
 int do_debug();
 void print_help();
 
 int main(int argc, char *argv[])
 {
+    IF_VERBOSE(0){
+        std::cout << "RCCM-Finder Version: "<<  VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_REVISION << " Compiled:"  << __DATE__ << " at " << __TIME__ << std::endl;
+        // reaped the function call:
+        std::cout << "Called with: ";
+        for (int i = 1; i < argc; ++i) {
+            std::cout << argv[i] << " ";
+        }
+        std::cout << std::endl;
+    }
+
     auto ssp = make_shared<search_space_plan>();
+
 
     global_verbose=1;
     if (argc == 1)
