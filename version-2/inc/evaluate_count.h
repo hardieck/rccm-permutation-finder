@@ -11,7 +11,7 @@ class evaluate_count : public evaluate_base
 {
 public:
     evaluate_count();
-    ~evaluate_count();
+    virtual ~evaluate_count();
 
     double evaluate(const string &config,const std::set<int> &inputs);
     virtual int configure(string parameter);

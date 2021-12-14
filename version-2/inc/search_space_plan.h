@@ -6,6 +6,7 @@
 #define ADDNET_PERMUTATOR_V2_SEARCH_SPACE_PLAN_H
 
 #include "datatyps.h"
+#include "evaluate_base.h"
 
 using namespace std;
 
@@ -67,6 +68,8 @@ public:
     vector<pair<sspk,int>> sel_add_max_shift;
     vector<pair<sspk,permutator_typ>> sel_add_operating_mode;
     vector<pair<sspk,config_level>> sel_add_config_level;
+
+    std::vector<shared_ptr<evaluate_base>> evaluation;
 
 };
 

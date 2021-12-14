@@ -88,6 +88,17 @@ double evaluate_count::evaluate_count_size(const string &config,const std::set<i
 
 double evaluate_count::evaluate_count_sets(const string &config,const std::set<int> &inputs)
 {
-    ERROR("evaluate_count_sets is Not implemented yet","evaluate_count::evaluate_count_sets()")
+    for(int i =0; i< v_coeff_sets.size();++i)
+    {
+        if(v_coeff_sets[i] == inputs) // if true ther is a match with a previus found set!
+        {
+            ++(v_count[i]);
+            return 0;
+        }
+    }// it ends without a match a new set was found
+    v_config.push_back(config);
+    v_coeff_sets.push_back(inputs);
+    v_count.push_back(1);
+    v_score.push_back(0);
     return 0;
 }
