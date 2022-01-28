@@ -121,6 +121,14 @@ void print_help()
     cout << "                                               C2,1,~ ->  rule for the second (starting by 0!) selective adder in typology C2"<< endl;
     cout << "                                               C3,3,B ->  rule for the third (starting by 0!) selective adder if it is type B in typology C3"<< endl;
     cout << "                                               always last fitting rule is used! so Start with global settings then specify details!"<< endl;
+    cout << "'--set_metric count_sets'                      set metrix to use. (multiple metrics are possible at the same time)"<< endl;
+    cout << "                                               options are:"<< endl;
+    cout << "                                               count_sets -> Lists all possible RCCM sets and count duplicates (ideal for chaining)"<< endl;
+    cout << "                                               count_size -> Lists RCCM sets with different sizes (ideal for chaining)"<< endl;
+    cout << "                                               kul-leib   -> Use Kullback Leibler Metric to compare RCCM sets with reference (in progress)"<< endl;
+    cout << "                                               Kol-smirn  -> Use to sample Kolmogorov Smirnov test to compare RCCM sets with reference (in progress)"<< endl;
+    cout << "                                               with-zero  -> removes all RCCM set without a zero (ideal for chaining) (planed)"<< endl;
+    cout << "                                               It is possible to run one metric and chain another metric. (user interface planed)"<< endl;
     cout << "--do_debug                                     Run the debug function" << endl;
     cout << "--verbose=0...9                                Verbosity level (0: no information, 9: all information during optimization), default:1" << endl;
 }
