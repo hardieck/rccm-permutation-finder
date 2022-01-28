@@ -9,6 +9,7 @@
 
 class evaluate_Kullback_Leibler : public evaluate_base
 {
+public:
     evaluate_Kullback_Leibler();
     virtual ~evaluate_Kullback_Leibler();
     virtual int configure(string parameter);
@@ -16,12 +17,19 @@ class evaluate_Kullback_Leibler : public evaluate_base
     void print_result();
 
     double evaluate(const string &config,const std::set<int> &inputs);
-    std::vector<int> referenze_distributen;
-    std::vector<int> normalized_referenze_distributen;
+    std::vector<double> referenze_distributen;
+    std::vector<double> normalized_referenze_distributen;
 
-    double Kullback_Leibler_Divergenz(std::vector<int> &P_i);
-    std::vector<double> norm_distribution(std::vector<int> &input);
+    double Kullback_Leibler_Divergenz(std::vector<double> &P_i);
+    std::vector<double> norm_distribution(std::vector<double> &input);
+    std::vector<double> get_distribution(const std::set<int> &input, int No_of_windows);
 
+    int no_of_windows; // spezify the number of windows / bin for distribution matching
+
+    //data bundle for best result.
+    std::string best_config; // stores RCCM Config string Format HM1
+    coeff_set best_coeff_sets; //stores the coefficien set
+    double best_score; //score of corresponding coeff_set
 };
 
 

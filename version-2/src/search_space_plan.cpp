@@ -8,6 +8,7 @@
 
 #include "../inc/evaluate_count.h"
 #include "../inc/evaluate_Kolmogorov_Smirnov.h"
+#include "../inc/evaluate_Kullback_Leibler.h"
 
 search_space_plan::search_space_plan()
 {
@@ -117,7 +118,6 @@ void search_space_plan::add_rule(std::string rule)
         if(v[1] == "count_size")
         {
             shared_ptr<evaluate_count> my_eval = make_shared<evaluate_count>();
-            make_shared<evaluate_count>();
             my_eval->count_size = true;
             my_eval->count_sets = false;
             this->evaluation.push_back(my_eval);
@@ -125,19 +125,20 @@ void search_space_plan::add_rule(std::string rule)
         else if(v[1] == "count_sets")
         {
             shared_ptr<evaluate_count> my_eval = make_shared<evaluate_count>();
-            make_shared<evaluate_count>();
             my_eval->count_size = false;
             my_eval->count_sets = true;
+            this->evaluation.push_back(my_eval);
+        }
+        else if(v[1] == "kull-leib")
+        {
+            shared_ptr<evaluate_Kullback_Leibler> my_eval = make_shared<evaluate_Kullback_Leibler>();
             this->evaluation.push_back(my_eval);
         }
         else if(v[1] == "kolmo_smirno")
         {
             ERROR("evaluate_Kolmogorov_Smirnov is not ready for use yet!","void search_space_plan::add_rule(std::string rule)")
-            //shared_ptr<evaluate_count> my_eval = make_shared<evaluate_Kolmogorov_Smirnov>();
-            //make_shared<evaluate_count>();
-            //my_eval->count_size = true;
-            //my_eval->count_sets = false;
-            //this->evaluation.push_back(my_eval);
+            shared_ptr<evaluate_Kolmogorov_Smirnov> my_eval = make_shared<evaluate_Kolmogorov_Smirnov>();
+            this->evaluation.push_back(my_eval);
         }
         else
         {
