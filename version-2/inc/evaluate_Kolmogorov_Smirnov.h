@@ -17,11 +17,16 @@ public:
 
     double evaluate(const string &config,const std::set<int> &inputs);
 
-    std::vector<int> referenze_distributen;
 
-    bool use_decimal_point_positions
+    double two_sided_Kolmogorow_Sminow(const std::set<int>);
+    std::vector<int> referenze_distributen;
+    std::vector<int> normalized_referenze_distributen;
+
+    bool use_decimal_point_detection;
+
+
 private:
-    normalize()
+    set<int> normalize();
 
 };
 

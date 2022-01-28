@@ -41,7 +41,11 @@ void evaluate_count::print_result()
 {
     IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_count::print_result()")
 
-    std::cout << "Tested Cases: " << counted_cases << std::endl;
+    std::cout << "Tested Cases: " << counted_cases;
+    if(this->count_sets) // outpout only makes sense for count sets
+        {std::cout << " Found: " << v_config.size()-1 << " different sets" <<  std::endl;}// -1 cause zero is excluded
+    else
+        {std::cout << std::endl;} // just finish line
     std::cout << "Size\tcount\tScore\tConfig\tCoefficient Set" << std::endl;
     std::cout << "------------------------------------" << std::endl;
     for(int i = 1; i < v_config.size(); ++i) // there are no sets with size 0...

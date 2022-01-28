@@ -12,7 +12,7 @@
 
 #define VERSION_MAJOR 2
 #define VERSION_MINOR 0
-#define VERSION_REVISION 0
+#define VERSION_REVISION 1
 
 
 int do_debug();
@@ -65,10 +65,17 @@ int main(int argc, char *argv[])
     rccm my_rccm(ssp);
     my_rccm.init();
 
-    // init evaluation:
-    evaluate_count my_eval;
-    my_eval.count_size=true;
-    //my_eval.count_sets=true;
+
+    // init evaluation default value: // TODO: move into ssp ...
+    if(ssp->evaluation.size() == 0)
+    {
+        shared_ptr<evaluate_count> my_eval = make_shared<evaluate_count>();
+        make_shared<evaluate_count>();
+        my_eval->count_size = true;
+        my_eval->count_sets = false;
+        ssp->evaluation.push_back(my_eval);
+    }
+
 
 
     // Do Search:
@@ -80,16 +87,16 @@ int main(int argc, char *argv[])
     do {
         std::set<int> *result = my_rccm.compute();
         config_string = my_rccm.get_config();
-        my_eval.evaluate(config_string, *result);
+        ssp->evaluate_all(config_string, *result);
         IF_VERBOSE(2) std::cout << config_string << " size=" << result->size() <<  " iteration:" << i << " -> " << *result <<  std::endl;
         if (i % 100000 == 0)
         {
-            std::cout << "iteration:" << i <<  " : " << "different set count:" << my_eval.v_count.size() << std::endl;
+            std::cout << "iteration:" << i <<  " : " << "different set count:" << result->size() << std::endl;
         }
         ++i;
     } while (my_rccm.next_config());
 
-    my_eval.print_result();
+    ssp->print_result_all();
     IF_VERBOSE(2) std::cout << std::endl << "Finished RCCM search" << std::endl;
 
     IF_VERBOSE(8) std::cout << std::endl << "Finished. Safe end of Toolflow. Normal Quit." << std::endl;

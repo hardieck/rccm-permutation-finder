@@ -21,6 +21,8 @@ public:
     sspk generate_key_from_sting(std::string key_string);
     void print();
     void init_empty_slots();
+    void evaluate_all(const string &config,const std::set<int> &inputs);
+    void print_result_all();
 
 
     // devault plan... (test A and B complete)

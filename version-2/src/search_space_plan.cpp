@@ -6,6 +6,9 @@
 #include "../inc/helper.h"
 #include <iostream>
 
+#include "../inc/evaluate_count.h"
+#include "../inc/evaluate_Kolmogorov_Smirnov.h"
+
 search_space_plan::search_space_plan()
 {
     this->search_space_rccm.clear();
@@ -108,100 +111,126 @@ void search_space_plan::add_rule(std::string rule)
     std::vector<std::string> v;
     v= split_string_by(rule,' ');
 
-    if ((v.size() != 2) && (v.size() != 4)) {
-        ERROR("INVALID Rule! Rule was:" << rule << " Syntax Example: ' set_sel_add A,B,C for C3,2,~ ' ",
-              "search_space_plan::generate_key_from_sting(std::string key_string)")
-    }
 
-
-    switch (v.size())
+    if (v[0] == "set_metric")
     {
-        case 2:
-            if (v[0] == "set_rccm")
-            {
-                IF_VERBOSE(6) std::cout << "Found rule: set_rccm" << std::endl;
-                std::vector<string> rccm_strings;
-                rccm_strings = split_string_by(v[1],',');
-                for (int i=0; i < rccm_strings.size();++i)
-                {
-                    search_space_rccm.push_back(get_rccm_type_from_string(rccm_strings[i]));
-                }
-            }
-            else
-            {
-                add_rule(rule+" for ~,~,~");
-            }
-            break;
-        case 4: {
-            if (v[2] != "for") {
-                ERROR("Unsupported Command! :" << rule << " (Example: set_sel_add A,B,C for C3,2,~)",
-                      "search_space_plan::add_rule(std::string rule)")
-            }
-            //get key
-            sspk key = generate_key_from_sting(v[3]);
-
-            if (v[0] == "set_sel_add") {
-                IF_VERBOSE(6) std::cout << "Found rule: set_sel_add" << std::endl;
-                // declaration of used variables:
-                vector<string> sel_add_strings;
-                pair<sspk,vector<sel_add_type>> elem;
-                // init vector and set key
-                sel_add_strings = split_string_by(v[1], ',');
-                elem.first = key;
-                // transform string to real obj and fill elem
-                for (int i=0; i < sel_add_strings.size();++i)
-                {
-                    elem.second.push_back(get_sel_add_type_from_string(sel_add_strings[i]));
-                }
-                search_space_sel_add.push_back(elem);
-            } else if (v[0] == "set_max_shift") {
-                IF_VERBOSE(6) std::cout << "Found rule: set_max_shift" << std::endl;
-                // declaration of used variables:
-                pair<sspk,int> elem;
-                // set int and set key
-                if(isNumber(v[1])) {
-
-                    elem.first = key;
-                    elem.second = std::stoi(v[1]);
-                    if (elem.second < 2) { ERROR("Minimum Shift value is 2!", "search_space_plan::add_rule(std::string rule)")}
-                    sel_add_max_shift.push_back(elem);
-                }
-                else
-                {
-                    ERROR("Max Shift has to be a number!","search_space_plan::add_rule(std::string rule)")
-                }
-            }
-            else if (v[0] == "set_operation_mode")
-            {
-                IF_VERBOSE(6) std::cout << "Found rule: set_operation_mode" << std::endl;
-                if (v[1] == "all")
-                {
-                    pair<sspk,permutator_typ> elem;
-                    elem.first = key;
-                    elem.second = operations_only;
-                    sel_add_operating_mode.push_back(elem);
-                }else
-                if (v[1] == "usal")
-                {
-                    pair<sspk,permutator_typ> elem;
-                    elem.first = key;
-                    elem.second = usual_operations_only;
-                    sel_add_operating_mode.push_back(elem);
-                }
-                else
-                {
-                    ERROR("Unknown Parameter for set_operation_mode","search_space_plan::add_rule(std::string rule)")
-                }
-            }
-            else if (v[0] == "set_config_level") {ERROR("UNSUPPORTED OPTION YET (set_config_level)","search_space_plan::add_rule(std::string rule)")}
-            else {
-                ERROR("Unsupported Set Command!: " << rule << " (Example: set_sel_add A,B,C for C3,2,~)",
-                      "search_space_plan::add_rule(std::string rule)")
-            }
+        if(v[1] == "count_size")
+        {
+            shared_ptr<evaluate_count> my_eval = make_shared<evaluate_count>();
+            make_shared<evaluate_count>();
+            my_eval->count_size = true;
+            my_eval->count_sets = false;
+            this->evaluation.push_back(my_eval);
         }
-        break;
-        default:
-            ERROR("Invalid Syntax for Rule! (Example:'set_sel_add A,B,C for C3,2,~' or ' set_rccm C1' )","search_space_plan::add_rule(std::string rule)")
+        else if(v[1] == "count_sets")
+        {
+            shared_ptr<evaluate_count> my_eval = make_shared<evaluate_count>();
+            make_shared<evaluate_count>();
+            my_eval->count_size = false;
+            my_eval->count_sets = true;
+            this->evaluation.push_back(my_eval);
+        }
+        else if(v[1] == "kolmo_smirno")
+        {
+            ERROR("evaluate_Kolmogorov_Smirnov is not ready for use yet!","void search_space_plan::add_rule(std::string rule)")
+            //shared_ptr<evaluate_count> my_eval = make_shared<evaluate_Kolmogorov_Smirnov>();
+            //make_shared<evaluate_count>();
+            //my_eval->count_size = true;
+            //my_eval->count_sets = false;
+            //this->evaluation.push_back(my_eval);
+        }
+        else
+        {
+            ERROR("No such Metric!","void search_space_plan::add_rule(std::string rule)")
+        }
+    }
+    else
+    {
+
+        if ((v.size() != 2) && (v.size() != 4)) {
+            ERROR("INVALID Rule! Rule was:" << rule << " Syntax Example: ' set_sel_add A,B,C for C3,2,~ ' ",
+                  "search_space_plan::generate_key_from_sting(std::string key_string)")
+        }
+
+        switch (v.size()) {
+            case 2:
+                if (v[0] == "set_rccm") {
+                    IF_VERBOSE(6) std::cout << "Found rule: set_rccm" << std::endl;
+                    std::vector<string> rccm_strings;
+                    rccm_strings = split_string_by(v[1], ',');
+                    for (int i = 0; i < rccm_strings.size(); ++i) {
+                        search_space_rccm.push_back(get_rccm_type_from_string(rccm_strings[i]));
+                    }
+                } else {
+                    add_rule(rule + " for ~,~,~");
+                }
+                break;
+            case 4: {
+                if (v[2] != "for") {
+                    ERROR("Unsupported Command! :" << rule << " (Example: set_sel_add A,B,C for C3,2,~)",
+                          "search_space_plan::add_rule(std::string rule)")
+                }
+                //get key
+                sspk key = generate_key_from_sting(v[3]);
+
+                if (v[0] == "set_sel_add") {
+                    IF_VERBOSE(6) std::cout << "Found rule: set_sel_add" << std::endl;
+                    // declaration of used variables:
+                    vector<string> sel_add_strings;
+                    pair<sspk, vector<sel_add_type>> elem;
+                    // init vector and set key
+                    sel_add_strings = split_string_by(v[1], ',');
+                    elem.first = key;
+                    // transform string to real obj and fill elem
+                    for (int i = 0; i < sel_add_strings.size(); ++i) {
+                        elem.second.push_back(get_sel_add_type_from_string(sel_add_strings[i]));
+                    }
+                    search_space_sel_add.push_back(elem);
+                } else if (v[0] == "set_max_shift") {
+                    IF_VERBOSE(6) std::cout << "Found rule: set_max_shift" << std::endl;
+                    // declaration of used variables:
+                    pair<sspk, int> elem;
+                    // set int and set key
+                    if (isNumber(v[1])) {
+
+                        elem.first = key;
+                        elem.second = std::stoi(v[1]);
+                        if (elem.second < 2) {
+                            ERROR("Minimum Shift value is 2!", "search_space_plan::add_rule(std::string rule)")
+                        }
+                        sel_add_max_shift.push_back(elem);
+                    } else {
+                        ERROR("Max Shift has to be a number!", "search_space_plan::add_rule(std::string rule)")
+                    }
+                } else if (v[0] == "set_operation_mode") {
+                    IF_VERBOSE(6) std::cout << "Found rule: set_operation_mode" << std::endl;
+                    if (v[1] == "all") {
+                        pair<sspk, permutator_typ> elem;
+                        elem.first = key;
+                        elem.second = operations_only;
+                        sel_add_operating_mode.push_back(elem);
+                    } else if (v[1] == "usal") {
+                        pair<sspk, permutator_typ> elem;
+                        elem.first = key;
+                        elem.second = usual_operations_only;
+                        sel_add_operating_mode.push_back(elem);
+                    } else {
+                        ERROR("Unknown Parameter for set_operation_mode",
+                              "search_space_plan::add_rule(std::string rule)")
+                    }
+                } else if (v[0] == "set_config_level") {
+                    ERROR("UNSUPPORTED OPTION YET (set_config_level)", "search_space_plan::add_rule(std::string rule)")
+                }
+                else {
+                    ERROR("Unsupported Set Command!: " << rule << " (Example: set_sel_add A,B,C for C3,2,~)",
+                          "search_space_plan::add_rule(std::string rule)")
+                }
+            }
+                break;
+            default:
+            ERROR("Invalid Syntax for Rule! (Example:'set_sel_add A,B,C for C3,2,~' or ' set_rccm C1' )",
+                  "search_space_plan::add_rule(std::string rule)")
+        }
     }
 
     IF_VERBOSE(5)LEAVE_FUNCTION("search_space_plan::add_rule(std::string rule)")
@@ -310,3 +339,30 @@ void search_space_plan::print()
 
     IF_VERBOSE(3)LEAVE_FUNCTION("search_space_plan::print()")
 }
+
+void search_space_plan::evaluate_all(const string &config,const std::set<int> &inputs)
+{
+    IF_VERBOSE(5) ENTER_FUNCTION("void search_space_plan::evaluate_all(const string &config,const std::set<int> &inputs)")
+    if (this->evaluation.size() == 0)
+    {
+        ERROR("Use at least one Evaluation metric!","void search_space_plan::evaluate_all(const string &config,const std::set<int> &inputs)")
+    }
+    for (int i = 0; i<this->evaluation.size(); ++i)
+    {
+        this->evaluation[i]->evaluate(config,inputs);
+    }
+}
+void search_space_plan::print_result_all()
+{
+    IF_VERBOSE(5) ENTER_FUNCTION("void search_space_plan::print_result_all()")
+    if (this->evaluation.size() == 0)
+    {
+        ERROR("Use at least one Evaluation metric!","void search_space_plan::print_result_all()")
+    }
+    for (int i = 0; i<this->evaluation.size(); ++i)
+    {
+        std::cout << std::endl << "Results from metric " << i << ":" << std::endl;
+        this->evaluation[i]->print_result();
+    }
+}
+
