@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
         IF_VERBOSE(2) std::cout << config_string << " size=" << result->size() <<  " iteration:" << i << " -> " << *result <<  std::endl;
         if (i % 100000 == 0)
         {
-            std::cout << "iteration:" << i <<  " : " << "different set count:" << result->size() << std::endl;
+            std::cout << "iteration:" << i <<  " : " << "last set: " << *result << std::endl;
         }
         ++i;
     } while (my_rccm.next_config());

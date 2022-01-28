@@ -120,6 +120,9 @@ void search_space_plan::add_rule(std::string rule)
             shared_ptr<evaluate_count> my_eval = make_shared<evaluate_count>();
             my_eval->count_size = true;
             my_eval->count_sets = false;
+
+            my_eval->use_metric = true;
+            my_eval->metric = make_shared<evaluate_Kullback_Leibler>();
             this->evaluation.push_back(my_eval);
         }
         else if(v[1] == "count_sets")
@@ -127,6 +130,10 @@ void search_space_plan::add_rule(std::string rule)
             shared_ptr<evaluate_count> my_eval = make_shared<evaluate_count>();
             my_eval->count_size = false;
             my_eval->count_sets = true;
+
+            my_eval->use_metric = true;
+            my_eval->metric = make_shared<evaluate_Kullback_Leibler>();
+
             this->evaluation.push_back(my_eval);
         }
         else if(v[1] == "kull-leib")

@@ -61,7 +61,32 @@ double evaluate_count::evaluate_count_size(const string &config,const std::set<i
     IF_VERBOSE(6) ENTER_FUNCTION("evaluate_count::evaluate_count_size(const string &config,const std::set<int> &inputs)")
     if(use_metric)
     {// use a metric to find best fitting case for the size
-        ERROR("use_metric is Not implemented yet","evaluate_count::evaluate_count_size()")
+        int size = inputs.size();
+        if (v_config.size() < size+1) // a bigger result was found and all vectors must be extended
+        {
+            v_config.resize(size+1);
+            v_coeff_sets.resize(size+1);
+            v_count.resize(size+1);
+            v_score.resize(size+1);
+        }
+        if(v_count[size] == 0)// there was no result with this size before
+        {
+            v_config[size] = config; // save config for this result
+            v_coeff_sets[size] = inputs; // save coeffs for this result
+            ++v_count[size]; // increase counter for results with this size
+            v_score[size] = this->metric->evaluate(config,inputs);
+        }
+        else// there was a result with this size before
+        {
+            ++v_count[size]; // increase counter for results with this size
+            double new_score = this->metric->evaluate(config,inputs);
+            if(v_score[size] < new_score)
+            {
+                v_config[size] = config;
+                v_coeff_sets[size] = inputs;
+                v_score[size] = new_score;
+            }
+        }
     }
     else
     {// just Count corresponding size's and keep one example
@@ -94,7 +119,7 @@ double evaluate_count::evaluate_count_sets(const string &config,const std::set<i
 {
     for(int i =0; i< v_coeff_sets.size();++i)
     {
-        if(v_coeff_sets[i] == inputs) // if true ther is a match with a previus found set!
+        if(v_coeff_sets[i] == inputs) // if true there is a match with a previus found set!
         {
             ++(v_count[i]);
             return 0;
@@ -103,6 +128,13 @@ double evaluate_count::evaluate_count_sets(const string &config,const std::set<i
     v_config.push_back(config);
     v_coeff_sets.push_back(inputs);
     v_count.push_back(1);
-    v_score.push_back(0);
+    if(metric)
+    {
+        v_score.push_back(this->metric->evaluate(config,inputs));
+    }
+    else
+    {
+        v_score.push_back(0);
+    }
     return 0;
 }
