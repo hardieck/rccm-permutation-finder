@@ -36,7 +36,9 @@ vector<sel_add_type> search_space_plan::get_search_space_sel_add(const sspk &pos
     {
         if(search_space_sel_add[i].first == position_key) {x = i;found_no_match = false;}
     }
-    if(found_no_match){ ERROR("No rule for current Key","search_space_plan::get_sel_add_max_shift(const sspk &position_key)")}
+    if(found_no_match){
+        std::cout << "current key is: " << position_key << std::endl;
+        ERROR("No rule for current Key","vector<sel_add_type> search_space_plan::get_search_space_sel_add(const sspk &position_key)")}
     return search_space_sel_add[x].second;
 }
 int search_space_plan::get_sel_add_max_shift(const sspk &position_key) // return max shift
@@ -46,7 +48,10 @@ int search_space_plan::get_sel_add_max_shift(const sspk &position_key) // return
     for (int i = 0; i < sel_add_max_shift.size(); ++i) {
         if (sel_add_max_shift[i].first == position_key) { x = i;found_no_match = false;}
     }
-    if(found_no_match){ ERROR("No rule for current Key","search_space_plan::get_sel_add_max_shift(const sspk &position_key)")}
+    if(found_no_match){
+        std::cout << "current key is: " << position_key << std::endl;
+        ERROR("No rule for current Key","search_space_plan::get_sel_add_max_shift(const sspk &position_key)")
+    }
     return sel_add_max_shift[x].second;
 }
 permutator_typ search_space_plan::get_sel_add_operating_mode(const sspk &position_key) // return mode
@@ -56,7 +61,9 @@ permutator_typ search_space_plan::get_sel_add_operating_mode(const sspk &positio
     for (int i = 0; i < sel_add_operating_mode.size(); ++i) {
         if (sel_add_operating_mode[i].first == position_key) { x = i; found_no_match = false;}
     }
-    if(found_no_match){ ERROR("No rule for current Key","search_space_plan::get_sel_add_max_shift(const sspk &position_key)")}
+    if(found_no_match){
+        std::cout << "current key is: " << position_key << std::endl;
+        ERROR("No rule for current Key","search_space_plan::get_sel_add_operating_mode(const sspk &position_key)")}
     return sel_add_operating_mode[x].second;
 }
 config_level search_space_plan::get_sel_add_config_level(const sspk &position_key)
@@ -66,7 +73,9 @@ config_level search_space_plan::get_sel_add_config_level(const sspk &position_ke
     for (int i = 0; i < sel_add_config_level.size(); ++i) {
         if (sel_add_config_level[i].first == position_key) { x = i;found_no_match = false;}
     }
-    if(found_no_match){ ERROR("No rule for current Key","search_space_plan::get_sel_add_max_shift(const sspk &position_key)")}
+    if(found_no_match){
+        std::cout << "current key is: " << position_key << std::endl;
+        ERROR("No rule for current Key","search_space_plan::get_sel_add_config_level(const sspk &position_key)")}
     return sel_add_config_level[x].second;
 }
 
@@ -121,7 +130,7 @@ void search_space_plan::add_rule(std::string rule)
             my_eval->count_size = true;
             my_eval->count_sets = false;
 
-            my_eval->use_metric = true;
+            my_eval->use_metric = false;
             my_eval->metric = make_shared<evaluate_Kullback_Leibler>();
             this->evaluation.push_back(my_eval);
         }
@@ -131,17 +140,17 @@ void search_space_plan::add_rule(std::string rule)
             my_eval->count_size = false;
             my_eval->count_sets = true;
 
-            my_eval->use_metric = true;
+            my_eval->use_metric = false;
             my_eval->metric = make_shared<evaluate_Kullback_Leibler>();
 
             this->evaluation.push_back(my_eval);
         }
-        else if(v[1] == "kull-leib")
+        else if(v[1] == "k-l")
         {
             shared_ptr<evaluate_Kullback_Leibler> my_eval = make_shared<evaluate_Kullback_Leibler>();
             this->evaluation.push_back(my_eval);
         }
-        else if(v[1] == "kolmo_smirno")
+        else if(v[1] == "k-s")
         {
             ERROR("evaluate_Kolmogorov_Smirnov is not ready for use yet!","void search_space_plan::add_rule(std::string rule)")
             shared_ptr<evaluate_Kolmogorov_Smirnov> my_eval = make_shared<evaluate_Kolmogorov_Smirnov>();
@@ -243,6 +252,16 @@ void search_space_plan::add_rule(std::string rule)
 
     IF_VERBOSE(5)LEAVE_FUNCTION("search_space_plan::add_rule(std::string rule)")
 }
+int search_space_plan::configure(std::string parameter)
+{
+    IF_VERBOSE(8) ENTER_FUNCTION("int search_space_plan::configure(std::string parameter)")
+    if(this->evaluation.size() == 0)
+    {
+        ERROR("No evaluation metrik Spezified! Use --set_metric xyz before!","int search_space_plan::configure(std::string parameter)")
+        return -1;
+    }
+    return (this->evaluation.back())->configure(parameter);
+}
 sspk search_space_plan::generate_key_from_sting(std::string key_string)
 {
     IF_VERBOSE(6)ENTER_FUNCTION("sspk search_space_plan::generate_key_from_sting(std::string key_string)")
@@ -256,7 +275,7 @@ sspk search_space_plan::generate_key_from_sting(std::string key_string)
 
     if (v.size()==1)
     {
-        if((v[0] == "~")||(v[0] == "~~~"))
+        if((v[0] == "~")||(v[0] == "~~")||(v[0] == "~~~"))
         {
             IF_VERBOSE(5) std::cout << "use generic don't care key: ~,~,~" << std::endl;
             //set don't care for all (was already set...)

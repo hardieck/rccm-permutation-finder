@@ -13,8 +13,8 @@ public:
     virtual rccm_type type() const {return typ_C3;}
     calc_rccm_C3()
     {
-        IF_VERBOSE(8) ENTER_FUNCTION("calc_rccm_C1::calc_rccm_C1()")
-        IF_VERBOSE(8) LEAVE_FUNCTION("calc_rccm_C1::calc_rccm_C1()")
+        IF_VERBOSE(8) ENTER_FUNCTION("calc_rccm_C3::calc_rccm_C3()")
+        IF_VERBOSE(8) LEAVE_FUNCTION("calc_rccm_C3::calc_rccm_C3()")
     }
     const spec_rccm get_spec(){
         return this->spec;

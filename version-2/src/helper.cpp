@@ -12,6 +12,67 @@
 
 #include  "../inc/datatyps.h"
 
+std::vector<std::string> input_command_transvormer(int &argc, char *argv[]) // this function combines input arguments with the corresponding parameters for further processing
+{
+    IF_VERBOSE(5) ENTER_FUNCTION("std::pair<int,char*> input_command_transvormer(int argc, char *argv[])")
+    std::vector<std::string> new_argv;
+
+    // generate one big string with all arguments
+    string parameter_string = "";
+    for(int i=0; i < argc; ++i) // starts with 1 cause name of the tool is not needed
+    {
+        if(i != 0){parameter_string += " ";}
+        parameter_string += argv[i];
+    }
+    std::cout << "parameter_string:" <<parameter_string << std::endl;
+    // Split big string in arguments starting with '--'
+    size_t pos = 0;
+    std::string command;
+    std::string delimiter = " --";
+    bool first_element = true;
+    while ((pos = parameter_string.find(delimiter)) != std::string::npos) {
+        command = parameter_string.substr(0, pos);
+        if(first_element==true)
+        {
+            new_argv.push_back(command);// down't add command prefix for tool name
+            first_element = false; // first element is done.
+        }
+        else
+        {
+            new_argv.push_back("--"+command);// add command prefix again...
+        }
+        parameter_string.erase(0, pos + delimiter.length());
+    }
+    new_argv.push_back("--"+parameter_string);//last command and add command prefix again...
+
+// obsolet block for using argc and argv
+//    // generate clasic Char** sting array from seperated commands
+//    int new_argc=new_argv.size();
+//    char *new_argv_char[new_argc];
+//    for (int i=0; i < new_argc; ++i)
+//    {
+//        if(i == 0)
+//        {
+//            std::cout << "before:" << (char*)new_argv[i].c_str() << std::endl;
+//            argv[i] = (char*)new_argv[i].c_str();
+//            std::cout << "after:"<< new_argv_char[i] << std::endl;
+//        }
+//        else
+//        {
+//            new_argv[i] = "--" + new_argv[i];
+//            std::cout << "before:"<< (char*)new_argv[i].c_str() << std::endl;
+//            argv[i] = (char*)(new_argv[i]).c_str();
+//            std::cout << "after:"<< new_argv_char[i] << std::endl;
+//        }
+//    }
+//
+//    // output new  counter
+//    argc = new_argc;
+
+    return new_argv;
+    IF_VERBOSE(5) LEAVE_FUNCTION("std::pair<int,char*> input_command_transvormer(int argc, char *argv[])")
+};
+
 char int2extendHEX(int input)
 {
     IF_VERBOSE(8) ENTER_FUNCTION("int2extendHEX(int input)")

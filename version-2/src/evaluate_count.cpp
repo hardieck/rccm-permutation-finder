@@ -128,7 +128,7 @@ double evaluate_count::evaluate_count_sets(const string &config,const std::set<i
     v_config.push_back(config);
     v_coeff_sets.push_back(inputs);
     v_count.push_back(1);
-    if(metric)
+    if(use_metric)
     {
         v_score.push_back(this->metric->evaluate(config,inputs));
     }

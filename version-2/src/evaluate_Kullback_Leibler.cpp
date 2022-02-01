@@ -4,12 +4,13 @@
 
 #include "../inc/evaluate_Kullback_Leibler.h"
 #include "math.h"
+#include <vector>
 #include <algorithm>
 
 
 evaluate_Kullback_Leibler::evaluate_Kullback_Leibler()
 {
-    no_of_windows = 31;
+    no_of_windows = 0;
     best_score = 0;
     //TODO implement
 }
@@ -27,6 +28,9 @@ void evaluate_Kullback_Leibler::print_configure_help()
 void evaluate_Kullback_Leibler::print_result()
 {
     IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_count::print_result()")
+    std::cout << "no of windows: " << no_of_windows << std::endl;
+    std::cout << "referenze distributen: " << referenze_distributen << std::endl;
+    //std::cout << "normalized referenze distributen: " << normalized_referenze_distributen << std::endl;
     std::cout << "Best Matching set was: " << std::endl;
     std::cout << "Score:\t" << this->best_score << std::endl;
     std::cout << "config:\t" << this->best_config << std::endl;
@@ -37,7 +41,40 @@ void evaluate_Kullback_Leibler::print_result()
 
 int evaluate_Kullback_Leibler::configure(string parameter)
 {
-    //TODO implement configer function for evaluate_Kullback_Leibler
+    IF_VERBOSE(5) ENTER_FUNCTION("int evaluate_Kullback_Leibler::configure(string parameter)")
+    IF_VERBOSE(6) std::cout << "input parameter string is: " <<parameter <<std::endl;
+    if(parameter.rfind("--configure", 0) == 0) {
+        parameter.erase(0, 11);
+        size_t pos = 0;
+        std::string elem;
+        std::string delimiter = " ";
+        bool found_elem=true;
+        //while ((pos = parameter.find(delimiter)) != std::string::npos)
+        while (found_elem)
+        {
+            pos = parameter.find(" ");
+            IF_VERBOSE(7) std::cout << "parameter string: " << parameter << std::endl;
+            IF_VERBOSE(7) std::cout << "found element at pos:" << pos << std::endl;
+            elem = parameter.substr(0, pos); // copy substring
+            parameter.erase(0, pos+1); // erase substring
+            if (elem.size() != 0) { // first or last element could be empty if string start or ends with a space
+                IF_VERBOSE(6) std::cout << "add " << elem << " to distribution vector" << std::endl;
+                referenze_distributen.push_back(strtod(elem.c_str(), NULL));
+            }
+            if (pos == std::string::npos) { found_elem = false;} // done
+        }
+        this->no_of_windows = referenze_distributen.size();
+        IF_VERBOSE(6) std::cout << "window count is: " << no_of_windows <<std::endl;
+        if(no_of_windows <=0 )
+        {
+            ERROR("Invalid Window count!","int evaluate_Kullback_Leibler::configure(string parameter)")
+        }
+    }
+    else
+    {
+        ERROR("Unknwon configuration parameter", "int evaluate_Kullback_Leibler::configure(string parameter)")
+    }
+    IF_VERBOSE(5) LEAVE_FUNCTION("int evaluate_Kullback_Leibler::configure(string parameter)")
     return 0;
 }
 
@@ -62,10 +99,14 @@ double evaluate_Kullback_Leibler::Kullback_Leibler_Divergenz(std::vector<double>
     //std::vector<int> Q_i = {5, 22, 153, 808, 5358, 26809, 90879, 198992,  390745, 1703583, 1566242, 164370, 16928, 2946, 584, 141, 42, 30, 2, 0};
     std::vector<double> Q_i = {2,7,16,48,201,515,1879,5767,16210,38265,75307,122185,173697,302725,805403, 1726502,698703,157147,30922, 8732, 2858, 950, 336, 150, 50, 26, 34, 0, 0, 2, 0};
 
-    if (this->normalized_referenze_distributen.size() ==0) //generate normalized_referenze_distributen
+
+    if(this->no_of_windows == 0)
     {
-        normalized_referenze_distributen = norm_distribution(Q_i);
-        //TODO: replayse with: normalized_referenze_distributen = norm_distribution(referenze_distributen);
+        ERROR("No referenze Distribution found!", "double evaluate_Kullback_Leibler::Kullback_Leibler_Divergenz(std::vector<double> &P_i)")
+    }
+    if (this->normalized_referenze_distributen.size() == 0) //generate normalized_referenze_distributen if it desnt exit
+    {
+        normalized_referenze_distributen = norm_distribution(referenze_distributen);
     }
 
     std::vector<double> &Q = normalized_referenze_distributen;

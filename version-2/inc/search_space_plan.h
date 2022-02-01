@@ -18,6 +18,8 @@ public:
     ~search_space_plan();
 
     void add_rule(std::string rule);
+    int configure(std::string parameter);// use configure funktion of last evaluate obj. (throw Error if no evaluate obj exist)
+
     sspk generate_key_from_sting(std::string key_string);
     void print();
     void init_empty_slots();

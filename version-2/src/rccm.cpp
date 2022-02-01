@@ -22,6 +22,7 @@ rccm::rccm(shared_ptr<search_space_plan> _ssp)
     }
     ssp->init_empty_slots();
     sel_add.clear();
+    IF_VERBOSE(3) LEAVE_FUNCTION("rccm::rccm()")
 }
 rccm::~rccm()
 {

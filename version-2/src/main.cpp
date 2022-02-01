@@ -12,7 +12,7 @@
 
 #define VERSION_MAJOR 2
 #define VERSION_MINOR 0
-#define VERSION_REVISION 1
+#define VERSION_REVISION 2
 
 
 int do_debug();
@@ -29,6 +29,13 @@ int main(int argc, char *argv[])
         }
         std::cout << std::endl;
     }
+    std::vector<std::string> arg = input_command_transvormer(argc, argv);// generate vector from arguments
+    IF_VERBOSE(0) {
+        IF_VERBOSE(0) std::cout << "Parameter overview after fusion:" << std::endl;
+        for (int i = 0; i < arg.size(); ++i) {
+            IF_VERBOSE(0) std::cout << ">" << arg[i] << "<" << std::endl;
+        }
+    }
 
     auto ssp = make_shared<search_space_plan>();
 
@@ -40,20 +47,22 @@ int main(int argc, char *argv[])
         exit(0);
     }
 
-    for(int i=1; i < argc;++i) {
-        if (strstr(argv[i], "--verbose=")) {
-            global_verbose = atol(argv[i] + 10);
-        } else if (strstr(argv[i], "--help")) {
+    for(int i=1; i < arg.size();++i) {
+        if (strstr(arg[i].c_str(), "--verbose=")) {
+            global_verbose = atol(arg[i].c_str()+10);
+        } else if (strstr(arg[i].c_str(), "--help")) {
             print_help();
             exit(0);
-        } else if (strstr(argv[i], "--set_")) {
-            ssp->add_rule(argv[i]);
-        } else if (strstr(argv[i], "--debug")) {
+        } else if (strstr(arg[i].c_str(), "--set_")) {
+            ssp->add_rule(arg[i]);
+        } else if (strstr(arg[i].c_str(), "--configure")) {
+            ssp->configure(arg[i]);
+        } else if (strstr(arg[i].c_str(), "--debug")) {
             // do the stuff I had prepared!
             do_debug();
             exit(0);
         } else {
-            cout << "Error: Illegal Option: " << argv[i] << endl << endl;
+            cout << "Error: Illegal Option: " << arg[i] << endl << endl;
             print_help();
             exit(-1);
         }
@@ -91,7 +100,7 @@ int main(int argc, char *argv[])
         IF_VERBOSE(2) std::cout << config_string << " size=" << result->size() <<  " iteration:" << i << " -> " << *result <<  std::endl;
         if (i % 100000 == 0)
         {
-            std::cout << "iteration:" << i <<  " : " << "last set: " << *result << std::endl;
+            std::cout << "iteration:" << i << " : last set:" << config_string <<  " -> " << *result << std::endl;
         }
         ++i;
     } while (my_rccm.next_config());
@@ -125,8 +134,8 @@ void print_help()
     cout << "                                               options are:"<< endl;
     cout << "                                               count_sets -> Lists all possible RCCM sets and count duplicates (ideal for chaining)"<< endl;
     cout << "                                               count_size -> Lists RCCM sets with different sizes (ideal for chaining)"<< endl;
-    cout << "                                               kul-leib   -> Use Kullback Leibler Metric to compare RCCM sets with reference (in progress)"<< endl;
-    cout << "                                               Kol-smirn  -> Use to sample Kolmogorov Smirnov test to compare RCCM sets with reference (in progress)"<< endl;
+    cout << "                                               k-l -> Use Kullback Leibler Metric to compare RCCM sets with reference (in progress)"<< endl;
+    cout << "                                               K-s -> Use to sample Kolmogorov Smirnov test to compare RCCM sets with reference (in progress)"<< endl;
     cout << "                                               with-zero  -> removes all RCCM set without a zero (ideal for chaining) (planed)"<< endl;
     cout << "                                               It is possible to run one metric and chain another metric. (user interface planed)"<< endl;
     cout << "--do_debug                                     Run the debug function" << endl;
