@@ -84,6 +84,11 @@ double evaluate_Kullback_Leibler::evaluate(const string &config,const std::set<i
     double kld = Kullback_Leibler_Divergenz(dis);
     kld=1/kld;
 
+    if(use_metric)
+    {
+        kld = kld * metric->evaluate(config,inputs);
+    }
+
     if(kld > this->best_score)
     {
         best_score = kld;
