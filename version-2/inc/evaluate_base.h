@@ -18,6 +18,10 @@ class evaluate_base : public base_obj
     virtual int configure(string parameter);
     virtual void print_configure_help();
     virtual void print_result()=0;
+
+    bool use_metric; // only true if a chained metric is used (multiply results)
+    shared_ptr<evaluate_base> metric; // stores another evaluate obj to calculate metrics for selection
+
 };
 
 

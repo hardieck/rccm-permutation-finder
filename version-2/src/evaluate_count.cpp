@@ -9,7 +9,7 @@ evaluate_count::evaluate_count()
     count_size = false;
     count_sets = false;
     use_metric = false;
-    shared_ptr<evaluate_base> metric = nullptr;
+    metric = nullptr;
     v_config.clear();
     v_coeff_sets.clear();
     v_count.clear();

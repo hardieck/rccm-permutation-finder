@@ -20,9 +20,6 @@ public:
 
     bool count_size; // only true if count_size is used (not compatible with count_sets)
     bool count_sets; // only true if count_sets is used (not compatible with count_size)
-    bool use_metric; // only true if a metric is used (not compatible with count_sets)
-
-    shared_ptr<evaluate_base> metric; // stores another evaluate obj to calculate metrics for selection
 
     //data bundle. Different usage depending on config
     std::vector<std::string> v_config; // stores RCCM Config strings Format HM1

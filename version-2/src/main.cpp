@@ -57,6 +57,8 @@ int main(int argc, char *argv[])
             ssp->add_rule(arg[i]);
         } else if (strstr(arg[i].c_str(), "--configure")) {
             ssp->configure(arg[i]);
+        } else if (strstr(arg[i].c_str(), "--chain")) {
+            ssp->chain(ssp->evaluation.size()-2);
         } else if (strstr(arg[i].c_str(), "--debug")) {
             // do the stuff I had prepared!
             do_debug();

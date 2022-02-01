@@ -9,6 +9,7 @@
 #include "../inc/evaluate_count.h"
 #include "../inc/evaluate_Kolmogorov_Smirnov.h"
 #include "../inc/evaluate_Kullback_Leibler.h"
+#include "../inc/evaluate_zero.h"
 
 search_space_plan::search_space_plan()
 {
@@ -145,6 +146,11 @@ void search_space_plan::add_rule(std::string rule)
 
             this->evaluation.push_back(my_eval);
         }
+        else if(v[1] == "with-zero")
+        {
+            shared_ptr<evaluate_zero> my_eval = make_shared<evaluate_zero>();
+            this->evaluation.push_back(my_eval);
+        }
         else if(v[1] == "k-l")
         {
             shared_ptr<evaluate_Kullback_Leibler> my_eval = make_shared<evaluate_Kullback_Leibler>();
@@ -252,6 +258,18 @@ void search_space_plan::add_rule(std::string rule)
 
     IF_VERBOSE(5)LEAVE_FUNCTION("search_space_plan::add_rule(std::string rule)")
 }
+
+void search_space_plan::chain(unsigned int metricNr)
+{
+    if(metricNr >= evaluation.size())
+    {
+        string text = "Invalid Metric No.:" + to_string(metricNr);
+        ERROR(text,"void search_space_plan::chain(unsigned int metricNr)")
+    }
+    this->evaluation.back()->metric = this->evaluation[metricNr];
+    this->evaluation.back()->use_metric = true;
+}
+
 int search_space_plan::configure(std::string parameter)
 {
     IF_VERBOSE(8) ENTER_FUNCTION("int search_space_plan::configure(std::string parameter)")

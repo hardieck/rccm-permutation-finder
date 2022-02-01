@@ -19,6 +19,7 @@ public:
 
     void add_rule(std::string rule);
     int configure(std::string parameter);// use configure funktion of last evaluate obj. (throw Error if no evaluate obj exist)
+    void chain(unsigned int metricNr); // chain multiple metrics together (multiply results)
 
     sspk generate_key_from_sting(std::string key_string);
     void print();
