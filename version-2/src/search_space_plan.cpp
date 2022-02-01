@@ -261,11 +261,12 @@ void search_space_plan::add_rule(std::string rule)
 
 void search_space_plan::chain(unsigned int metricNr)
 {
-    if(metricNr >= evaluation.size())
+    if(metricNr >= evaluation.size()-1) // chaining with itself results in loop
     {
         string text = "Invalid Metric No.:" + to_string(metricNr);
         ERROR(text,"void search_space_plan::chain(unsigned int metricNr)")
     }
+    IF_VERBOSE(0) std::cout << "Chain Metric " << evaluation.size()-1 << " to Metric " << metricNr << std::endl;
     this->evaluation.back()->metric = this->evaluation[metricNr];
     this->evaluation.back()->use_metric = true;
 }

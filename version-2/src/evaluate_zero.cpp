@@ -8,6 +8,7 @@ evaluate_zero::evaluate_zero()
 {
     use_metric = false;
     metric = nullptr;
+    best_score =0;
 }
 
 evaluate_zero::~evaluate_zero()

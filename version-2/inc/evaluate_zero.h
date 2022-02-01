@@ -16,9 +16,6 @@ public:
     void print_result();
     double evaluate(const string &config,const std::set<int> &inputs);
 
-    bool use_metric;
-    shared_ptr<evaluate_base> metric;
-
     //data bundle for "best" result. (first one with zero)
     std::string best_config; // stores RCCM Config string Format HM1
     coeff_set best_coeff_sets; //stores the coefficien set
