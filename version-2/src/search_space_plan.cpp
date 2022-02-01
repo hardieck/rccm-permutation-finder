@@ -10,6 +10,8 @@
 #include "../inc/evaluate_Kolmogorov_Smirnov.h"
 #include "../inc/evaluate_Kullback_Leibler.h"
 #include "../inc/evaluate_zero.h"
+#include "../inc/evaluate_list.h"
+
 
 search_space_plan::search_space_plan()
 {
@@ -144,6 +146,11 @@ void search_space_plan::add_rule(std::string rule)
             my_eval->use_metric = false;
             my_eval->metric = make_shared<evaluate_Kullback_Leibler>();
 
+            this->evaluation.push_back(my_eval);
+        }
+        else if(v[1] == "list-best")
+        {
+            shared_ptr<evaluate_list> my_eval = make_shared<evaluate_list>();
             this->evaluation.push_back(my_eval);
         }
         else if(v[1] == "with-zero")
