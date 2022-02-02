@@ -1,16 +1,17 @@
 //
-// Created by hardieck on 12/13/21.
+// Created by hardieck on 2/2/22.
 //
 
-#ifndef ADDNET_PERMUTATOR_V2_EVALUATE_KOLMOGOROV_SMIRNOV_H
-#define ADDNET_PERMUTATOR_V2_EVALUATE_KOLMOGOROV_SMIRNOV_H
+#ifndef ADDNET_PERMUTATOR_V2_EVALUATE_HARDIECK_FIEGE_H
+#define ADDNET_PERMUTATOR_V2_EVALUATE_HARDIECK_FIEGE_H
 
 #include "evaluate_base.h"
-class evaluate_Kolmogorov_Smirnov : public evaluate_base
+
+class evaluate_Hardieck_Fiege : public evaluate_base
 {
 public:
-    evaluate_Kolmogorov_Smirnov();
-    virtual ~evaluate_Kolmogorov_Smirnov();
+    evaluate_Hardieck_Fiege();
+    virtual ~evaluate_Hardieck_Fiege();
     virtual int configure(string parameter);
     virtual void print_configure_help();
     void print_result();
@@ -18,7 +19,6 @@ public:
     double evaluate(const string &config,const std::set<int> &inputs);
 
 
-    double two_sided_Kolmogorow_Sminow(const std::set<int>);
     std::vector<int> reference_step_function;
     std::vector<int> normalized_reference_step_function;
 
@@ -31,11 +31,13 @@ public:
 
 private:
     set<int> normalize();
-    double Kolmogorov_Smirnov(const std::set<int> &inputs); // basic metric compared with reference
+    double one_sided_test(const std::set<int> &inputs); // on sided test from referenze to input
+    double one_sided_with_point_search(const std::set<int> &inputs); // use on sided and perform decimal point position search
+    double get_value_at(); // helper function to get
+    double get_value_rev();
+
 
 };
 
 
-#endif //ADDNET_PERMUTATOR_V2_EVALUATE_KOLMOGOROV_SMIRNOV_H
-
-
+#endif //ADDNET_PERMUTATOR_V2_EVALUATE_HARDIECK_FIEGE_H

@@ -1,26 +1,26 @@
 //
-// Created by hardieck on 12/13/21.
+// Created by hardieck on 2/2/22.
 //
 
-#include "../inc/evaluate_Kolmogorov_Smirnov.h"
+#include "../inc/evaluate_Hardieck_Fiege.h"
 
-evaluate_Kolmogorov_Smirnov::evaluate_Kolmogorov_Smirnov()
+evaluate_Hardieck_Fiege::evaluate_Hardieck_Fiege()
 {
 
 }
 
-evaluate_Kolmogorov_Smirnov::~evaluate_Kolmogorov_Smirnov()
+evaluate_Hardieck_Fiege::~evaluate_Hardieck_Fiege()
 {
 }
 
-void evaluate_Kolmogorov_Smirnov::print_configure_help()
+void evaluate_Hardieck_Fiege::print_configure_help()
 {
 
 }
 
-void evaluate_Kolmogorov_Smirnov::print_result()
+void evaluate_Hardieck_Fiege::print_result()
 {
-    IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_Kolmogorov_Smirnov::print_result()")
+    IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_Hardieck_Fiege::print_result()")
     std::cout << "referenze step function: " << reference_step_function << std::endl;
     //std::cout << "normalized referenze step function: " << normalized_reference_step_function << std::endl;
     std::cout << "Best Matching set was: " << std::endl;
@@ -28,12 +28,12 @@ void evaluate_Kolmogorov_Smirnov::print_result()
     std::cout << "config:\t" << this->best_config << std::endl;
     std::cout << "Set: \t"<<  this->best_coeff_sets << std::endl;
 
-    IF_VERBOSE(5) LEAVE_FUNCTION("void evaluate_Kolmogorov_Smirnov::print_result()")
+    IF_VERBOSE(5) LEAVE_FUNCTION("void evaluate_Hardieck_Fiege::print_result()")
 }
 
-int evaluate_Kolmogorov_Smirnov::configure(string parameter)
+int evaluate_Hardieck_Fiege::configure(string parameter)
 {
-    IF_VERBOSE(5) ENTER_FUNCTION("int evaluate_Kolmogorov_Smirnov::configure(string parameter)")
+    IF_VERBOSE(5) ENTER_FUNCTION("int evaluate_Hardieck_Fiege::configure(string parameter)")
     IF_VERBOSE(6) std::cout << "input parameter string is: " <<parameter <<std::endl;
     if(parameter.rfind("--configure", 0) == 0) {
         parameter.erase(0, 11);
@@ -58,16 +58,15 @@ int evaluate_Kolmogorov_Smirnov::configure(string parameter)
     }
     else
     {
-        ERROR("Unknown configuration parameter", "int evaluate_Kolmogorov_Smirnov::configure(string parameter)")
+        ERROR("Unknown configuration parameter", "int evaluate_Hardieck_Fiege::configure(string parameter)")
     }
-    IF_VERBOSE(5) LEAVE_FUNCTION("int evaluate_Kolmogorov_Smirnov::configure(string parameter)")
-    return 0;
+    IF_VERBOSE(5) LEAVE_FUNCTION("int evaluate_Hardieck_Fiege::configure(string parameter)")
     return 0;
 }
 
-double evaluate_Kolmogorov_Smirnov::evaluate(const string &config,const std::set<int> &inputs)
+double evaluate_Hardieck_Fiege::evaluate(const string &config,const std::set<int> &inputs)
 {
-    double result = Kolmogorov_Smirnov(inputs);
+    double result = this->one_sided_test(inputs);
 
     if(use_metric)
     {
@@ -83,7 +82,13 @@ double evaluate_Kolmogorov_Smirnov::evaluate(const string &config,const std::set
     return result;
 }
 
-double evaluate_Kolmogorov_Smirnov::Kolmogorov_Smirnov(const std::set<int> &inputs)
+double evaluate_Hardieck_Fiege::one_sided_test(const std::set<int> &inputs)
+{
+    //Todo Implement funktion
+    return 1;
+}
+
+double evaluate_Hardieck_Fiege::one_sided_with_point_search(const std::set<int> &inputs)
 {
     //Todo Implement funktion
     return 1;

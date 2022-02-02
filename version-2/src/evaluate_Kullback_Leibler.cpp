@@ -27,7 +27,7 @@ void evaluate_Kullback_Leibler::print_configure_help()
 
 void evaluate_Kullback_Leibler::print_result()
 {
-    IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_count::print_result()")
+    IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_Kullback_Leibler::print_result()")
     std::cout << "no of windows: " << no_of_windows << std::endl;
     std::cout << "referenze distributen: " << referenze_distributen << std::endl;
     //std::cout << "normalized referenze distributen: " << normalized_referenze_distributen << std::endl;
@@ -36,7 +36,7 @@ void evaluate_Kullback_Leibler::print_result()
     std::cout << "config:\t" << this->best_config << std::endl;
     std::cout << "Set: \t"<<  this->best_coeff_sets << std::endl;
 
-    IF_VERBOSE(5) LEAVE_FUNCTION("void evaluate_count::print_result()")
+    IF_VERBOSE(5) LEAVE_FUNCTION("void evaluate_Kullback_Leibler::print_result()")
 }
 
 int evaluate_Kullback_Leibler::configure(string parameter)
