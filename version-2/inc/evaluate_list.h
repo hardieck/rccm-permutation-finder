@@ -26,6 +26,8 @@ public:
     std::vector<double> v_score; //score of corresponding coeff_sets
 private:
     void insert_result(unsigned int at,double score, const string &config,const std::set<int> &inputs);
+    void update_size();
+
 };
 
 

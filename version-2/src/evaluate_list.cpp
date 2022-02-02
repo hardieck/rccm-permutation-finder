@@ -36,9 +36,13 @@ double evaluate_list::evaluate(const string &config,const std::set<int> &inputs)
 
     for(int i=0;i < this->result_space;++i)
     {
-        if(score > v_score[i])
+        if(score >= v_score[i])
         {
-            this->insert_result(i,score,config,inputs);
+            if((score == v_score[i]) && (config == this->v_config[i])) // don't insert same element multiple times
+            {
+                break;
+            }
+            this->insert_result(i, score, config, inputs);
             break;
         }
     }
@@ -48,7 +52,21 @@ double evaluate_list::evaluate(const string &config,const std::set<int> &inputs)
 }
 int evaluate_list::configure(string parameter)
 {
-    //TODO implement configer function for evaluate_count
+    IF_VERBOSE(5) ENTER_FUNCTION("int evaluate_list::configure(string parameter)")
+    if(parameter.rfind("--configure", 0) == 0)
+    {
+        parameter.erase(0, 11);
+        IF_VERBOSE(7) std::cout << "parameter string: " << parameter << std::endl;
+
+        this->result_space = (strtod(parameter.c_str(), NULL));
+        this->update_size();
+        IF_VERBOSE(7) std::cout << "new result space is: " << this->result_space << std::endl;
+    }
+    else
+    {
+        ERROR("Unknwon configuration parameter", "int evaluate_list::configure(string parameter)")
+    }
+    IF_VERBOSE(5) LEAVE_FUNCTION("int evaluate_list::configure(string parameter)")
     return 0;
 }
 void evaluate_list::print_configure_help()
@@ -91,4 +109,11 @@ void evaluate_list::insert_result(unsigned int at,double score, const string &co
     v_config.pop_back();
     v_coeff_sets.pop_back();
     v_score.pop_back();
+}
+
+void evaluate_list::update_size()
+{
+    this->v_config.resize(this->result_space);
+    this->v_score.resize(this->result_space);
+    this->v_coeff_sets.resize(this->result_space);
 }
