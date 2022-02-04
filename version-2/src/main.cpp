@@ -119,10 +119,10 @@ void print_help()
     cout << "General Options:" << endl;
     cout << "Option                                         Meaning" << endl;
     cout << "--help                                         Prints this help" << endl;
-    cout << "'--set_rccm C1,C2,C3'                          Set rccm search space to C1 and C2 and C3 " << endl;
-    cout << "'--set_sel_add A,B,C for <key>'                Set sel_add search space to type A and B and C for the specified key" << endl;
-    cout << "'--set_max_shift X for <key>'                  Set upper border for shifts used in the selective add for specified key to X(int)" << endl;
-    cout << "'--set_operation_mode <usal/all> for <key>'    switch between two cases: Test all possible Operation combinations, or test only usal operation sets in the selective add for specified key" << endl;
+    cout << "--set_rccm C1,C2,C3                            Set rccm search space to C1 and C2 and C3 " << endl;
+    cout << "--set_sel_add A,B,C for <key>                  Set sel_add search space to type A and B and C for the specified key" << endl;
+    cout << "--set_max_shift X for <key>                    Set upper border for shifts used in the selective add for specified key to X(int)" << endl;
+    cout << "--set_operation_mode <usal/all> for <key>      switch between two cases: Test all possible Operation combinations, or test only usal operation sets in the selective add for specified key" << endl;
     cout << "                                               A <key> is a specified position in the sarch space. It supports also don't care values (~). The last specified rule that firs is used."<< endl;
     cout << "                                               < key > = < RCCM Typology, selective add position in Typology (starting by 0), Type of selective adder >"<< endl;
     cout << "                                               Key Examples"<< endl;
@@ -132,18 +132,28 @@ void print_help()
     cout << "                                               C2,1,~ ->  rule for the second (starting by 0!) selective adder in typology C2"<< endl;
     cout << "                                               C3,3,B ->  rule for the third (starting by 0!) selective adder if it is type B in typology C3"<< endl;
     cout << "                                               always last fitting rule is used! so Start with global settings then specify details!"<< endl;
-    cout << "'--set_metric count_sets'                      set metrix to use. (multiple metrics are possible at the same time)"<< endl;
-    cout << "                                               options are:"<< endl;
-    cout << "                                               count_sets -> Lists all possible RCCM sets and count duplicates (ideal for chaining)"<< endl;
-    cout << "                                               count_size -> Lists RCCM sets with different sizes (ideal for chaining)"<< endl;
-    cout << "                                               k-l -> Use Kullback Leibler Metric to compare RCCM sets with reference (in progress)"<< endl;
-    cout << "                                               K-s -> Use to sample Kolmogorov Smirnov test to compare RCCM sets with reference (in progress)"<< endl;
-    cout << "                                               with-zero  -> removes all RCCM set without a zero (ideal for chaining) (planed)"<< endl;
-    cout << "                                               It is possible to run one metric and chain another metric. (user interface planed)"<< endl;
+    cout << "--set_metric <options see below>             set metric to use. (multiple calls of cammand are possible at the same time)"<< endl;
+    cout << "              <count_sets>                     Lists all possible RCCM sets and count duplicates (ideal for chaining)"<< endl;
+    cout << "              <count_size>                     Lists RCCM sets with different sizes (ideal for chaining)"<< endl;
+    cout << "              <count_size>                     Lists RCCM sets with different sizes (ideal for chaining)"<< endl;
+    cout << "              <list_best>                      Lists best 5 RCCM sets (ideal for chaining)"<< endl;
+    cout << "                                               configure <int> change 5 to choosen number"<< endl;
+    cout << "              <with-zero>                      Removes all RCCM set without a zero (ideal for chaining)"<< endl;
+    cout << "              <k-l>                            Use Kullback Leibler Metric to compare RCCM sets with reference (in progress)"<< endl;
+    cout << "                                               configure <float float ...> set reference distribution"<< endl;
+    cout << "              <k-s>                            Use to sample Kolmogorov Smirnov test to compare RCCM sets with reference (in progress)"<< endl;
+    cout << "                                               configure <int int ...> set reference step function"<< endl;
+    cout << "              <H-F>                            Use Hardieck Fiege Metric for RCCM selection based on arrea difference between step funktions (in progress)"<< endl;
+    cout << "                                               configure <int int ...> set reference step function"<< endl;
+    cout << "              <X>                              Use Metric from Master thessis  of Tobias Habermann for RCCM selection (Pland)"<< endl;
+    cout << "--chain                                        chain last specified metric with metric before, so that both are used in a row by multiplying the resulting score"<< endl;
+    cout << "--configure <array of int/float>               can specify parameters of last metric."<< endl;
     cout << "--do_debug                                     Run the debug function" << endl;
     cout << "--verbose=0...9                                Verbosity level (0: no information, 9: all information during optimization), default:1" << endl;
+    cout << endl;
+    cout << "Example of possible call:                      AddNet_Permutator_v2 --set_max_shift 3 for ~~~ --set_rccm C1,C2 --set_sel_add A,B --set_metric with-zero --set_metric k-l --chain --configure 1 2 3.456 4 5 6.987 7 8 9 10 11 12 13.5 987.654 123.456 --set_metric list-best --configure 50 --chain --set_metric count_size --chain" << endl;
+    cout << "Example of possible call:                      AddNet_Permutator_v2 --set_max_shift 2 for ~~~ --set_rccm C1,C2 --set_sel_add A,B --set_sel_add B for C2,~,~ --set_metric count_sets" << endl;
 }
-
 
 int memory_leek_test()
 {
