@@ -99,10 +99,13 @@ int main(int argc, char *argv[])
         std::set<int> *result = my_rccm.compute();
         config_string = my_rccm.get_config();
         ssp->evaluate_all(config_string, *result);
-        IF_VERBOSE(1) std::cout << config_string << " size=" << result->size() <<  " iteration:" << i << " -> " << *result <<  std::endl;
-        if (i % 100000 == 0)
+        IF_VERBOSE(5) std::cout << config_string << " size=" << result->size() << " iteration:" << i << " -> " << *result << std::endl;
+        if ((global_verbose < 5)&&(global_verbose > 0))
         {
-            IF_VERBOSE(2) std::cout << "iteration:" << i << " : last tested set:" << config_string <<  " -> " << *result << std::endl;
+            if (i % 100000 == 0) {
+                IF_VERBOSE(2) std::cout << "iteration:" << i << " : last tested set:" << config_string << " -> " << *result
+                                        << std::endl;
+            }
         }
         ++i;
     } while (my_rccm.next_config());
