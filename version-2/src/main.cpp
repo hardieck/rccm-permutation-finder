@@ -130,7 +130,7 @@ void print_help()
     cout << "                                               C1,~,~ ->  rule for everything in typology C1"<< endl;
     cout << "                                                ~,~,B ->  rule for all Selective adder type B in search space"<< endl;
     cout << "                                               C2,1,~ ->  rule for the second (starting by 0!) selective adder in typology C2"<< endl;
-    cout << "                                               C3,3,B ->  rule for the third (starting by 0!) selective adder if it is type B in typology C3"<< endl;
+    cout << "                                               C3,3,B ->  rule for the fourth (starting by 0!) selective adder if it is type B in typology C3"<< endl;
     cout << "                                               always last fitting rule is used! so Start with global settings then specify details!"<< endl;
     cout << "--set_metric <options see below>               set metric to use. (multiple calls of cammand are possible at the same time)"<< endl;
     cout << "             <count_sets>                      Lists all possible RCCM sets and count duplicates (ideal for chaining)"<< endl;
