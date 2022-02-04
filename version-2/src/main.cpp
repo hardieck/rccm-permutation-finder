@@ -30,10 +30,10 @@ int main(int argc, char *argv[])
         std::cout << std::endl;
     }
     std::vector<std::string> arg = input_command_transvormer(argc, argv);// generate vector from arguments
-    IF_VERBOSE(0) {
-        IF_VERBOSE(0) std::cout << "Parameter overview after fusion:" << std::endl;
+    IF_VERBOSE(5) {
+        IF_VERBOSE(5) std::cout << "Parameter overview after fusion:" << std::endl;
         for (int i = 0; i < arg.size(); ++i) {
-            IF_VERBOSE(0) std::cout << ">" << arg[i] << "<" << std::endl;
+            IF_VERBOSE(5) std::cout << ">" << arg[i] << "<" << std::endl;
         }
     }
 
@@ -99,16 +99,16 @@ int main(int argc, char *argv[])
         std::set<int> *result = my_rccm.compute();
         config_string = my_rccm.get_config();
         ssp->evaluate_all(config_string, *result);
-        IF_VERBOSE(2) std::cout << config_string << " size=" << result->size() <<  " iteration:" << i << " -> " << *result <<  std::endl;
+        IF_VERBOSE(1) std::cout << config_string << " size=" << result->size() <<  " iteration:" << i << " -> " << *result <<  std::endl;
         if (i % 100000 == 0)
         {
-            std::cout << "iteration:" << i << " : last set:" << config_string <<  " -> " << *result << std::endl;
+            IF_VERBOSE(2) std::cout << "iteration:" << i << " : last tested set:" << config_string <<  " -> " << *result << std::endl;
         }
         ++i;
     } while (my_rccm.next_config());
 
-    ssp->print_result_all();
     IF_VERBOSE(2) std::cout << std::endl << "Finished RCCM search" << std::endl;
+    ssp->print_result_all();
 
     IF_VERBOSE(8) std::cout << std::endl << "Finished. Safe end of Toolflow. Normal Quit." << std::endl;
 	return 0;
