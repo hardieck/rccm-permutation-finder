@@ -19,6 +19,7 @@ public:
     void print_result();
 
     unsigned int result_space;
+    bool collect_all;
 
     //data bundle. size depending on config
     std::vector<std::string> v_config; // stores RCCM Config strings Format HM1
@@ -26,6 +27,7 @@ public:
     std::vector<double> v_score; //score of corresponding coeff_sets
 private:
     void insert_result(unsigned int at,double score, const string &config,const std::set<int> &inputs);
+    void pushback_result(double score, const string &config,const std::set<int> &inputs);
     void update_size();
 
 };

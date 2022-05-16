@@ -23,7 +23,7 @@ void evaluate_zero::print_configure_help()
 void evaluate_zero::print_result()
 {
     IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_zero::print_result()")
-    std::cout << "Best Matching set was: " << std::endl;
+    std::cout << "Last Matching set was: " << std::endl;
     std::cout << "Score:\t" << this->best_score << std::endl;
     std::cout << "config:\t" << this->best_config << std::endl;
     std::cout << "Set: \t"<<  this->best_coeff_sets << std::endl;

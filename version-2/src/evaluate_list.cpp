@@ -31,22 +31,44 @@ double evaluate_list::evaluate(const string &config,const std::set<int> &inputs)
     }
     else
     {
-        ERROR("Metric list-best can not be used without chain to another metric","double evaluate_list::evaluate(const string &config,const std::set<int> &inputs)")
-    }
-
-    for(int i=0;i < this->result_space;++i)
-    {
-        if(score >= v_score[i])
-        {
-            if((score == v_score[i]) && (config == this->v_config[i])) // don't insert same element multiple times
-            {
-                break;
-            }
-            this->insert_result(i, score, config, inputs);
-            break;
+        if(!collect_all) {
+            ERROR("Metric list-best can only be used without chain to another metric when '--configure all' option is used.",
+                  "double evaluate_list::evaluate(const string &config,const std::set<int> &inputs)")
         }
     }
 
+    if(collect_all)
+    {
+        if (use_metric && (v_score.size()!=0))
+        {
+            double last_score = v_score[0];
+            if (score > last_score) {
+                this->v_score.clear();
+                this->v_config.clear();
+                this->v_coeff_sets.clear();
+            }
+            if (score >= last_score) {
+                this->pushback_result(score, config, inputs);
+            }
+        }
+        else
+        {
+            this->pushback_result(score, config, inputs);
+        }
+    }
+    else
+    {
+        for (int i = 0; i < this->result_space; ++i) {
+            if (score >= v_score[i]) {
+                if ((score == v_score[i]) && (config == this->v_config[i])) // don't insert same element multiple times
+                {
+                    break;
+                }
+                this->insert_result(i, score, config, inputs);
+                break;
+            }
+        }
+    }
     return score;
     ERROR("No evaluation option is specified! Configure First!","evaluate_count::evaluate(string config,std::set<int> inputs)")
 }
@@ -57,6 +79,15 @@ int evaluate_list::configure(string parameter)
     {
         parameter.erase(0, 11);
         IF_VERBOSE(7) std::cout << "parameter string: " << parameter << std::endl;
+        if(parameter == " all")
+        {
+            this->collect_all = true;
+            this->v_score.clear();
+            this->v_config.clear();
+            this->v_coeff_sets.clear();
+            IF_VERBOSE(5) LEAVE_FUNCTION("int evaluate_list::configure(string parameter)")
+            return 0;
+        }
 
         this->result_space = (strtod(parameter.c_str(), NULL));
         this->update_size();
@@ -76,8 +107,16 @@ void evaluate_list::print_configure_help()
 void evaluate_list::print_result()
 {
     IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_count::print_result()")
-    std::cout << "Display best " << result_space << " sets" << std::endl;
-    std::cout << "Ranking\tScore\tConfig\tCoefficient Set" << std::endl;
+    if (this->collect_all)
+    {
+        std::cout << "Display all collected sets with the best score" << std::endl;
+        std::cout << "Nr\tScore\tConfig\tCoefficient Set" << std::endl;
+    }
+    else
+    {
+        std::cout << "Display best " << result_space << " sets" << std::endl;
+        std::cout << "Ranking\tScore\tConfig\tCoefficient Set" << std::endl;
+    }
     std::cout << "------------------------------------" << std::endl;
     for(int i = 0; i < v_config.size(); ++i)
     {
@@ -110,6 +149,15 @@ void evaluate_list::insert_result(unsigned int at,double score, const string &co
     v_coeff_sets.pop_back();
     v_score.pop_back();
 }
+
+void evaluate_list::pushback_result(double score, const string &config,const std::set<int> &inputs)
+{
+    //insert new stuff at current position
+    this->v_config.push_back(config);
+    this->v_coeff_sets.push_back(inputs);
+    this->v_score.push_back(score);
+}
+
 
 void evaluate_list::update_size()
 {

@@ -21,7 +21,7 @@ void evaluate_Hardieck_Fiege::print_configure_help()
 void evaluate_Hardieck_Fiege::print_result()
 {
     IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_Hardieck_Fiege::print_result()")
-    std::cout << "referenze step function: " << reference_step_function << std::endl;
+    std::cout << "referenze step function: " << rev_step_function << std::endl;
     //std::cout << "normalized referenze step function: " << normalized_reference_step_function << std::endl;
     std::cout << "Best Matching set was: " << std::endl;
     std::cout << "Score:\t" << this->best_score << std::endl;
@@ -51,7 +51,7 @@ int evaluate_Hardieck_Fiege::configure(string parameter)
             parameter.erase(0, pos+1); // erase substring
             if (elem.size() != 0) { // first or last element could be empty if string start or ends with a space
                 IF_VERBOSE(6) std::cout << "add " << elem << " to step function vector" << std::endl;
-                reference_step_function.push_back(strtod(elem.c_str(), NULL));
+                //rev_step_function.insert(strtod(elem.c_str(), NULL));// TODO!!!: make comand line interface working for inserting step funktion
             }
             if (pos == std::string::npos) { found_elem = false;} // done
         }
@@ -66,7 +66,7 @@ int evaluate_Hardieck_Fiege::configure(string parameter)
 
 double evaluate_Hardieck_Fiege::evaluate(const string &config,const std::set<int> &inputs)
 {
-    double result = this->one_sided_test(inputs);
+    double result = this->div_rev2test(inputs);
 
     if(use_metric)
     {
@@ -82,14 +82,70 @@ double evaluate_Hardieck_Fiege::evaluate(const string &config,const std::set<int
     return result;
 }
 
-double evaluate_Hardieck_Fiege::one_sided_test(const std::set<int> &inputs)
+double evaluate_Hardieck_Fiege::get_test_value_at(double pos)
+{
+    //IF_VERBOSE(0) std:: cout << "pos is: " << pos << " save_value_pos_test: " << save_value_pos_test << " it_pos_test: " << *it_pos_test  << std::endl;
+    if (pos >= save_value_pos_test) {
+        if (pos >= *it_pos_test)
+        {
+            //while((pos >= *it_pos_test )&&(it_pos_test != test_step_function.end())) // TODO: repair NFMH metrik!!! (make every thing working with pairs...)
+            {
+                save_value_pos_test = *it_pos_test;
+                ++it_pos_test;
+            }
+            return save_value_pos_test;
+        }
+        else
+        {
+            return save_value_pos_test;
+        }
+    }
+    else
+    {
+        return save_value_pos_test;
+    }
+}
+
+double evaluate_Hardieck_Fiege::get_rev_value_at(double pos)
+{
+    //IF_VERBOSE(0) std:: cout << "pos is: " << pos << " save_value_pos_test: " << save_value_pos_test << "it_pos_test" << *it_pos_test  << std::endl;
+    if (pos >= save_value_pos_rev) {
+        if (pos >= *it_pos_rev)
+        {
+            // while((pos >= *it_pos_rev )&&(it_pos_rev != rev_step_function.end())) // TODO: repair NFMH metrik!!! (make every thing working with pairs...)
+            {
+                save_value_pos_rev = *it_pos_rev;
+                ++it_pos_rev;
+            }
+            return save_value_pos_rev;
+        }
+        else
+        {
+            return save_value_pos_rev;
+        }
+    }
+    else
+    {
+        return save_value_pos_rev;
+    }
+}
+void evaluate_Hardieck_Fiege::reset_position_marker()
+{
+    //it_pos_test = test_step_function.begin(); // TODO: repair NFMH metrik!!! (make every thing working with pairs...)
+    //it_pos_rev  = rev_step_function.begin(); // TODO: repair NFMH metrik!!! (make every thing working with pairs...)
+    //save_value_pos_test = *it_pos_test; // TODO: repair NFMH metrik!!! (make every thing working with pairs...)
+    //save_value_pos_rev = *it_pos_rev; // TODO: repair NFMH metrik!!! (make every thing working with pairs...)
+}
+
+
+double evaluate_Hardieck_Fiege::div_rev2test(const std::set<int> &inputs)
 {
     //Todo Implement funktion
     return 1;
 }
 
-double evaluate_Hardieck_Fiege::one_sided_with_point_search(const std::set<int> &inputs)
+double evaluate_Hardieck_Fiege::div_both_way(const std::set<int> &inputs)
 {
-    //Todo Implement funktion
-    return 1;
+//Todo Implement funktion
+return 1;
 }

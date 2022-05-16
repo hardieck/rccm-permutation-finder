@@ -66,6 +66,17 @@ ostream & operator<<(ostream &s, const set<T> &st)
 }
 
 template<typename T>
+ostream & operator<<(ostream &s, const pair<T,T> &st)
+{
+    s << "[";
+    s << st.first;
+    s << "|";
+    s << st.second;
+    s << "]";
+    return s;
+}
+
+template<typename T>
 std::ostream &operator<<(std::ostream &s, const std::vector<T> &st)
 {
     typename std::vector<T>::const_iterator iter;

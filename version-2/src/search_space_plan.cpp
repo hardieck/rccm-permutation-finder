@@ -11,6 +11,7 @@
 #include "../inc/evaluate_Kullback_Leibler.h"
 #include "../inc/evaluate_zero.h"
 #include "../inc/evaluate_list.h"
+#include "../inc/evaluate_equal.h"
 
 
 search_space_plan::search_space_plan()
@@ -158,6 +159,11 @@ void search_space_plan::add_rule(std::string rule)
             shared_ptr<evaluate_zero> my_eval = make_shared<evaluate_zero>();
             this->evaluation.push_back(my_eval);
         }
+        else if(v[1] == "equal")
+        {
+            shared_ptr<evaluate_equal> my_eval = make_shared<evaluate_equal>();
+            this->evaluation.push_back(my_eval);
+        }
         else if(v[1] == "k-l")
         {
             shared_ptr<evaluate_Kullback_Leibler> my_eval = make_shared<evaluate_Kullback_Leibler>();
@@ -239,7 +245,7 @@ void search_space_plan::add_rule(std::string rule)
                         elem.first = key;
                         elem.second = operations_only;
                         sel_add_operating_mode.push_back(elem);
-                    } else if (v[1] == "usal") {
+                    } else if ((v[1] == "usal") || (v[1] == "usual")) {
                         pair<sspk, permutator_typ> elem;
                         elem.first = key;
                         elem.second = usual_operations_only;
