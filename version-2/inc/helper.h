@@ -17,6 +17,7 @@ std::vector<std::string> split_string_by(std::string input,char seperator);
 bool isNumber(const std::string& str);
 bool replace(std::string& str, const std::string& from, const std::string& to);
 
+std::string coefset_to_str(const coeff_set& set);
 
 
 rccm_type get_rccm_type_from_string(string input);

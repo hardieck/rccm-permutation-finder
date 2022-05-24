@@ -12,6 +12,26 @@
 
 #include  "../inc/datatyps.h"
 
+
+std::string coefset_to_str(const coeff_set& set) {
+  std::stringstream ss;
+
+  // note that std::set is always automatically
+  // sorted, which becomes important here when we
+  // want use this string as unique keys, so two
+  // sets constructed likes this: {1, 2, 3} vs
+  // {2, 1, 3} should become the same string key
+  // as they are identical for our purposes, this
+  // is nothing extra to do here for this as said
+  // because std:set is automatically always sorted
+  for (int i : set) {
+    ss << " " <<i;
+  }
+
+  return ss.str();
+}
+
+
 std::vector<std::string> input_command_transvormer(int &argc, char *argv[]) // this function combines input arguments with the corresponding parameters for further processing
 {
     IF_VERBOSE(5) ENTER_FUNCTION("std::pair<int,char*> input_command_transvormer(int argc, char *argv[])")

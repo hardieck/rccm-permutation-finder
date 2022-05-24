@@ -14,6 +14,7 @@ evaluate_count::evaluate_count()
     v_coeff_sets.clear();
     v_count.clear();
     v_score.clear();
+    seen_coeffs.clear();
     counted_cases =0;
 }
 evaluate_count::~evaluate_count()
@@ -117,17 +118,23 @@ double evaluate_count::evaluate_count_size(const string &config,const std::set<i
 
 double evaluate_count::evaluate_count_sets(const string &config,const std::set<int> &inputs)
 {
-    for(int i =0; i< v_coeff_sets.size();++i)
-    {
-        if(v_coeff_sets[i] == inputs) // if true there is a match with a previus found set!
-        {
-            ++(v_count[i]);
-            return 0;
-        }
-    }// it ends without a match a new set was found
+    std::string coeffstr = coefset_to_str(inputs);
+
+    auto search_res = seen_coeffs.find(coeffstr);
+
+    if (search_res != seen_coeffs.end()) {
+      // found already existing coeff set
+      ++(v_count[search_res->second]);
+      return 0;
+    }
+
+    // it ends without a match a new set was found
     v_config.push_back(config);
     v_coeff_sets.push_back(inputs);
     v_count.push_back(1);
+
+    seen_coeffs[coeffstr] = v_coeff_sets.size() - 1;
+
     if(use_metric)
     {
         v_score.push_back(this->metric->evaluate(config,inputs));
@@ -138,3 +145,4 @@ double evaluate_count::evaluate_count_sets(const string &config,const std::set<i
     }
     return 0;
 }
+

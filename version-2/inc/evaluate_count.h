@@ -5,6 +5,8 @@
 #ifndef ADDNET_PERMUTATOR_V2_EVALUATE_COUNT_H
 #define ADDNET_PERMUTATOR_V2_EVALUATE_COUNT_H
 
+#include <unordered_map>
+
 #include "evaluate_base.h"
 
 class evaluate_count : public evaluate_base
@@ -29,6 +31,11 @@ public:
     long long counted_cases;
 
 private:
+    // helper structure to vastly speed up checking if a coeff is new
+    // or not, uses string representations of coeff_sets as keys and
+    // maps them to original v_coeff_sets index for this set
+    std::unordered_map<string, int> seen_coeffs;
+
     double evaluate_count_size(const string &config,const std::set<int> &inputs);
     double evaluate_count_sets(const string &config,const std::set<int> &inputs);
 };
