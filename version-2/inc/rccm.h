@@ -16,19 +16,20 @@
 class rccm : public base_obj
 {
 public:
-	rccm(shared_ptr<search_space_plan> _ssp = nullptr);
+
+    rccm(shared_ptr<search_space_plan> _ssp = nullptr);
     ~rccm();
 
     std::set<int>* compute();
     calc_base* calc = nullptr; // need to be calc base instead of calc_rccm_base to prevent circular dependency
 
 
-	std::string get_config();
-	bool set_config(std::string new_config);
+    std::string get_config();
+    bool set_config(std::string new_config);
     bool parse_config_string(string);
     void init();
 
-	bool next_config();
+    bool next_config();
     void reset_config();
 
     void init_sel_add();

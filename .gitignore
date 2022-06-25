@@ -1,0 +1,10 @@
+
+# ignore cmake tmp stuff
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# ignore build artifacts
+bin/
+

@@ -323,7 +323,8 @@ void Permutator::add_rising_block(unsigned int start,unsigned int length)
     }
     pd->rising_block_list.push_back(my_block);
 }
-bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_typ typ, int max_shift)
+
+bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_typ typ, int max_shift, std::vector<int> *fixed_shifts, std::vector<int> *fixed_opset)
 {
     if(dataowner)
     {
@@ -350,10 +351,15 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_typ 
             add_rising_block(0,s.operation_set_size); // there shall not be duplicate operations, so we can shrink the search space
             unsigned int vec_size=pd->permutationCntMaxVec.size();
             for (int i = 0; i < vec_size; ++i) {
+              if (fixed_opset != nullptr) {
+                pd->permutationCntMaxVec[i] = (*fixed_opset)[i];
+                pd->permutationCntMinVec[i] = (*fixed_opset)[i];
+              } else {
                 //pd->permutationCntMaxVec[i] = s.diff_operation_count;
                 // there shall not be duplicate operations, so we can shrink the search space
                 pd->permutationCntMaxVec[vec_size-i-1] = s.diff_operation_count - i-1; // to create a rising values. // -1 cause vec_size  start counting by 1 // -1 cause diff_operation count start by 0
                 pd->permutationCntMinVec[i] = i; // there shall not be duplicate operations, so we can shrink the search space
+              }
             }
             break;
         }
@@ -382,14 +388,24 @@ bool Permutator::set_config_from_spec(const spec_sel_add s,const permutator_typ 
 
             // loop For Input A
             for (int i = 0; i < s.input_count_A; ++i) {
+              if (fixed_shifts != nullptr) {
+                pd->permutationCntMaxVec[i] = (*fixed_shifts)[i];
+                pd->permutationCntMinVec[i] = (*fixed_shifts)[i];
+              } else {
                 pd->permutationCntMaxVec[i] = max_shift;
                 pd->permutationCntMinVec[i] = i; // there shall not be duplicate shifts, so we can shrink the search space
+              }
             }
             // loop For Input B
             int j = 0;
             for (int i = s.input_count_A; i < (s.input_count_A + s.input_count_B); ++i) {
+              if (fixed_shifts != nullptr) {
+                pd->permutationCntMaxVec[i] = (*fixed_shifts)[i];
+                pd->permutationCntMinVec[i] = (*fixed_shifts)[i];
+              } else {
                 pd->permutationCntMaxVec[i] = max_shift;
                 pd->permutationCntMinVec[i] = j++; // there shall not be duplicate shifts, so we can shrink the search space
+              }
             }
             break;
         }
