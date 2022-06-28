@@ -45,6 +45,7 @@ vector<sel_add_type> search_space_plan::get_search_space_sel_add(const sspk &pos
         ERROR("No rule for current Key","vector<sel_add_type> search_space_plan::get_search_space_sel_add(const sspk &position_key)")}
     return search_space_sel_add[x].second;
 }
+
 int search_space_plan::get_sel_add_max_shift(const sspk &position_key) // return max shift
 {
     unsigned int x = 0;
@@ -58,6 +59,27 @@ int search_space_plan::get_sel_add_max_shift(const sspk &position_key) // return
     }
     return sel_add_max_shift[x].second;
 }
+
+std::vector<int> * search_space_plan::get_sel_add_fixed_shifts(const sspk &position_key) // return max shift
+{
+    for (int i = 0; i < sel_add_fixed_shift.size(); ++i) {
+        if (sel_add_fixed_shift[i].first == position_key) {
+          return &(sel_add_fixed_shift[i].second);
+	}
+    }
+    return nullptr;
+}
+
+std::vector<int> * search_space_plan::get_sel_add_fixed_opset(const sspk &position_key) // return max shift
+{
+    for (int i = 0; i < sel_add_fixed_opset.size(); ++i) {
+        if (sel_add_fixed_opset[i].first == position_key) {
+          return &(sel_add_fixed_opset[i].second);
+	}
+    }
+    return nullptr;
+}
+
 permutator_typ search_space_plan::get_sel_add_operating_mode(const sspk &position_key) // return mode
 {
     unsigned int x = 0;
@@ -238,6 +260,34 @@ void search_space_plan::add_rule(std::string rule)
                     } else {
                         ERROR("Max Shift has to be a number!", "search_space_plan::add_rule(std::string rule)")
                     }
+                } else if (v[0] == "set_fixed_shifts") {
+                    IF_VERBOSE(6) std::cout << "Found rule: set_fixed_shifts" << std::endl;
+                    // declaration of used variables:
+                    pair<sspk, std::vector<int>> elem;
+		    std::vector<std::string> tmp = split_string_by(v[1], ',');
+
+                    for (int i = 0; i < tmp.size(); ++i) {
+                      if (isNumber(tmp[i])) {
+                          elem.first = key;
+                          elem.second.push_back(std::stoi(tmp[i]));
+                      } else {
+                          ERROR("Fixed Shift has to be a number!", "search_space_plan::add_rule(std::string rule)")
+                      }
+		    }
+
+		    sel_add_fixed_shift.push_back(elem);
+                } else if (v[0] == "set_fixed_opset") {
+                    IF_VERBOSE(6) std::cout << "Found rule: set_fixed_opset" << std::endl;
+                    // declaration of used variables:
+                    pair<sspk, std::vector<int>> elem;
+		    std::vector<std::string> tmp = split_string_by(v[1], ',');
+
+                    for (int i = 0; i < tmp.size(); ++i) {
+                      elem.first = key;
+                      elem.second.push_back(extendHEX2int(tmp[i].c_str()[0]));
+		    }
+
+		    sel_add_fixed_opset.push_back(elem);
                 } else if (v[0] == "set_operation_mode") {
                     IF_VERBOSE(6) std::cout << "Found rule: set_operation_mode" << std::endl;
                     if (v[1] == "all") {

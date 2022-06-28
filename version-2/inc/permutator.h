@@ -70,7 +70,7 @@ public:
     std::set<int>* get_operation_from_config(); // transform internal permutation state to usable operation sets
     std::vector<int>* get_shift_from_config(); // transform internal permutation state to usable shifts
     void printPermutation(bool reverse = false);
-    bool set_config_from_spec(const spec_sel_add s,const permutator_typ typ=operations_only, int max_shift=2);
+    bool set_config_from_spec(const spec_sel_add s,const permutator_typ typ=operations_only, int max_shift=2, std::vector<int> *fixed_shifts = nullptr, std::vector<int> *fixed_opset = nullptr);
 
     bool check_all_rising_blocks();
     bool nextPermutation();// internal step. split from external to handle invalid intermediate results

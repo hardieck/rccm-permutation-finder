@@ -151,10 +151,18 @@ void selective_add::init_permutators()
     IF_VERBOSE(9) this->perm_shift.pd->printPermutationData();
 
     //TODO make dependent from search space plan
-    this->perm_shift.set_config_from_spec(current_spec,shifts_only,ssp->get_sel_add_max_shift(get_current_key()));
+    this->perm_shift.set_config_from_spec(current_spec, shifts_only,
+       ssp->get_sel_add_max_shift(get_current_key()),
+       ssp->get_sel_add_fixed_shifts(get_current_key())
+    );
+
     this->perm_shift.resetPermutation();
     //TODO change for usual_operations_only test, and make dependent from search space plan
-    this->perm_operation.set_config_from_spec(current_spec, ssp->get_sel_add_operating_mode(get_current_key()));
+    this->perm_operation.set_config_from_spec(current_spec,
+       ssp->get_sel_add_operating_mode(get_current_key()), 0, nullptr,
+       ssp->get_sel_add_fixed_opset(get_current_key())
+    );
+
     //this->perm_operation.set_config_from_spec(current_spec, usual_operations_only);
     this->perm_operation.resetPermutation();
 
