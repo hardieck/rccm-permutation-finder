@@ -7,7 +7,7 @@
 void evaluate_base::print_configure_help()
 {
     std::cout << "There is no help for this evaluation type" << std::endl;
-    std::cout << "There are no parameter to conigure" << std::endl;
+    std::cout << "There are no parameter to configure" << std::endl;
 }
 int evaluate_base::configure(string parameter)
 {

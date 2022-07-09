@@ -11,6 +11,7 @@
 #include "../inc/evaluate_Kullback_Leibler.h"
 #include "../inc/evaluate_zero.h"
 #include "../inc/evaluate_list.h"
+#include "../inc/evaluate_list_stream.h"
 #include "../inc/evaluate_equal.h"
 
 
@@ -174,6 +175,11 @@ void search_space_plan::add_rule(std::string rule)
         else if(v[1] == "list-best")
         {
             shared_ptr<evaluate_list> my_eval = make_shared<evaluate_list>();
+            this->evaluation.push_back(my_eval);
+        }
+        else if(v[1] == "list-stream")
+        {
+            shared_ptr<evaluate_list_stream> my_eval = make_shared<evaluate_list_stream>();
             this->evaluation.push_back(my_eval);
         }
         else if(v[1] == "with-zero")
@@ -458,6 +464,13 @@ void search_space_plan::evaluate_all(const string &config,const std::set<int> &i
     }
     for (int i = 0; i<this->evaluation.size(); ++i)
     {
+        if (this->evaluation[i]->streaming()) {
+          if (i != 0) {
+            ERROR("There can only be one streaming metric and it must be the first one","void search_space_plan::evaluate_all(const string &config,const std::set<int> &inputs)")
+	  }
+	}
+
+        this->evaluation[i]->metric_index = i;
         this->evaluation[i]->evaluate(config,inputs);
     }
 }
@@ -470,7 +483,10 @@ void search_space_plan::print_result_all()
     }
     for (int i = 0; i<this->evaluation.size(); ++i)
     {
-        std::cout << std::endl << "Results from metric " << i << ":" << std::endl;
+        if (!this->evaluation[i]->streaming()) {
+          std::cout << std::endl << "Results from metric " << i << ":" << std::endl;
+        }
+
         this->evaluation[i]->print_result();
     }
 }
