@@ -62,10 +62,10 @@ std::set<int>* calc_selective_adder_typ_c::compute(base_obj *parent_) {
         IF_VERBOSE(9) std::cout << "calculate operation from config:  " << conf << std::endl;
         switch (conf) {
             case 0:
-                for (int a: A1) {                 { output.insert(a + a); }} //  A1 + A1
+                for (int a: A1) {                 { output.insert( a + a); }} //  A1 + A1
                 break;
             case 1:
-                for (int a: A1) { for (int b: B1) { output.insert(a + b); }} //  A1 + B1
+                for (int a: A1) { for (int b: B1) { output.insert( a + b); }} //  A1 + B1
                 break;
             case 2:
                 for (int a: A1) { for (int b: B1) { output.insert( a - b); }} //  A1 - B1
@@ -77,19 +77,19 @@ std::set<int>* calc_selective_adder_typ_c::compute(base_obj *parent_) {
                 for (int a: A1) { for (int b: B1) { output.insert(-a + b); }} // -A1 + B1
                 break;
             case 5:
-                for (int a: A1) {                 { output.insert(-a + 0); }} //  -A1 + 0
+                for (int a: A1) {                 { output.insert(-a + 0); }} // -A1 + 0
                 break;
             case 6:
                                 { for (int b: B1) { output.insert( b + b); }} //  B1 + B1
                 break;
             case 7:
-                for (int a: A1) { for (int b: B1) { output.insert( a - b); }} //  A1 - B1
+                for (int a: A1) { for (int b: B1) { output.insert( 0 + b); }} //  0 + B1
                 break;
             case 8:
-                                { for (int b: B1) { output.insert( 0 + b); }} //  A1 + 0
+                                { for (int b: B1) { output.insert( 0 - b); }} //  0 - B1
                 break;
             case 9:
-                                { for (int b: B1) { output.insert(0 - b); }} //   0 - B1
+                                { for (int b: B1) { output.insert( 0 + 0); }} //   0 + 0
                 break;
             default: ERROR("unsupported Operation","calc_selective_adder_typ_c::compute(base_obj *parent_)")
         }
