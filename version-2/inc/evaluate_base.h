@@ -22,6 +22,11 @@ class evaluate_base : public base_obj
     bool use_metric; // only true if a chained metric is used (multiply results)ERROR("Metric list-best can not be used without chain to another metric","double evaluate_list::evaluate(const string &config,const std::set<int> &inputs)")
     shared_ptr<evaluate_base> metric; // stores another evaluate obj to calculate metrics for selection
 
+    int metric_index;
+
+    virtual bool streaming() {
+      return false;
+    }
 };
 
 
