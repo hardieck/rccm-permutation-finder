@@ -79,7 +79,7 @@ std::set<int>* calc_selective_adder_typ_b::compute(base_obj *parent_) {
                 for (int a: A2) { for (int b: B1) { output.insert( 0 + b); }} //  0 + B1
                 break;
             case 11:
-                for (int a: A2) { for (int b: B1) { output.insert( 0 + b); }} //  0 - B1
+                for (int a: A2) { for (int b: B1) { output.insert( 0 - b); }} //  0 - B1
                 break;
             case 12:
                 {               {                   output.insert(     0); }} //  0 + 0
