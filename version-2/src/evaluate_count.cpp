@@ -37,23 +37,26 @@ void evaluate_count::print_configure_help()
 {
     //TODO implement print_configure_help function for evaluate_count
 }
-void evaluate_count::print_result()
+std::stringstream evaluate_count::print_result(bool ss)
 {
     IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_count::print_result()")
+    std::stringstream os;
 
-    std::cout << "Tested Cases: " << counted_cases;
+    os << "Tested Cases: " << counted_cases;
     if(this->count_sets) // outpout only makes sense for count sets
-        {std::cout << " Found: " << v_config.size()-1 << " different sets" <<  std::endl;}// -1 cause zero is excluded
+        {os << " Found: " << v_config.size()-1 << " different sets" <<  std::endl;}// -1 cause zero is excluded
     else
-        {std::cout << std::endl;} // just finish line
-    std::cout << "Size\tcount\tScore\tConfig\tCoefficient Set" << std::endl;
-    std::cout << "------------------------------------" << std::endl;
+        {os << std::endl;} // just finish line
+    os << "Size\tcount\tScore\tConfig\tCoefficient Set" << std::endl;
+    os << "------------------------------------" << std::endl;
     for(int i = 1; i < v_config.size(); ++i) // there are no sets with size 0...
     {
-        std::cout << i <<"\t" << v_count[i]<<"\t" << v_score[i] << "\t" << v_config[i] << "\t" << v_coeff_sets[i] << std::endl;
+        os << i <<"\t" << v_count[i]<<"\t" << v_score[i] << "\t" << v_config[i] << "\t" << v_coeff_sets[i] << std::endl;
     }
-    std::cout << "------------------------------------" << std::endl;
+    os << "------------------------------------" << std::endl;
+    if (ss == false){std::cout << os.str();}
     IF_VERBOSE(5) LEAVE_FUNCTION("void evaluate_count::print_result()")
+    return os;
 }
 
 double evaluate_count::evaluate_count_size(const string &config,const std::set<int> &inputs)

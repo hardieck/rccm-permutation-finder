@@ -18,17 +18,19 @@ void evaluate_Hardieck_Fiege::print_configure_help()
 
 }
 
-void evaluate_Hardieck_Fiege::print_result()
+std::stringstream evaluate_Hardieck_Fiege::print_result(bool ss)
 {
     IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_Hardieck_Fiege::print_result()")
-    std::cout << "referenze step function: " << rev_step_function << std::endl;
-    //std::cout << "normalized referenze step function: " << normalized_reference_step_function << std::endl;
-    std::cout << "Best Matching set was: " << std::endl;
-    std::cout << "Score:\t" << this->best_score << std::endl;
-    std::cout << "config:\t" << this->best_config << std::endl;
-    std::cout << "Set: \t"<<  this->best_coeff_sets << std::endl;
-
+    std::stringstream os;
+    os << "referenze step function: " << rev_step_function << std::endl;
+    //os << "normalized referenze step function: " << normalized_reference_step_function << std::endl;
+    os << "Best Matching set was: " << std::endl;
+    os << "Score:\t" << this->best_score << std::endl;
+    os << "config:\t" << this->best_config << std::endl;
+    os << "Set: \t"<<  this->best_coeff_sets << std::endl;
+    if (ss == false){std::cout << os.str();}
     IF_VERBOSE(5) LEAVE_FUNCTION("void evaluate_Hardieck_Fiege::print_result()")
+    return os;
 }
 
 int evaluate_Hardieck_Fiege::configure(string parameter)

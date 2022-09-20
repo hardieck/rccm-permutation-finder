@@ -25,18 +25,20 @@ void evaluate_Kullback_Leibler::print_configure_help()
     //TODO implement
 }
 
-void evaluate_Kullback_Leibler::print_result()
+std::stringstream evaluate_Kullback_Leibler::print_result(bool ss)
 {
     IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_Kullback_Leibler::print_result()")
-    std::cout << "no of windows: " << no_of_windows << std::endl;
-    std::cout << "referenze distributen: " << referenze_distributen << std::endl;
-    //std::cout << "normalized referenze distributen: " << normalized_referenze_distributen << std::endl;
-    std::cout << "Best Matching set was: " << std::endl;
-    std::cout << "Score:\t" << this->best_score << std::endl;
-    std::cout << "config:\t" << this->best_config << std::endl;
-    std::cout << "Set: \t"<<  this->best_coeff_sets << std::endl;
-
+    std::stringstream os;
+    os << "no of windows: " << no_of_windows << std::endl;
+    os << "referenze distributen: " << referenze_distributen << std::endl;
+    //os << "normalized referenze distributen: " << normalized_referenze_distributen << std::endl;
+    os << "Best Matching set was: " << std::endl;
+    os << "Score:\t" << this->best_score << std::endl;
+    os << "config:\t" << this->best_config << std::endl;
+    os << "Set: \t"<<  this->best_coeff_sets << std::endl;
+    if (ss == false){std::cout << os.str();}
     IF_VERBOSE(5) LEAVE_FUNCTION("void evaluate_Kullback_Leibler::print_result()")
+    return os;
 }
 
 int evaluate_Kullback_Leibler::configure(string parameter)

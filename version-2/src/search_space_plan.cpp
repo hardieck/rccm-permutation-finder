@@ -5,6 +5,7 @@
 #include "../inc/search_space_plan.h"
 #include "../inc/helper.h"
 #include <iostream>
+#include <fstream>
 
 #include "../inc/evaluate_count.h"
 #include "../inc/evaluate_Kolmogorov_Smirnov.h"
@@ -13,6 +14,7 @@
 #include "../inc/evaluate_list.h"
 #include "../inc/evaluate_list_stream.h"
 #include "../inc/evaluate_equal.h"
+
 
 
 search_space_plan::search_space_plan()
@@ -474,8 +476,9 @@ void search_space_plan::evaluate_all(const string &config,const std::set<int> &i
         this->evaluation[i]->evaluate(config,inputs);
     }
 }
-void search_space_plan::print_result_all()
+std::stringstream search_space_plan::print_result_all(bool ss)
 {
+    std::stringstream os;
     IF_VERBOSE(5) ENTER_FUNCTION("void search_space_plan::print_result_all()")
     if (this->evaluation.size() == 0)
     {
@@ -484,10 +487,22 @@ void search_space_plan::print_result_all()
     for (int i = 0; i<this->evaluation.size(); ++i)
     {
         if (!this->evaluation[i]->streaming()) {
-          std::cout << std::endl << "Results from metric " << i << ":" << std::endl;
+          os << std::endl << "Results from metric " << i << ":" << std::endl;
         }
 
-        this->evaluation[i]->print_result();
+        os << (this->evaluation[i]->print_result(ss)).str();
     }
+    return os;
+}
+
+void search_space_plan::save_intermediate_results_in_file(string filename, string header)
+{
+    std::ofstream ofs(filename, std::ofstream::trunc);
+    if( !ofs ) { // file couldn't be opened
+        ERROR("file could not be opened","search_space_plan::save_intermediate_results_in_file(string filename)")
+    }
+    ofs << header;
+    ofs << this->print_result_all(true).str();
+    ofs.close();
 }
 

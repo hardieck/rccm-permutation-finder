@@ -7,6 +7,7 @@
 
 #include <list>
 #include "base_obj.h"
+#include <sstream>
 
 enum rccm_type // add a type for each rccm dataflow structure / Connection Structure  (without shifts or selecetiv adder specification)
 {

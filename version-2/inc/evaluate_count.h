@@ -16,7 +16,7 @@ public:
     double evaluate(const string &config,const std::set<int> &inputs);
     virtual int configure(string parameter);
     virtual void print_configure_help();
-    void print_result();
+    std::stringstream print_result(bool ss=false);
 
     bool count_size; // only true if count_size is used (not compatible with count_sets)
     bool count_sets; // only true if count_sets is used (not compatible with count_size)

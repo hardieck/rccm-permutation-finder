@@ -104,26 +104,29 @@ void evaluate_list::print_configure_help()
 {
     //TODO implement print_configure_help function for evaluate_count
 }
-void evaluate_list::print_result()
+std::stringstream evaluate_list::print_result(bool ss)
 {
     IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_count::print_result()")
+    std::stringstream os;
     if (this->collect_all)
     {
-        std::cout << "Display all collected sets with the best score" << std::endl;
-        std::cout << "Nr\tScore\tConfig\tCoefficient Set" << std::endl;
+        os << "Display all collected sets with the best score" << std::endl;
+        os << "Nr\tScore\tConfig\tCoefficient Set" << std::endl;
     }
     else
     {
-        std::cout << "Display best " << result_space << " sets" << std::endl;
-        std::cout << "Ranking\tScore\tConfig\tCoefficient Set" << std::endl;
+        os << "Display best " << result_space << " sets" << std::endl;
+        os << "Ranking\tScore\tConfig\tCoefficient Set" << std::endl;
     }
-    std::cout << "------------------------------------" << std::endl;
+    os << "------------------------------------" << std::endl;
     for(int i = 0; i < v_config.size(); ++i)
     {
-        std::cout << i+1 <<"\t" << v_score[i] << "\t" << v_config[i] << "\t" << v_coeff_sets[i] << std::endl;
+        os<< i+1 <<"\t" << v_score[i] << "\t" << v_config[i] << "\t" << v_coeff_sets[i] << std::endl;
     }
-    std::cout << "------------------------------------" << std::endl;
+    os << "------------------------------------" << std::endl;
+    if (ss == false){std::cout << os.str();}
     IF_VERBOSE(5) LEAVE_FUNCTION("void evaluate_count::print_result()")
+    return os;
 }
 void evaluate_list::insert_result(unsigned int at,double score, const string &config,const std::set<int> &inputs)
 {

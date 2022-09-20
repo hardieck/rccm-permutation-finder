@@ -5,6 +5,9 @@
 #include <string>
 #include <cstdlib>
 #include <cstring>
+
+#include <chrono>
+
 #include "../inc/permutator.h"
 #include "../inc/calc_selective_adder_typ_a.h"
 #include "../inc/helper.h"
@@ -15,8 +18,8 @@
 #include "../inc/evaluate_Kullback_Leibler.h"
 
 #define VERSION_MAJOR 2
-#define VERSION_MINOR 0
-#define VERSION_REVISION 2
+#define VERSION_MINOR 1
+#define VERSION_REVISION 0
 
 
 int do_debug();
@@ -99,6 +102,8 @@ int main(int argc, char *argv[])
     string config_string;
     std::set<int> *result = nullptr;
     unsigned int i = 0;
+    std::time_t timestamp = std::time(nullptr);
+    std::chrono::steady_clock::time_point last_time = std::chrono::steady_clock::now();
     do {
         std::set<int> *result = my_rccm.compute();
         config_string = my_rccm.get_config();
@@ -106,15 +111,33 @@ int main(int argc, char *argv[])
         IF_VERBOSE(5) std::cout << config_string << " size=" << result->size() << " iteration:" << i << " -> " << *result << std::endl;
         if ((global_verbose < 5)&&(global_verbose > 0))
         {
-            if (i % 100000 == 0) {
-                IF_VERBOSE(2) std::cout << "iteration:" << i << " : last tested set:" << config_string << " -> " << *result
-                                        << std::endl;
+            if (i % 100000 == 0)
+            {
+                IF_VERBOSE(2) std::cout << "iteration:" << i << " : last tested set:" << config_string << " -> " << *result << std::endl;
             }
+        }
+        std::chrono::steady_clock::time_point current_time = std::chrono::steady_clock::now();
+        //if (i % 1000 == 0)
+        if (std::chrono::duration_cast<std::chrono::minutes>(current_time - last_time).count() > 5)
+        {
+            last_time = current_time;
+            std::stringstream header;
+            header.clear();
+            header << "RCCM Permutation Finder Intermediate Result" << std::endl;
+            header << "iteration:" << i << " : last tested set:" << config_string << std::endl;
+            header << "---------------------------------------------------------------------------------"<< std::endl<< std::endl;
+            ssp->save_intermediate_results_in_file("RCCM_Permutation_Finder_intermediate_result.txt",header.str());
         }
         ++i;
     } while (my_rccm.next_config());
 
     IF_VERBOSE(2) std::cout << std::endl << "Finished RCCM search" << std::endl;
+    std::stringstream header;
+    header.clear();
+    header << "RCCM Permutation Finder Final Result" << std::endl;
+    header << "iteration:" << i << " : last tested set:" << config_string << std::endl;
+    header << "---------------------------------------------------------------------------------"<< std::endl<< std::endl;
+    ssp->save_intermediate_results_in_file("RCCM_Permutation_Finder_intermediate_result.txt",header.str());
     ssp->print_result_all();
 
     IF_VERBOSE(8) std::cout << std::endl << "Finished. Safe end of Toolflow. Normal Quit." << std::endl;

@@ -14,7 +14,7 @@ public:
     virtual ~evaluate_list_stream();
 
     double evaluate(const string &config,const std::set<int> &inputs) override;
-    void print_result() override;
+    std::stringstream print_result(bool ss=false) override;
 
     virtual bool streaming() override {
       return true;

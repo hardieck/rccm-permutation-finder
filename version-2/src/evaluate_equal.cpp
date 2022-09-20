@@ -21,15 +21,17 @@ void evaluate_equal::print_configure_help()
 
 }
 
-void evaluate_equal::print_result()
+std::stringstream evaluate_equal::print_result(bool ss)
 {
     IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_zero::print_result()")
-    std::cout << "Last Matching set was: " << std::endl;
-    std::cout << "Score:\t" << this->best_score << std::endl;
-    std::cout << "config:\t" << this->best_config << std::endl;
-    std::cout << "Set: \t"<<  this->best_coeff_sets << std::endl;
-
+    std::stringstream os;
+    os << "Last Matching set was: " << std::endl;
+    os << "Score:\t" << this->best_score << std::endl;
+    os << "config:\t" << this->best_config << std::endl;
+    os << "Set: \t"<<  this->best_coeff_sets << std::endl;
+    if (ss == false){std::cout << os.str();}
     IF_VERBOSE(5) LEAVE_FUNCTION("void evaluate_zero::print_result()")
+    return os;
 }
 
 int evaluate_equal::configure(string parameter)

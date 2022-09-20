@@ -39,12 +39,15 @@ double evaluate_list_stream::evaluate(const string &config,const std::set<int> &
 }
 
 
-void evaluate_list_stream::print_result() {
+std::stringstream evaluate_list_stream::print_result(bool ss)
+{
+  std::stringstream os;
   // note that as streaming evaluation this already printed its
   // result during operation, so the only thing left to do here
   // is to print the footer
   IF_VERBOSE(5) ENTER_FUNCTION("void evaluate_count::print_result()")
   std::cout << "------------------------------------" << std::endl;
   IF_VERBOSE(5) LEAVE_FUNCTION("void evaluate_count::print_result()")
+    return os;
 }
 

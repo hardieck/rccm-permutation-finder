@@ -14,7 +14,7 @@ public:
     virtual ~evaluate_Hardieck_Fiege();
     virtual int configure(string parameter);
     virtual void print_configure_help();
-    void print_result();
+    std::stringstream print_result(bool ss=false);
 
     double evaluate(const string &config,const std::set<int> &inputs);
 

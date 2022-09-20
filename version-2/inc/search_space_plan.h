@@ -25,7 +25,8 @@ public:
     void print();
     void init_empty_slots();
     void evaluate_all(const string &config,const std::set<int> &inputs);
-    void print_result_all();
+    std::stringstream print_result_all(bool ss=false);
+    void save_intermediate_results_in_file(string filename, string header);
 
 
     // devault plan... (test A and B complete)
