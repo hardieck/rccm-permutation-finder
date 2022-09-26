@@ -18,7 +18,7 @@ public:
     std::set<int>* compute(base_obj *parent_);
     virtual const spec_sel_add get_spec();
 private:
-    const spec_sel_add spec = spec_sel_add(1,1,10,4,{{0,1,2,3}});
+    const spec_sel_add spec = spec_sel_add(1,1,10,4,{{0,1,6,9}});
     //DO NOT USE local spec value!!! use get_spec()! cause derived classes overload get_spec() but don't overload spec...
 };
 
