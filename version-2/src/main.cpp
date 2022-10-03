@@ -19,7 +19,7 @@
 
 #define VERSION_MAJOR 2
 #define VERSION_MINOR 1
-#define VERSION_REVISION 1
+#define VERSION_REVISION 2
 
 
 int do_debug();
